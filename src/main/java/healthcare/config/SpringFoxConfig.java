@@ -48,7 +48,7 @@ public class SpringFoxConfig {
                                         .name("Authorization")
                                         .modelRef(new ModelRef("string"))
                                         .parameterType("header")
-                                        .required(true)
+                                        .required(false)
                                         .hidden(true)
                                         .defaultValue("Bearer " + swaggerToken)
                                         .build()));

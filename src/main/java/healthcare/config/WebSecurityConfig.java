@@ -57,7 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PATH = {
             "/authenticate/register/**",
-            "/authenticate/callback/**"
+            "/authenticate/login/**",
+            "/diary",
+            "/diary/**"
     };
 
     @Override

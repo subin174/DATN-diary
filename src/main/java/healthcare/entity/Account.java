@@ -57,5 +57,9 @@ public class Account {
     public Account(AccountDto dto){
         BeanUtils.copyProperties(dto, this);
     }
+    public Account(Long id){
+        this.id = id;
+    }
+
 
 }
