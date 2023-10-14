@@ -15,5 +15,10 @@ public class AccountController extends ApiController  {
         service.delete(id);
         return responseSuccess();
     }
+    @GetMapping("/search")
+    public  ResponseEntity<?> findByPhone(@RequestParam(name = "phone") String phone) throws  Exception{
+
+        return responseSuccess(service.findByPhone(phone));
+    }
 
 }

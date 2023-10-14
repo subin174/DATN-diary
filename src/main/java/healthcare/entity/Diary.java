@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "diary")
-public class Diary extends BaseEntity {
+public class Diary  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,6 +39,10 @@ public class Diary extends BaseEntity {
     private String thinkingFelt;
     private String change;
     private String other;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private Long createdBy;
     //setting
 //    @OneToMany(
 //            mappedBy = "diary",

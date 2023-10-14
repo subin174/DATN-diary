@@ -1,6 +1,4 @@
 package healthcare.entity.dto.account;
-
-
 import healthcare.entity.Account;
 import healthcare.entity.Role;
 import healthcare.entity.enums.AccountStatus;

@@ -86,6 +86,11 @@ public class AccountService extends BaseService<Account> {
         Account account = this.getById(id);
         return this.entityToResp(account,AccountDto.class);
     }
+    public AccountResp findByPhone(String phone){
+        Account account = repository.findByPhone(phone);
+        return this.entityToResp(account,AccountResp.class);
+    }
+
     public AccountDto approve(Long id) {
         Account account = this.getById(id);
 //        account.setRole(Role.ADMIN);

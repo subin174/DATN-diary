@@ -56,6 +56,8 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         }
         DiaryComment comment = this.reqToEntity(req,new DiaryComment());
         comment.setCreatedBy(user.getId());
+        comment.setAvatar(user.getAttributes().get("avatar").toString());
+        comment.setNickName(user.getAttributes().get("nickname").toString());
         return this.entityToResp(this.save(comment),DiaryCommentResp.class);
     }
 

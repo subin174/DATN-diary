@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class DiaryController extends ApiController {
     @Override
     public List<String> getFilterableFields(){
-        return Arrays.asList("id","status");
+        return Arrays.asList("id","status","createdAt","createdBy","thinkingMoment");
     }
     @Override
     public List<String> getSortableFields() {
@@ -31,16 +32,20 @@ public class DiaryController extends ApiController {
         return responseSuccess(service.create(Req));
     }
     @GetMapping
-    public ResponseEntity<?> getPageDiaryUser() throws Exception{
+    public ResponseEntity<?> getPageDiaryUser(@RequestParam(required = false) String date) throws Exception{
         return responseSuccess(service.getPageUser(this.getParams()));
     }
     @GetMapping("/feed")
     public ResponseEntity<?> getDiaryPublic() throws Exception{
         return responseSuccess(service.getDiaryActive(this.getParams()));
     }
+//    @GetMapping("/calendar")
+//    public ResponseEntity<?> getDiaryByCalendar(@PathVariable String y ) throws Exception{
+//        return responseSuccess(service.getDiaryByCreatedAt(time));
+//    }
     @GetMapping("/all")
-    public ResponseEntity<?> getAll() throws Exception{
-        return responseSuccess(service.getListUser());
+    public ResponseEntity<?> getAll(@RequestParam(required = false) String date) throws Exception{
+        return responseSuccess(service.getListByUser(this.getParams()));
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id ) throws Exception {

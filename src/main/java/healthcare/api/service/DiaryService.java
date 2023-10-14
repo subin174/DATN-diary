@@ -24,6 +24,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -93,16 +95,40 @@ public class DiaryService extends BaseService<Diary> {
         Page<Diary> diaries = this.getPaginated(specification, requestParams.getPageable());
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
     }
-    public List<?> getListUser() throws Exception {
+    public List<?> getListByUser(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
-        List<FilterReq> filters = Collections.singletonList(getFilterByUser(user.getId()));
-        Specification<Diary> specification = this.buildSpecification(filters);
+        params.getFilter().add(getFilterByUser(user.getId()));
+        if ( params.getAdditions().get("date") != null ){
+            params.getFilter().add(FilterReq.builder()
+                    .field("createdAt")
+                    .values(Arrays.asList(
+                            (params.getAdditions().get("date")[0] + "T00.00.00"),
+                            (params.getAdditions().get("date")[0] + "T23.59.59")
+                    ))
+                    .condition(ConditionBase.AND)
+                    .operator(OperatorBase.BETWEEN)
+                    .build());
+
+        }
+        Specification<Diary> specification = this.buildSpecification( params.getFilter());
         return getAll(specification);
     }
 
     public Page<?> getPageUser(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
         params.getFilter().add(getFilterByUser(user.getId()));
+        if ( params.getAdditions().get("date") != null ){
+            params.getFilter().add(FilterReq.builder()
+                            .field("createdAt")
+                            .values(Arrays.asList(
+                                            (params.getAdditions().get("date")[0] + "T00.00.00"),
+                                            (params.getAdditions().get("date")[0] + "T23.59.59")
+                                    ))
+                            .condition(ConditionBase.AND)
+                            .operator(OperatorBase.BETWEEN)
+                            .build());
+
+        }
         return getPaginated(params);
     }
     public FilterReq getFilterByUser(Long id) {

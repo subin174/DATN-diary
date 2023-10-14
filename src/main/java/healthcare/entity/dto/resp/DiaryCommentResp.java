@@ -12,4 +12,6 @@ public class DiaryCommentResp {
     private Long diaryId;
     private LocalDateTime createdAt;
     private String createdBy;
+    private String nickName;
+    private String avatar;
 }

@@ -19,6 +19,8 @@ public class DiaryComment extends BaseEntity
     private Long id;
     private String comment;
     private Long diaryId;
+    private String avatar;
+    private String nickName;
     @Enumerated(EnumType.STRING)
     private DiaryCommentStatus status;
 

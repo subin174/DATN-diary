@@ -73,7 +73,7 @@ public abstract class BaseService<T> implements SimpleService<T> {
     }
 
     public List<FilterBase> filterToFilterBases(List<FilterReq> filters) {
-        return filters.stream()
+        List<FilterBase> bases = filters.stream()
                 .filter(filter -> Objects.nonNull(this.getFieldType(filter.getField())))
                 .map(filter ->
                         FilterBase.builder()
@@ -83,6 +83,7 @@ public abstract class BaseService<T> implements SimpleService<T> {
                                 .condition(filter.getCondition())
                                 .build())
                 .collect(Collectors.toList());
+        return bases;
     }
 
     public Specification<T> buildSpecification(List<FilterReq> filters) throws Exception {
