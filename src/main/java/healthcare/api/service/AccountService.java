@@ -82,7 +82,8 @@ public class AccountService extends BaseService<Account> {
         return accounts.map(account -> this.entityToResp(account,AccountResp.class));
     }
 
-    public AccountDto findById(Long id){
+    public AccountDto findById(Long id)throws Exception{
+        checkUserPermission(Role.ADMIN.name());
         Account account = this.getById(id);
         return this.entityToResp(account,AccountDto.class);
     }

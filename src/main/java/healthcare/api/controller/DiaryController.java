@@ -31,21 +31,22 @@ public class DiaryController extends ApiController {
     ) throws Exception {
         return responseSuccess(service.create(Req));
     }
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<?> getPageDiaryUser(@RequestParam(required = false) String date) throws Exception{
         return responseSuccess(service.getPageUser(this.getParams()));
-    }
+    }*/
     @GetMapping("/feed")
     public ResponseEntity<?> getDiaryPublic() throws Exception{
         return responseSuccess(service.getDiaryActive(this.getParams()));
     }
-//    @GetMapping("/calendar")
-//    public ResponseEntity<?> getDiaryByCalendar(@PathVariable String y ) throws Exception{
-//        return responseSuccess(service.getDiaryByCreatedAt(time));
-//    }
+
+    @GetMapping("/calendar")
+    public ResponseEntity<?> getListByUserCalendar(@RequestParam(required = false) String date) throws Exception{
+        return responseSuccess(service.getListByUserCalendar(this.getParams()));
+    }
     @GetMapping("/all")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) String date) throws Exception{
-        return responseSuccess(service.getListByUser(this.getParams()));
+    public ResponseEntity<?> getAll() throws Exception{
+        return responseSuccess(service.getListDiaryByUser(this.getParams()));
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id ) throws Exception {

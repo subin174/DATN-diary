@@ -19,6 +19,10 @@ public class AdminAccountController extends ApiController {
     public ResponseEntity<?> getAll() throws Exception {
         return responseSuccess(service.getList(this.getParams()));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id")Long id) throws Exception {
+        return responseSuccess(service.findById(id));
+    }
     @GetMapping
     public ResponseEntity<?> getPage() throws Exception {
         return responseSuccess(service.getPage(this.getParams()));

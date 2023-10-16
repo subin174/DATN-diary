@@ -95,7 +95,8 @@ public class DiaryService extends BaseService<Diary> {
         Page<Diary> diaries = this.getPaginated(specification, requestParams.getPageable());
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
     }
-    public List<?> getListByUser(RequestParams params) throws Exception {
+
+    public List<?> getListByUserCalendar(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
         params.getFilter().add(getFilterByUser(user.getId()));
         if ( params.getAdditions().get("date") != null ){
@@ -114,22 +115,12 @@ public class DiaryService extends BaseService<Diary> {
         return getAll(specification);
     }
 
-    public Page<?> getPageUser(RequestParams params) throws Exception {
+    public List<?> getListDiaryByUser(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
-        params.getFilter().add(getFilterByUser(user.getId()));
-        if ( params.getAdditions().get("date") != null ){
-            params.getFilter().add(FilterReq.builder()
-                            .field("createdAt")
-                            .values(Arrays.asList(
-                                            (params.getAdditions().get("date")[0] + "T00.00.00"),
-                                            (params.getAdditions().get("date")[0] + "T23.59.59")
-                                    ))
-                            .condition(ConditionBase.AND)
-                            .operator(OperatorBase.BETWEEN)
-                            .build());
+        List<FilterReq> filters = Collections.singletonList(getFilterByUser(user.getId()));
+        Specification<Diary> specification=this.buildSpecification(filters);
+        return getAll(specification);
 
-        }
-        return getPaginated(params);
     }
     public FilterReq getFilterByUser(Long id) {
         return FilterReq.builder()
