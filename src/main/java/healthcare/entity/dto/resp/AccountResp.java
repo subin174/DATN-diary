@@ -1,11 +1,13 @@
 package healthcare.entity.dto.resp;
 
+import healthcare.entity.Role;
 import healthcare.entity.enums.AccountStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,9 +20,7 @@ public class AccountResp {
     private String email;
     private String avatar;
     private String phone;
-    private String username;
-    private String password;
-    private String role;
-    private LocalDateTime createdAt;
-    private String status;
+    private Set<Role> role;
+    private String createdAt;
+    private AccountStatus status;
 }

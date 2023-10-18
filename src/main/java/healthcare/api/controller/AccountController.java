@@ -10,18 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("account")
 public class AccountController extends ApiController  {
     private final AccountService service;
-    @PutMapping("/approve/{id}")
-    public ResponseEntity<?> save(@PathVariable Long id) throws Exception {
-        return responseSuccess(service.approve(id));
+    @DeleteMapping("/{id}")
+    public  ResponseEntity<?> delete( @PathVariable Long id)throws Exception {
+        service.delete(id);
+        return responseSuccess();
     }
-    @GetMapping("/all")
+    @GetMapping("/search")
+    public  ResponseEntity<?> findByPhone(@RequestParam(name = "phone") String phone) throws  Exception{
 
-    public ResponseEntity<?> getAll() throws Exception {
-        return responseSuccess(service.getList(this.getParams()));
-    }
-    @GetMapping
-    public ResponseEntity<?> getPage() throws Exception {
-        return responseSuccess(service.getPage(this.getParams()));
+        return responseSuccess(service.findByPhone(phone));
     }
 
 }

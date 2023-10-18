@@ -33,7 +33,7 @@ public class AuthenController {
     public ResponseEntity<?> saveUser(@RequestBody AccountDto accountDto) throws Exception {
         return ResponseEntity.ok(service.save(accountDto));
     }
-    @PostMapping("/callback")
+    @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
