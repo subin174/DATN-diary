@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,8 +18,15 @@ public class Sound extends BaseEntity{
     private String cate;
     private String title;
     private String author;
+    private Long moodId;
     @ElementCollection
     private List<String> images;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "mood_sound_like",
+//            joinColumns = @JoinColumn(name = "sound_id"),
+//            inverseJoinColumns = @JoinColumn(name = "mood_id"))
+//    Set<MoodSound> moodSounds;
 
 
 }

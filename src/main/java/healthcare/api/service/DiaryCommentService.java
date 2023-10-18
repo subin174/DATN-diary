@@ -3,26 +3,22 @@ package healthcare.api.service;
 import healthcare.api.data.RequestParams;
 import healthcare.entity.Diary;
 import healthcare.entity.DiaryComment;
-import healthcare.entity.Mood;
 import healthcare.entity.UserPrin;
 import healthcare.entity.dto.req.DiaryCommentReq;
-import healthcare.entity.dto.req.DiaryReq;
 import healthcare.entity.dto.resp.DiaryCommentResp;
 import healthcare.entity.dto.resp.DiaryResp;
 import healthcare.entity.enums.DiaryStatus;
-import healthcare.exception.ResourceValidationException;
 import healthcare.repository.DiaryCommentRepository;
 import healthcare.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -99,4 +95,9 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         return repository.save(comment);
     }*/
 
+    @RestController
+    @RequiredArgsConstructor
+    @RequestMapping("sound")
+    public static class SoundService {
+    }
 }
