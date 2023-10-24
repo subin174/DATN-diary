@@ -60,6 +60,14 @@ public class Account {
     public Account(Long id){
         this.id = id;
     }
+    public void updateAccount(AccountDto accountDto){
+        this.nickName =accountDto.getNickName();
+        this.firstName=accountDto.getFirstName();
+        this.lastName=accountDto.getLastName();
+        this.phone=accountDto.getPhone();
+        this.avatar=accountDto.getAvatar();
+        this.email=accountDto.getEmail();
+    }
 
 
 }

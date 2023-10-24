@@ -1,14 +1,22 @@
 package healthcare.api.service;
 
+import healthcare.api.data.ConditionBase;
+import healthcare.api.data.FilterReq;
+import healthcare.api.data.OperatorBase;
 import healthcare.api.data.RequestParams;
 import healthcare.entity.Account;
+import healthcare.entity.Diary;
 import healthcare.entity.UserPrin;
 import healthcare.entity.dto.account.AccountDto;
+import healthcare.entity.dto.req.DiaryReq;
 import healthcare.entity.dto.resp.AccountResp;
+import healthcare.entity.dto.resp.DiaryResp;
 import healthcare.entity.enums.Role;
+import healthcare.exception.InvalidOldPasswordException;
 import healthcare.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,10 +25,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipal;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -38,6 +48,8 @@ public class AccountService extends BaseService<Account> {
     protected Class getType() {
         return Account.class;
     }
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
     final AccountRepository repository;
     public UserPrin checkUserPermission(String role) {
         UserPrin account = getCurrentUser();
@@ -82,6 +94,31 @@ public class AccountService extends BaseService<Account> {
         return accounts.map(account -> this.entityToResp(account,AccountResp.class));
     }
 
+    public Account update(AccountDto accountDto) throws Exception {
+        UserPrin userPrin = getCurrentUser();
+        Account account = this.getById(userPrin.getId());
+//        account.setEmail(accountDto.getEmail());
+//        account.setAvatar(accountDto.getAvatar());
+//        account.setLastName(accountDto.getLastName());
+//        account.setFirstName(accountDto.getFirstName());
+//        account.setNickName(accountDto.getNickName());
+//        account.setPhone(accountDto.getPhone());
+        account.updateAccount(accountDto);
+        return this.entityToResp(repository.save(account),Account.class);
+    }
+    public Account updatePass(String oldPassword, String password)throws Exception{
+        UserPrin userPrin = getCurrentUser();
+        Account account = this.getById(userPrin.getId());
+        if (!checkIfValidOldPassword(account, oldPassword)) {
+            throw new InvalidOldPasswordException();
+        }
+        account.setPassword(bcryptEncoder.encode(password));
+        return this.entityToResp(repository.save(account),Account.class);
+    }
+    public boolean checkIfValidOldPassword(final Account account, final String oldPassword) {
+        return bcryptEncoder.matches(oldPassword, account.getPassword());
+    }
+
     public AccountDto findById(Long id)throws Exception{
         checkUserPermission(Role.ADMIN.name());
         Account account = this.getById(id);
@@ -100,11 +137,7 @@ public class AccountService extends BaseService<Account> {
     public void delete(Long id){
         this.deleteById(id);
     }
-    public AccountResp update(Long id,AccountDto accountDto) throws Exception {
-        Account account = this.getById(id);
-        Account newAccount = this.reqToEntity(accountDto,account);
-        return this.entityToResp(repository.save(newAccount),AccountResp.class);
-    }
+
 /*    public UserDetails getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

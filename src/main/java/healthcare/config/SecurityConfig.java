@@ -10,6 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity // Enable security config. This annotation denotes config for spring security.
@@ -36,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             "/v2/api-docs",
+            "/api/v1/authenticate/login",
             "/csrf"
     };
 
@@ -48,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/account/**",
             "/bot/chat",
             "/admin/**",
-            "/api/v1/**"
+            "/api/v1/**","/","/ws/**"
 
     };
 
@@ -59,10 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // dont authenticate this particular request
                 .authorizeRequests()
                 .antMatchers(null,PATH).permitAll()
-                .antMatchers(null,IGNORE_PATHS).permitAll().
+                .antMatchers(null,IGNORE_PATHS).permitAll()
+                 .mvcMatchers("/ws/**").permitAll()
 
                 // all other requests need to be authenticated
-                        anyRequest().authenticated().and().
+                .anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -70,5 +76,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+    // notifi
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("test")
+                .password("test")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
     }
 }

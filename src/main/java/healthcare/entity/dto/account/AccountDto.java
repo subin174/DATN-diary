@@ -2,7 +2,9 @@ package healthcare.entity.dto.account;
 import healthcare.entity.Account;
 import healthcare.entity.Role;
 import healthcare.entity.enums.AccountStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
@@ -11,6 +13,8 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountDto {
 
     private String firstName;

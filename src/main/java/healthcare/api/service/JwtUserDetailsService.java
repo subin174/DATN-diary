@@ -10,12 +10,10 @@ import healthcare.repository.AuthenRepository;
 import healthcare.repository.RoleRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class JwtUserDetailsService implements UserDetailsService  {
+public class JwtUserDetailsService implements UserDetailsService   {
 
     @Autowired
     private AuthenRepository repository;
@@ -33,6 +31,9 @@ public class JwtUserDetailsService implements UserDetailsService  {
     private RoleRepository roleRepository;
     @Autowired
     private AccountRepository accountRepository;
+    private UserDetailsPasswordService userDetailsPasswordService;
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public UserPrin loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,8 +52,12 @@ public class JwtUserDetailsService implements UserDetailsService  {
         }
         return account;
     }
-    public Account save(AccountDto accountDto) {
+    public Account save(AccountDto accountDto) throws Exception {
         Account newAccount = new Account(accountDto);
+        long count = repository.countByUsername( accountDto.getUsername());
+        if (count >0){
+            throw new Exception("account.already.exist");
+        }
         newAccount.setStatus(AccountStatus.ACTIVE);
         newAccount.setPassword(bcryptEncoder.encode(accountDto.getPassword()));
         Optional<Role> role  = roleRepository.findByName("USER");
@@ -60,5 +65,22 @@ public class JwtUserDetailsService implements UserDetailsService  {
         roles.add(role.get());
         newAccount.setRole(roles);
         return repository.save(newAccount);
+    }
+
+
+//    protected Authentication createSuccessAuthentication(Object principal,
+//                                                         Authentication authentication, UserDetails user) {
+//        boolean upgradeEncoding = this.userDetailsPasswordService != null
+//                && this.passwordEncoder.upgradeEncoding(user.getPassword());
+//        if (upgradeEncoding) {
+//            String presentedPassword = authentication.getCredentials().toString();
+//            String newPassword = this.passwordEncoder.encode(presentedPassword);
+//            user = this.userDetailsPasswordService.updatePassword(user, newPassword);
+//        }
+//        return super.createSuccessAuthentication(principal, authentication, user);
+//    }
+
+    public UserDetails updatePassword(UserDetails user, String newPassword) {
+        return null;
     }
 }

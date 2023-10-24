@@ -90,7 +90,7 @@ public class DiaryService extends BaseService<Diary> {
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
     }
 
-    public List<?> getListByUserCalendar(RequestParams params) throws Exception {
+        public List<?> getListByUserCalendar(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
         params.getFilter().add(getFilterByUser(user.getId()));
         if ( params.getAdditions().get("date") != null ){
