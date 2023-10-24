@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthenRepository extends CrudRepository<Account,Integer> {
     Account findByUsername(String username);
+    long countByUsername( String username);
 }
