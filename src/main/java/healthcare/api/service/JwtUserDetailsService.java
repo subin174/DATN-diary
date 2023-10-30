@@ -62,6 +62,7 @@ public class JwtUserDetailsService implements UserDetailsService   {
         newAccount.setPassword(bcryptEncoder.encode(accountDto.getPassword()));
         Optional<Role> role  = roleRepository.findByName("USER");
         Set<Role> roles = new HashSet<>();
+        role.isPresent();
         roles.add(role.get());
         newAccount.setRole(roles);
         return repository.save(newAccount);

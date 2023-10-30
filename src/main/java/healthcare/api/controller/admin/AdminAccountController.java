@@ -6,12 +6,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("admin/account")
 public class AdminAccountController extends ApiController {
     private final AccountService service;
-    @PutMapping("/approve/{id}")
+    @Override
+    public List<String> getFilterableFields(){
+        return Arrays.asList("id","status","createdAt","createdBy","phone","email");
+    }
+    @Override
+    public List<String> getSortableFields() {
+        return Arrays.asList("id","createdAt");
+    }
+    @GetMapping("/approve/{id}")
     public ResponseEntity<?> save(@PathVariable Long id) throws Exception {
         return responseSuccess(service.approve(id));
     }
