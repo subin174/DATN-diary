@@ -20,6 +20,8 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,13 +31,13 @@ import java.util.stream.Collectors;
 @EnableSwagger2
 public class SpringFoxConfig {
     @Bean
-    public Docket api() {
+    public Docket api() throws UnknownHostException {
         final String swaggerToken = "";
         List<String> packageName = Arrays.asList("healthcare.api.controller");
         List<Predicate<RequestHandler>> predicateList = packageName.stream()
                 .map(RequestHandlerSelectors::basePackage).collect(Collectors.toList());
         return new Docket(DocumentationType.SWAGGER_2)
-                .host("http://54.251.141.151:8080")
+                .host(InetAddress.getLocalHost().getHostAddress() + ":8080")
                 .select()
                 .apis(Predicates.or(predicateList))
                 .paths(PathSelectors.any())
