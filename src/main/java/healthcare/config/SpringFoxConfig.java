@@ -35,6 +35,7 @@ public class SpringFoxConfig {
         List<Predicate<RequestHandler>> predicateList = packageName.stream()
                 .map(RequestHandlerSelectors::basePackage).collect(Collectors.toList());
         return new Docket(DocumentationType.SWAGGER_2)
+                .host("http://54.251.141.151:8080")
                 .select()
                 .apis(Predicates.or(predicateList))
                 .paths(PathSelectors.any())
