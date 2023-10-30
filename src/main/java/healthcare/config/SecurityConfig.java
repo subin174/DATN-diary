@@ -41,16 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/v2/api-docs",
             "/api/v1/authenticate/login",
+            "/api/v1/diary/**",
+            "/api/v1/admin/diary/all",
             "/csrf"
     };
 
     private static final String[] PATH = {
             "/authenticate/register/**",
             "/authenticate/login/**",
-            "/diary",
-            "/diary/**",
-            "/account",
-            "/account/**",
             "/bot/chat",
             "/admin/**",
             "/api/v1/**","/","/ws/**"

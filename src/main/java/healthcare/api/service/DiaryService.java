@@ -62,11 +62,7 @@ public class DiaryService extends BaseService<Diary> {
     public void delete(Long id){
         this.deleteById(id);
     }
-    public List<?> getList(RequestParams params) throws Exception {
-        Specification<Diary> specification = this.buildSpecification(params.getFilter());
-        List<Diary> diaries = this.getAll(specification);
-        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
-    }
+
     public  List<?> getDiaryActive(RequestParams params)throws Exception{
         List<Diary> diaries = repository.getDiariesByStatus("PUBLIC");
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
@@ -89,8 +85,12 @@ public class DiaryService extends BaseService<Diary> {
         Page<Diary> diaries = this.getPaginated(specification, requestParams.getPageable());
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
     }
-
-        public List<?> getListByUserCalendar(RequestParams params) throws Exception {
+    public List<?> getList(RequestParams params) throws Exception {
+        Specification<Diary> specification = this.buildSpecification(params.getFilter());
+        List<Diary> diaries = this.getAll(specification);
+        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
+    }
+    public List<?> getListByUserCalendar(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
         params.getFilter().add(getFilterByUser(user.getId()));
         if ( params.getAdditions().get("date") != null ){
@@ -112,7 +112,7 @@ public class DiaryService extends BaseService<Diary> {
     public List<?> getListDiaryByUser(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
         List<FilterReq> filters = Collections.singletonList(getFilterByUser(user.getId()));
-        Specification<Diary> specification=this.buildSpecification(filters);
+        Specification<Diary> specification=this.buildSpecification(params.getFilter());
         return getAll(specification);
 
     }

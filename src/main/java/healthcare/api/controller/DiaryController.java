@@ -18,7 +18,7 @@ import java.util.List;
 public class DiaryController extends ApiController {
     @Override
     public List<String> getFilterableFields(){
-        return Arrays.asList("id","status","createdAt","createdBy","thinkingMoment");
+        return Arrays.asList("id","status","createdAt","createdBy","thinkingMoment","moodId");
     }
     @Override
     public List<String> getSortableFields() {
