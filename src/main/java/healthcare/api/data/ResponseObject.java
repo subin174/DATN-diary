@@ -11,9 +11,15 @@ import javax.persistence.Enumerated;
 @Data
 public class ResponseObject<T>
 {
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
+//    @Builder.Default
+//    private ResponseStatus status = ResponseStatus.SUCCESS;
+
+//    @Enumerated(EnumType.STRING)
+//    @Builder.Default
+//    private ResponseStatus result = ResponseStatus.TRUE;
     @Builder.Default
-    private ResponseStatus status = ResponseStatus.SUCCESS;
+    private boolean result = true;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;

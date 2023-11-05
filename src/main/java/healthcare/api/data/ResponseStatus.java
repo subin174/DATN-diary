@@ -2,5 +2,5 @@ package healthcare.api.data;
 
 public enum ResponseStatus {
     SUCCESS,
-    ERROR
+    ERROR, TRUE, FALSE
 }
