@@ -135,6 +135,7 @@ public class AccountService extends BaseService<Account> {
         return this.entityToResp(this.save(account), AccountDto.class);
     }
     public void delete(Long id){
+        checkUserPermission(Role.ADMIN.name());
         this.deleteById(id);
     }
 
