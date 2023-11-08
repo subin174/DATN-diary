@@ -8,6 +8,7 @@ import healthcare.entity.Account;
 import healthcare.entity.Diary;
 import healthcare.entity.UserPrin;
 import healthcare.entity.dto.account.AccountDto;
+import healthcare.entity.dto.req.AccReq;
 import healthcare.entity.dto.req.DiaryReq;
 import healthcare.entity.dto.resp.AccountResp;
 import healthcare.entity.dto.resp.DiaryResp;
@@ -29,6 +30,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -94,16 +96,10 @@ public class AccountService extends BaseService<Account> {
         return accounts.map(account -> this.entityToResp(account,AccountResp.class));
     }
 
-    public Account update(AccountDto accountDto) throws Exception {
+    public Account update(AccountResp accountResp) throws Exception {
         UserPrin userPrin = getCurrentUser();
         Account account = this.getById(userPrin.getId());
-//        account.setEmail(accountDto.getEmail());
-//        account.setAvatar(accountDto.getAvatar());
-//        account.setLastName(accountDto.getLastName());
-//        account.setFirstName(accountDto.getFirstName());
-//        account.setNickName(accountDto.getNickName());
-//        account.setPhone(accountDto.getPhone());
-        account.updateAccount(accountDto);
+        account.updateAccount(accountResp);
         return this.entityToResp(repository.save(account),Account.class);
     }
     public Account updatePass(String oldPassword, String password)throws Exception{
@@ -124,6 +120,12 @@ public class AccountService extends BaseService<Account> {
         Account account = this.getById(id);
         return this.entityToResp(account,AccountDto.class);
     }
+    public  AccountResp getInfoByUser(){
+        UserPrin user = this.getCurrentUser();
+        Account account = repository.findById(user.getId()).get();
+        return this.entityToResp(account, AccountResp.class);
+    }
+
     public AccountResp findByPhone(String phone){
         Account account = repository.findByPhone(phone);
         return this.entityToResp(account,AccountResp.class);
@@ -138,20 +140,12 @@ public class AccountService extends BaseService<Account> {
         checkUserPermission(Role.ADMIN.name());
         this.deleteById(id);
     }
-
-/*    public UserDetails getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new NoSuchElementException("error.user.login");
-        }
-
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            return (UserDetails) principal;
-        } else {
-            throw new NoSuchElementException("error.user.login");
-        }
-    }*/
+    public FilterReq getFilterByUser(Long id) {
+        return FilterReq.builder()
+                .field("createdBy")
+                .values(Collections.singletonList(id.toString()))
+                .operator(OperatorBase.EQUALS)
+                .condition(ConditionBase.AND)
+                .build();
+    }
 }

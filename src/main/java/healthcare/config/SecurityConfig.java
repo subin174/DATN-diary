@@ -41,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/v2/api-docs",
             "/api/v1/authenticate/login",
-            "/api/v1/diary/**",
-            "/api/v1/admin/diary/all",
+//            "/api/v1/diary/**",
+//            "/api/v1/admin/diary/all",
             "/csrf"
     };
 

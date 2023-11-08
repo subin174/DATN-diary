@@ -39,19 +39,16 @@ public class Diary  {
     private String thinkingFelt;
     private String change;
     private String other;
-
     private LocalDateTime createdAt = LocalDateTime.now();
-
     private Long createdBy;
+    private String nickname;
+    private String avatar;
     //setting
 //    @OneToMany(
 //            mappedBy = "diary",
 //            cascade = CascadeType.ALL,
 //            orphanRemoval = true
 //    )
-
-    @Transient
-    private List<DiaryComment> comments = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private DiaryStatus status;
 //    public void addComment(DiaryComment comment) {

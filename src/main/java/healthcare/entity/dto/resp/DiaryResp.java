@@ -30,7 +30,8 @@ public class DiaryResp {
     private String change;
     private String other;
     private DiaryStatus status;
-    private List<DiaryComment> comments;
     private String createdBy;
     private String createdAt;
+    private String nickname;
+    private String avatar;
 }

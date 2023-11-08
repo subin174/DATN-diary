@@ -3,6 +3,8 @@ package healthcare.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import healthcare.entity.dto.account.AccountDto;
+import healthcare.entity.dto.req.AccReq;
+import healthcare.entity.dto.resp.AccountResp;
 import healthcare.entity.enums.AccountStatus;
 import healthcare.entity.enums.IdentityType;
 import lombok.*;
@@ -11,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +39,7 @@ public class Account {
     private String email;
     private String avatar;
     private String phone;
+    private LocalDate date;
     @Column
     private String username;
     @Column
@@ -60,13 +64,17 @@ public class Account {
     public Account(Long id){
         this.id = id;
     }
-    public void updateAccount(AccountDto accountDto){
-        this.nickName =accountDto.getNickName();
-        this.firstName=accountDto.getFirstName();
-        this.lastName=accountDto.getLastName();
-        this.phone=accountDto.getPhone();
-        this.avatar=accountDto.getAvatar();
-        this.email=accountDto.getEmail();
+    public void updateAccount(AccountResp accountResp){
+        this.nickName =accountResp.getNickName();
+        this.firstName=accountResp.getFirstName();
+        this.lastName=accountResp.getLastName();
+        this.phone=accountResp.getPhone();
+        this.avatar=accountResp.getAvatar();
+        this.email=accountResp.getEmail();
+        this.date=accountResp.getDate();
+    }
+    public Account(AccReq dto){
+        BeanUtils.copyProperties(dto, this);
     }
 
 
