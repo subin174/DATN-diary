@@ -2,6 +2,7 @@ package healthcare.entity.dto.req;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import healthcare.entity.Mood;
+import healthcare.entity.enums.DiaryStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,4 +27,5 @@ public class DiaryReq {
     private String thinkingFelt;
     private String change;
     private String other;
+    private DiaryStatus status;
 }
