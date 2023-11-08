@@ -5,6 +5,7 @@ import healthcare.config.JwtTokenUtil;
 import healthcare.entity.dto.account.AccountDto;
 import healthcare.entity.dto.account.JwtRequest;
 import healthcare.entity.dto.account.JwtResponse;
+import healthcare.entity.dto.req.AccReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class AuthenController {
     private JwtUserDetailsService service;
 
     @PostMapping("/register")
-    public ResponseEntity<?> saveUser(@RequestBody AccountDto accountDto) throws Exception {
-        return ResponseEntity.ok(service.save(accountDto));
+    public ResponseEntity<?> saveUser(@RequestBody AccReq accReq) throws Exception {
+        return ResponseEntity.ok(service.save(accReq));
     }
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {

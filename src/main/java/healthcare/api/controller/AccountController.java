@@ -2,6 +2,7 @@ package healthcare.api.controller;
 
 import healthcare.api.service.AccountService;
 import healthcare.entity.dto.account.AccountDto;
+import healthcare.entity.dto.resp.AccountResp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +33,18 @@ public class AccountController extends ApiController  {
         return responseSuccess(service.findByPhone(phone));
     }
     @PutMapping("/update-info")
-    public ResponseEntity<?> updateAccount(@RequestBody AccountDto accountDto) throws Exception{
-        return responseSuccess(service.update(accountDto));
+    public ResponseEntity<?> updateAccount(@RequestBody AccountResp accountResp) throws Exception{
+        return responseSuccess(service.update(accountResp));
     }
     @GetMapping ("/update-pass")
     public ResponseEntity<?> updatePass(@RequestParam String oldPassword,
                                         @RequestParam String password) throws Exception{
         return responseSuccess(service.updatePass(oldPassword,password));
     }
+    @GetMapping("/info")
+    public  ResponseEntity<?> getInfoByUser() {
+        return responseSuccess(service.getInfoByUser());
+    }
+
 
 }

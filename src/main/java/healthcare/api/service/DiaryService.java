@@ -4,9 +4,7 @@ import healthcare.api.data.ConditionBase;
 import healthcare.api.data.FilterReq;
 import healthcare.api.data.OperatorBase;
 import healthcare.api.data.RequestParams;
-import healthcare.entity.Diary;
-import healthcare.entity.Mood;
-import healthcare.entity.UserPrin;
+import healthcare.entity.*;
 import healthcare.entity.dto.req.DiaryReq;
 import healthcare.entity.dto.resp.DiaryResp;
 import healthcare.entity.enums.DiaryStatus;
@@ -16,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -50,17 +49,30 @@ public class DiaryService extends BaseService<Diary> {
         Mood mood = moodService.getEntityById(req.getMoodId());
         Diary diary = this.reqToEntity(req,new Diary());
         diary.setCreatedBy(user.getId());
+        diary.setNickname(user.getAttributes().get("nickname").toString());
+        diary.setAvatar(user.getAttributes().get("avatar").toString());
         diary.setMood(mood);
         return this.entityToResp(this.save(diary),DiaryResp.class);
     }
     public DiaryResp update(DiaryReq req, Long id) throws Exception {
-        accountService.getCurrentUser();
+        UserPrin user =accountService.getCurrentUser();
         Diary diary = this.getById(id);
-        Diary diary1 = this.reqToEntity(req,diary);
-        return this.entityToResp(repository.save(diary1),DiaryResp.class);
+        if (diary.getCreatedBy().equals(user.getId())){
+            Diary diary1 = this.reqToEntity(req,diary);
+            return this.entityToResp(repository.save(diary1),DiaryResp.class);
+        }
+        else {
+            throw new Exception("not-user");
+        }
     }
     public void delete(Long id){
-        this.deleteById(id);
+        UserPrin user = accountService.getCurrentUser();
+        Diary diary = this.getById(id);
+
+        if (diary.getCreatedBy().equals(user.getId()) ||
+                user.getAuthorities().stream().anyMatch(role -> role.equals(new SimpleGrantedAuthority("ADMIN")))){
+            this.deleteById(id);
+        }
     }
 
     public  List<?> getDiaryActive(RequestParams params)throws Exception{

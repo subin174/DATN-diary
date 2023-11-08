@@ -4,6 +4,7 @@ import healthcare.entity.Account;
 import healthcare.entity.Role;
 import healthcare.entity.UserPrin;
 import healthcare.entity.dto.account.AccountDto;
+import healthcare.entity.dto.req.AccReq;
 import healthcare.entity.enums.AccountStatus;
 import healthcare.repository.AccountRepository;
 import healthcare.repository.AuthenRepository;
@@ -45,21 +46,14 @@ public class JwtUserDetailsService implements UserDetailsService   {
         return new UserPrin( account);
     }
 
-    public Account loadAccByUsername(String username) throws UsernameNotFoundException {
-        Account account = repository.findByUsername(username);
-        if (account == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
-        return account;
-    }
-    public Account save(AccountDto accountDto) throws Exception {
-        Account newAccount = new Account(accountDto);
-        long count = repository.countByUsername( accountDto.getUsername());
+    public Account save(AccReq accReq) throws Exception {
+        Account newAccount = new Account(accReq);
+        long count = repository.countByUsername( accReq.getUsername());
         if (count >0){
             throw new Exception("account.already.exist");
         }
         newAccount.setStatus(AccountStatus.ACTIVE);
-        newAccount.setPassword(bcryptEncoder.encode(accountDto.getPassword()));
+        newAccount.setPassword(bcryptEncoder.encode(accReq.getPassword()));
         Optional<Role> role  = roleRepository.findByName("USER");
         Set<Role> roles = new HashSet<>();
         role.isPresent();
@@ -67,20 +61,6 @@ public class JwtUserDetailsService implements UserDetailsService   {
         newAccount.setRole(roles);
         return repository.save(newAccount);
     }
-
-
-//    protected Authentication createSuccessAuthentication(Object principal,
-//                                                         Authentication authentication, UserDetails user) {
-//        boolean upgradeEncoding = this.userDetailsPasswordService != null
-//                && this.passwordEncoder.upgradeEncoding(user.getPassword());
-//        if (upgradeEncoding) {
-//            String presentedPassword = authentication.getCredentials().toString();
-//            String newPassword = this.passwordEncoder.encode(presentedPassword);
-//            user = this.userDetailsPasswordService.updatePassword(user, newPassword);
-//        }
-//        return super.createSuccessAuthentication(principal, authentication, user);
-//    }
-
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         return null;
     }

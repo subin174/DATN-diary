@@ -27,6 +27,11 @@ public class UserPrin implements UserDetails {
         this.attributes = new HashMap<>();
         this.attributes.put("avatar",account.getAvatar());
         this.attributes.put("nickname",account.getNickName());
+        this.attributes.put("phone",account.getPhone());
+        this.attributes.put("email",account.getEmail());
+        this.attributes.put("firstName",account.getFirstName());
+        this.attributes.put("lastName",account.getLastName());
+        this.attributes.put("date",account.getDate());
         this.password = account.getPassword();
         this.username = account.getUsername();
         this.authorities = account.getRole().stream().map( role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
