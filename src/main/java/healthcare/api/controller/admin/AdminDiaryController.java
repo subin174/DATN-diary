@@ -40,24 +40,5 @@ public class AdminDiaryController extends ApiController{
     public ResponseEntity<?> getDiaryPublic() throws Exception{
         return responseSuccess(service.getDiaryActive(this.getParams()));
     }
-    @PostMapping
-    public ResponseEntity<?> create(
-            @RequestBody DiaryReq Req
-    ) throws Exception {
-        return responseSuccess(service.createByAdmin(Req));
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(
-            @PathVariable Long id
-    ){
-        service.deleteByAdmin(id);
-        return responseSuccess();
-    }
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(
-            @PathVariable Long id,
-            @RequestBody DiaryReq diaryReq
-    ) throws Exception {
-        return responseSuccess(service.updateByAdmin(diaryReq,id));
-    }
+
 }

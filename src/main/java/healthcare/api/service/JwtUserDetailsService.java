@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,9 +33,6 @@ public class JwtUserDetailsService implements UserDetailsService   {
     private RoleRepository roleRepository;
     @Autowired
     private AccountRepository accountRepository;
-    private UserDetailsPasswordService userDetailsPasswordService;
-    private PasswordEncoder passwordEncoder;
-
 
     @Override
     public UserPrin loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,6 +40,7 @@ public class JwtUserDetailsService implements UserDetailsService   {
         if (account == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+        account.setAge(Period.between(account.getDate(), account.getCurrentDate()).getYears());
         List<GrantedAuthority> authorities = account.getRole().stream().map( role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
         return new UserPrin( account);
     }
@@ -54,6 +53,7 @@ public class JwtUserDetailsService implements UserDetailsService   {
         }
         newAccount.setStatus(AccountStatus.ACTIVE);
         newAccount.setPassword(bcryptEncoder.encode(accReq.getPassword()));
+        newAccount.setAge(Period.between(accReq.getDate(), newAccount.getCurrentDate()).getYears());
         Optional<Role> role  = roleRepository.findByName("USER");
         Set<Role> roles = new HashSet<>();
         role.isPresent();
