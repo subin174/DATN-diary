@@ -57,7 +57,7 @@ public class DiaryService extends BaseService<Diary> {
     public DiaryResp update(DiaryReq req, Long id) throws Exception {
         UserPrin user =accountService.getCurrentUser();
         Diary diary = this.getById(id);
-        if (diary.getCreatedBy().equals(user.getId())){
+        if (diary.getCreatedBy().equals(user.getId()) || user.getAuthorities().stream().anyMatch(role -> role.equals(new SimpleGrantedAuthority("ADMIN")))){
             Diary diary1 = this.reqToEntity(req,diary);
             return this.entityToResp(repository.save(diary1),DiaryResp.class);
         }
@@ -75,10 +75,6 @@ public class DiaryService extends BaseService<Diary> {
         }
     }
 
-    public  List<?> getDiaryActive(RequestParams params)throws Exception{
-        List<Diary> diaries = repository.getDiariesByStatus("PUBLIC");
-        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
-    }
     public DiaryResp findById(Long id){
         Diary diary = this.getById(id);
         return this.entityToResp(diary,DiaryResp.class);
@@ -96,6 +92,10 @@ public class DiaryService extends BaseService<Diary> {
         Specification<Diary> specification = this.buildSpecification(requestParams.getFilter());
         Page<Diary> diaries = this.getPaginated(specification, requestParams.getPageable());
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
+    }
+    public  List<?> getDiaryActive(RequestParams params)throws Exception{
+        List<Diary> diaries = repository.getDiariesByStatus("PUBLIC");
+        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
     public List<?> getList(RequestParams params) throws Exception {
         Specification<Diary> specification = this.buildSpecification(params.getFilter());
@@ -118,16 +118,18 @@ public class DiaryService extends BaseService<Diary> {
 
         }
         Specification<Diary> specification = this.buildSpecification( params.getFilter());
-        return getAll(specification);
+        List<Diary>diaries = this.getAll(specification);
+        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
 
     public List<?> getListDiaryByUser(RequestParams params) throws Exception {
         UserPrin user = accountService.getCurrentUser();
-        List<FilterReq> filters = Collections.singletonList(getFilterByUser(user.getId()));
+        params.getFilter().add(getFilterByUser(user.getId()));
         Specification<Diary> specification=this.buildSpecification(params.getFilter());
-        return getAll(specification);
-
+        List<Diary>diaries = this.getAll(specification);
+        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
+
     public FilterReq getFilterByUser(Long id) {
         return FilterReq.builder()
                 .field("createdBy")
@@ -135,20 +137,6 @@ public class DiaryService extends BaseService<Diary> {
                 .operator(OperatorBase.EQUALS)
                 .condition(ConditionBase.AND)
                 .build();
-    }
-    public DiaryResp createByAdmin(DiaryReq req) throws Exception {
-        UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
-        Mood mood = moodService.getEntityById(req.getMoodId());
-        Diary diary = this.reqToEntity(req,new Diary());
-        diary.setCreatedBy(user.getId());
-        diary.setMood(mood);
-        return this.entityToResp(this.save(diary),DiaryResp.class);
-    }
-    public DiaryResp updateByAdmin(DiaryReq req, Long id) throws Exception {
-        accountService.checkUserPermission(Role.ADMIN.name());
-        Diary diary = this.getById(id);
-        Diary diary1 = this.reqToEntity(req,diary);
-        return this.entityToResp(repository.save(diary1),DiaryResp.class);
     }
     public void deleteByAdmin(Long id){
         accountService.checkUserPermission(Role.ADMIN.name());
@@ -169,4 +157,5 @@ public class DiaryService extends BaseService<Diary> {
         diary.setStatus(DiaryStatus.PUBLIC);
         return this.entityToResp(this.save(diary), DiaryResp.class);
     }
+
 }

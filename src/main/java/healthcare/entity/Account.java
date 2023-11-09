@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -56,7 +57,9 @@ public class Account {
     @JoinTable(name = "roles_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @JsonManagedReference
     private Set<Role> role;
-
+    private LocalDate currentDate = LocalDate.now();
+    private Integer age;
+//            = calculateAge(date, currentDate);
 
     public Account(AccountDto dto){
         BeanUtils.copyProperties(dto, this);
@@ -76,6 +79,10 @@ public class Account {
     public Account(AccReq dto){
         BeanUtils.copyProperties(dto, this);
     }
-
+    public long calculateAge(
+            LocalDate date,
+            LocalDate currentDate) {
+        return Period.between(date, currentDate).getYears();
+    }
 
 }
