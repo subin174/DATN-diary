@@ -89,15 +89,18 @@ public class DiaryService extends BaseService<Diary> {
     }
 
     public Page<?> getPaginated(RequestParams requestParams) throws Exception {
+        accountService.checkUserPermission(Role.ADMIN.name());
         Specification<Diary> specification = this.buildSpecification(requestParams.getFilter());
         Page<Diary> diaries = this.getPaginated(specification, requestParams.getPageable());
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
     }
     public  List<?> getDiaryActive(RequestParams params)throws Exception{
+        accountService.getCurrentUser();
         List<Diary> diaries = repository.getDiariesByStatus("PUBLIC");
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
     public List<?> getList(RequestParams params) throws Exception {
+        accountService.checkUserPermission(Role.ADMIN.name());
         Specification<Diary> specification = this.buildSpecification(params.getFilter());
         List<Diary> diaries = this.getAll(specification);
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
@@ -146,15 +149,19 @@ public class DiaryService extends BaseService<Diary> {
         return getRepository().findById(id).orElseThrow(() -> new RuntimeException(messageResource.getMessage("id.notfound")));
     }
     public DiaryResp setPrivate(Long id) {
-        accountService.getCurrentUser();
+        UserPrin userPrin = accountService.getCurrentUser();
         Diary diary = this.getById(id);
-        diary.setStatus(DiaryStatus.PRIVATE);
+        if (diary.getCreatedBy().equals(userPrin.getId())){
+            diary.setStatus(DiaryStatus.PRIVATE);
+        }
         return this.entityToResp(this.save(diary), DiaryResp.class);
     }
     public DiaryResp setPublic(Long id) {
-        accountService.getCurrentUser();
+        UserPrin userPrin = accountService.getCurrentUser();
         Diary diary = this.getById(id);
-        diary.setStatus(DiaryStatus.PUBLIC);
+        if (diary.getCreatedBy().equals(userPrin.getId())){
+            diary.setStatus(DiaryStatus.PUBLIC);
+        }
         return this.entityToResp(this.save(diary), DiaryResp.class);
     }
 

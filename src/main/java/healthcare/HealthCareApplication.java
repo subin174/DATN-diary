@@ -1,5 +1,7 @@
 package healthcare;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -24,5 +26,14 @@ public class HealthCareApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HealthCareApplication.class, args);
 	}
-
+	/*@Bean
+	public Cloudinary cloudinary(){
+		Cloudinary c =new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dst4cbcr7",
+				"api_key", "369687286919363",
+				"api_secret", "InAtDuCHmBaeENUVqPYlhU3KyWo",
+				"secure", true
+		));
+		return c;
+	}*/
 }
