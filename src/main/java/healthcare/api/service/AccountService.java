@@ -28,6 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.attribute.UserPrincipal;
 import java.time.LocalDate;
@@ -53,6 +54,7 @@ public class AccountService extends BaseService<Account> {
     @Autowired
     private PasswordEncoder bcryptEncoder;
     final AccountRepository repository;
+    final FileService fileService;
     public UserPrin checkUserPermission(String role) {
         UserPrin account = getCurrentUser();
         if (account.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(role))){
@@ -100,8 +102,18 @@ public class AccountService extends BaseService<Account> {
         UserPrin userPrin = getCurrentUser();
         Account account = this.getById(userPrin.getId());
         account.updateAccount(accountResp);
+
         return this.entityToResp(repository.save(account),Account.class);
     }
+    public Account setAvatar(MultipartFile file) throws Exception {
+        UserPrin userPrin = getCurrentUser();
+        Account account = this.getById(userPrin.getId());
+        String img = fileService.uploadImageToImgur(file);
+        account.setAvatar(img);
+        log.info(img);
+        return this.entityToResp(repository.save(account),Account.class);
+    }
+
     public Account updatePass(String oldPassword, String password)throws Exception{
         UserPrin userPrin = getCurrentUser();
         Account account = this.getById(userPrin.getId());

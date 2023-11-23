@@ -6,6 +6,7 @@ import healthcare.entity.dto.resp.AccountResp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,10 @@ public class AccountController extends ApiController  {
     @PutMapping("/update-info")
     public ResponseEntity<?> updateAccount(@RequestBody AccountResp accountResp) throws Exception{
         return responseSuccess(service.update(accountResp));
+    }
+    @PutMapping("/avatar")
+    public ResponseEntity<?> updateAccount(@RequestParam("avatar")MultipartFile file) throws Exception{
+        return responseSuccess(service.setAvatar(file));
     }
     @GetMapping ("/update-pass")
     public ResponseEntity<?> updatePass(@RequestParam String oldPassword,

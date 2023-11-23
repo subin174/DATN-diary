@@ -2,6 +2,7 @@ package healthcare.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Sound extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String poster;
     private String track;
     private String cate;
     private String title;
