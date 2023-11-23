@@ -68,10 +68,15 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         return comments.stream().map(comment -> this.entityToResp(comment, DiaryCommentResp.class)).collect(Collectors.toList());
     }
     public DiaryCommentResp update(DiaryCommentReq req, Long id) throws Exception {
-        accountService.getCurrentUser();
+        UserPrin userPrin = accountService.getCurrentUser();
         DiaryComment comment = this.getById(id);
-        DiaryComment diaryComment = this.reqToEntity(req,comment);
-        return this.entityToResp(repository.save(diaryComment),DiaryCommentResp.class);
+        if (comment.getCreatedBy().equals(userPrin.getId()) ){
+            DiaryComment diaryComment = this.reqToEntity(req,comment);
+            return this.entityToResp(repository.save(diaryComment),DiaryCommentResp.class);
+        }
+        else {
+            throw new Exception("not-user");
+        }
     }
 
     public void deleteByDiaryOwner(Long id){
@@ -95,9 +100,4 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         return repository.save(comment);
     }*/
 
-    @RestController
-    @RequiredArgsConstructor
-    @RequestMapping("sound")
-    public static class SoundService {
-    }
 }
