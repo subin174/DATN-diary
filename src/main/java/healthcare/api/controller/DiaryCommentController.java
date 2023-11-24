@@ -46,4 +46,8 @@ public class DiaryCommentController extends ApiController{
     ) throws Exception {
         return responseSuccess(service.update(req,id));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id ) throws Exception {
+        return responseSuccess(service.findById(id));
+    }
 }
