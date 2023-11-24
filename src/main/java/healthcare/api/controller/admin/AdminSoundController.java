@@ -7,6 +7,7 @@ import healthcare.entity.dto.req.SoundReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminSoundController extends ApiController {
     final SoundService service;
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody SoundReq req) throws Exception{
-        return responseSuccess(service.create(req));
+    public ResponseEntity<?> create(@RequestBody SoundReq req, @RequestPart("audio")MultipartFile file) throws Exception{
+        return responseSuccess(service.create(req,file));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(

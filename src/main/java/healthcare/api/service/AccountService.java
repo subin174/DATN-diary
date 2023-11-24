@@ -114,14 +114,14 @@ public class AccountService extends BaseService<Account> {
         return this.entityToResp(repository.save(account),Account.class);
     }
 
-    public Account updatePass(String oldPassword, String password)throws Exception{
+    public AccountResp updatePass(String oldPassword, String password)throws Exception{
         UserPrin userPrin = getCurrentUser();
         Account account = this.getById(userPrin.getId());
         if (!checkIfValidOldPassword(account, oldPassword)) {
             throw new InvalidOldPasswordException();
         }
         account.setPassword(bcryptEncoder.encode(password));
-        return this.entityToResp(repository.save(account),Account.class);
+        return this.entityToResp(repository.save(account),AccountResp.class);
     }
     public boolean checkIfValidOldPassword(final Account account, final String oldPassword) {
         return bcryptEncoder.matches(oldPassword, account.getPassword());
