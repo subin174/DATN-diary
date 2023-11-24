@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -39,6 +40,7 @@ public class SoundService extends BaseService<Sound> {
     final SoundRepository repository;
     final AccountService accountService;
     final MoodSoundRepository moodSoundRepository;
+    final DropboxService dropboxService;
     /*public SoundResp create(SoundReq req) throws Exception {
         UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
         MoodSound moodSound = moodSoundRepository.getById(req.getMoodId());
@@ -49,7 +51,7 @@ public class SoundService extends BaseService<Sound> {
         sound.setCreatedBy(user.getId());
         return this.entityToResp(this.save(sound),SoundResp.class);
     }*/
-    public SoundResp create(SoundReq req) throws Exception {
+    public SoundResp create(SoundReq req, MultipartFile file) throws Exception {
         UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
         MoodSound moodSound = moodSoundRepository.getById(req.getMoodId());
         if (!moodSound.getStatus().equals(MoodStatus.ACTIVE)) {
@@ -58,10 +60,8 @@ public class SoundService extends BaseService<Sound> {
 //        UUID uuid = UUID.randomUUID();
 //        String uuString = uuid.toString();
         Sound sound = this.reqToEntity(req, new Sound());
-//        sound.setTrack(uuString);
-        if(!req.getImages().isEmpty()){
-
-        }
+        String audio = dropboxService.uploadAudioToDropbox(file);
+        sound.setTrack(audio);
         sound.setCreatedBy(user.getId());
         return this.entityToResp(this.save(sound), SoundResp.class);
     }
