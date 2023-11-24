@@ -38,7 +38,7 @@ public class AccountController extends ApiController  {
         return responseSuccess(service.update(accountResp));
     }
     @PutMapping("/avatar")
-    public ResponseEntity<?> updateAccount(@RequestParam("avatar")MultipartFile file) throws Exception{
+    public ResponseEntity<?> setAvatar(@RequestParam("avatar")MultipartFile file) throws Exception{
         return responseSuccess(service.setAvatar(file));
     }
     @GetMapping ("/update-pass")

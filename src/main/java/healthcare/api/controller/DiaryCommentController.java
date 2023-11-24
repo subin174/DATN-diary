@@ -21,7 +21,7 @@ public class DiaryCommentController extends ApiController{
     ) throws Exception {
         return responseSuccess(service.save(Req));
     }
-    @GetMapping("/{diaryId}")
+    @GetMapping("/list/{diaryId}")
     public ResponseEntity<?> getListComment(
             @PathVariable ("diaryId") Long diaryId
     ) throws Exception {
@@ -31,7 +31,7 @@ public class DiaryCommentController extends ApiController{
     public DiaryComment create(@RequestBody DiaryComment resource, @PathVariable Long postId) {
         return service.create(resource,postId);
     }*/
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> delete(
             @PathVariable Long id
     ){
