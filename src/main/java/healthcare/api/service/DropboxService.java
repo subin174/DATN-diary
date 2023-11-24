@@ -4,6 +4,8 @@ import com.dropbox.core.*;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.UploadErrorException;
+import com.dropbox.core.v2.sharing.CreateSharedLinkWithSettingsErrorException;
+import com.dropbox.core.v2.sharing.SharedLinkMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,13 +19,57 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class DropboxService {
     @Value("${dropbox.appKey}")
-    private String dropboxAppKey; // Inject your Dropbox app key from application.properties or application.yml
+    private String dropboxAppKey;
 
     @Value("${dropbox.appSecret}")
-    private String dropboxAppSecret; // Inject your Dropbox app secret from application.properties or application.yml
+    private String dropboxAppSecret;
+    @Value("${dropbox.accessToken}")
+    private String accessToken;
 
-    private final String DROPBOX_ACCESS_TOKEN_FILE = "dropboxAccessToken.txt";
+    private final String DROPBOX_ACCESS_TOKEN_FILE = "sl.BqeiA7g47RdqPXew40HyB-0X5BC_2IL5Hci81waXua96VSEwQjSTqlcYZ2nmPqRxivY6yyW1-P_ZX8VnPArR7rABCcmEgUmtBRvcQTQ5DEVIMBB4KscI3siT-FW8Lce71fk9OytuztE4Sc0";
 
+    public String uploadAudioFileToDropboxV2(MultipartFile audioFile) {
+        if (audioFile.isEmpty()) {
+            return "redirect:/uploadFailure";
+        }
+
+        try {
+            DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+            DbxClientV2 client = new DbxClientV2(config, accessToken);
+
+            try (InputStream in = audioFile.getInputStream()) {
+                FileMetadata metadata = client.files().uploadBuilder("/" + audioFile.getOriginalFilename())
+                        .uploadAndFinish(in);
+
+
+                SharedLinkMetadata sharedLinkMetadata = null;
+                try {
+                    sharedLinkMetadata = client.sharing().createSharedLinkWithSettings(metadata.getPathDisplay());
+                } catch (CreateSharedLinkWithSettingsErrorException ex) {
+                    // Handle the case where the shared link already exists
+                    if (ex.errorValue.isSharedLinkAlreadyExists()) {
+                        // The shared link already exists, you can use the existing link
+                        sharedLinkMetadata = ex.errorValue.getSharedLinkAlreadyExistsValue().getMetadataValue();
+                    } else {
+                        // Handle other errors
+                        throw new RuntimeException(ex);
+                    }
+                }
+
+                // Now you can use sharedLinkMetadata.getUrl() or handle it as needed
+                String sharedLinkUrl = sharedLinkMetadata.getUrl();
+                System.out.println("Shared Link URL: " + sharedLinkUrl);
+                return sharedLinkUrl;
+            } catch (UploadErrorException e) {
+                throw new RuntimeException(e);
+            } catch (DbxException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/uploadFailure";
+        }
+    }
     public String uploadAudioToDropbox(MultipartFile audioFile) throws IOException, DbxException {
         // Initialize Dropbox API
         DbxRequestConfig config = new DbxRequestConfig("your-app-name");

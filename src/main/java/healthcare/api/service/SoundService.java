@@ -51,17 +51,13 @@ public class SoundService extends BaseService<Sound> {
         sound.setCreatedBy(user.getId());
         return this.entityToResp(this.save(sound),SoundResp.class);
     }*/
-    public SoundResp create(SoundReq req, MultipartFile file) throws Exception {
+    public SoundResp create(SoundReq req) throws Exception {
         UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
         MoodSound moodSound = moodSoundRepository.getById(req.getMoodId());
         if (!moodSound.getStatus().equals(MoodStatus.ACTIVE)) {
             throw new Exception("moodSound-not-active");
         }
-//        UUID uuid = UUID.randomUUID();
-//        String uuString = uuid.toString();
         Sound sound = this.reqToEntity(req, new Sound());
-        String audio = dropboxService.uploadAudioToDropbox(file);
-        sound.setTrack(audio);
         sound.setCreatedBy(user.getId());
         return this.entityToResp(this.save(sound), SoundResp.class);
     }

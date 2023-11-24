@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class SoundReq {
     private String track;
-    private MultipartFile poster;
+    private String poster;
     private String cate;
     private String title;
     private String author;
