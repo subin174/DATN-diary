@@ -2,6 +2,7 @@ package healthcare.entity.dto.resp;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.ElementCollection;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 @Setter
 public class SoundResp {
     private Long id;
+    private MultipartFile poster;
     private String track;
     private String cate;
     private String title;

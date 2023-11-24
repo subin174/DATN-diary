@@ -55,10 +55,13 @@ public class SoundService extends BaseService<Sound> {
         if (!moodSound.getStatus().equals(MoodStatus.ACTIVE)) {
             throw new Exception("moodSound-not-active");
         }
-        UUID uuid = UUID.randomUUID();
-        String uuString = uuid.toString();
+//        UUID uuid = UUID.randomUUID();
+//        String uuString = uuid.toString();
         Sound sound = this.reqToEntity(req, new Sound());
-        sound.setTrack(uuString);
+//        sound.setTrack(uuString);
+        if(!req.getImages().isEmpty()){
+
+        }
         sound.setCreatedBy(user.getId());
         return this.entityToResp(this.save(sound), SoundResp.class);
     }

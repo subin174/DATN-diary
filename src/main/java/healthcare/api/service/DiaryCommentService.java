@@ -56,7 +56,14 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         comment.setNickName(user.getAttributes().get("nickname").toString());
         return this.entityToResp(this.save(comment),DiaryCommentResp.class);
     }
-
+    public DiaryCommentResp findById(Long id)throws Exception{
+        UserPrin userPrin = accountService.getCurrentUser();
+        DiaryComment diaryComment = this.getById(id);
+        if (!diaryComment.getCreatedBy().equals(userPrin.getId())){
+            throw new Exception("not user");
+        }
+        return this.entityToResp(diaryComment,DiaryCommentResp.class);
+    }
     public List<?> getList(RequestParams params) throws Exception {
         Specification<DiaryComment> specification = this.buildSpecification(params.getFilter());
         List<DiaryComment> comments = this.getAll(specification);
