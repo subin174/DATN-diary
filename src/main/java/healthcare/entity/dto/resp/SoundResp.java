@@ -16,7 +16,7 @@ public class SoundResp {
     private String cate;
     private String title;
     private String author;
-    private Long moodId;
+    private String moodSound;
     @ElementCollection
     private List<String> images;
     private LocalDateTime createdAt;

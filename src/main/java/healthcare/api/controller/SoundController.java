@@ -15,7 +15,7 @@ import java.util.List;
 public class SoundController extends ApiController{
     @Override
     public List<String> getFilterableFields(){
-        return Arrays.asList("status","createdAt","moodId");
+        return Arrays.asList("status","createdAt","moodSoundId");
     }
     @Override
     public List<String> getSortableFields() {
@@ -27,9 +27,17 @@ public class SoundController extends ApiController{
     public ResponseEntity<?> getListSound() throws Exception{
         return responseSuccess(service.getListSound(this.getParams()));
     }
-    @GetMapping("/{moodId}")
-    public ResponseEntity<?> getListSoundByMood(@PathVariable("moodId") Long moodId) throws Exception{
-        return responseSuccess(service.getSoundByMood(moodId));
+    @GetMapping("/mood-sound")
+    public ResponseEntity<?> getListSoundByMood(@RequestParam ("moodSound") long moodSound) throws Exception{
+        return responseSuccess(service.getSoundByMood(moodSound));
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) throws Exception{
+        return responseSuccess(service.findById(id));
+    }
+    @GetMapping
+    public ResponseEntity<?> getPageSound() throws Exception{
+        return responseSuccess(service.getPaginated(this.getParams()));
+    }
 }
+//    @RequestParam("moodSound") String moodSound

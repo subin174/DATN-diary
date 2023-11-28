@@ -20,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,7 @@ public class SoundService extends BaseService<Sound> {
     final AccountService accountService;
     final MoodSoundRepository moodSoundRepository;
     final DropboxService dropboxService;
+    final MoodSoundService moodSoundService;
     /*public SoundResp create(SoundReq req) throws Exception {
         UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
         MoodSound moodSound = moodSoundRepository.getById(req.getMoodId());
@@ -53,12 +55,13 @@ public class SoundService extends BaseService<Sound> {
     }*/
     public SoundResp create(SoundReq req) throws Exception {
         UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
-        MoodSound moodSound = moodSoundRepository.getById(req.getMoodId());
+        MoodSound moodSound = moodSoundService.getEntityById(req.getMoodSoundId());
         if (!moodSound.getStatus().equals(MoodStatus.ACTIVE)) {
             throw new Exception("moodSound-not-active");
         }
         Sound sound = this.reqToEntity(req, new Sound());
         sound.setCreatedBy(user.getId());
+        sound.setMoodSound(moodSound);
         return this.entityToResp(this.save(sound), SoundResp.class);
     }
 
@@ -69,18 +72,23 @@ public class SoundService extends BaseService<Sound> {
         return this.entityToResp(repository.save(sound1),SoundResp.class);
     }
     public void delete(Long id){
+        accountService.checkUserPermission(Role.ADMIN.name());
         this.deleteById(id);
     }
-    public  List<?> getSoundByMood(Long moodId)throws Exception{
-        List<Sound> sounds = repository.getSoundByMoodId(moodId);
+    public  List<?> getSoundByMood(long moodSoundId)throws Exception{
+        accountService.getCurrentUser();
+        MoodSound moodSound = moodSoundRepository.findById(moodSoundId).orElseThrow(() -> new EntityNotFoundException("MoodSound not found"));
+        List<Sound> sounds = repository.findAllByMoodSound(moodSound);
         return sounds.stream().map(sound -> this.entityToResp(sound, SoundResp.class)).collect(Collectors.toList());
     }
     public List<?> getListSound(RequestParams params) throws Exception {
+        accountService.getCurrentUser();
         Specification<Sound> specification = this.buildSpecification(params.getFilter());
         List<Sound> sounds = this.getAll(specification);
         return sounds.stream().map(sound -> this.entityToResp(sound, SoundResp.class)).collect(Collectors.toList());
     }
     public SoundResp findById(Long id){
+        accountService.getCurrentUser();
         Sound sound = this.getById(id);
         return this.entityToResp(sound,SoundResp.class);
     }
@@ -90,7 +98,5 @@ public class SoundService extends BaseService<Sound> {
         Page<Sound> sounds = this.getPaginated(specification, requestParams.getPageable());
         return sounds.map(sound -> this.entityToResp(sound, DiaryResp.class));
     }
-
-
 
 }

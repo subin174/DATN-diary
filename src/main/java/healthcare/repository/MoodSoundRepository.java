@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface MoodSoundRepository extends JpaRepository<MoodSound, Long>, JpaSpecificationExecutor<MoodSound> {
-    Optional<MoodSound> findByName(String name);
+    Optional<MoodSound> findByMoodSound(String moodSound);
     MoodSound getById(Long id);
     List<MoodSound> getMoodSoundById(Long id);
 }

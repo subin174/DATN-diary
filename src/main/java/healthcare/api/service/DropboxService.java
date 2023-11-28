@@ -6,6 +6,7 @@ import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.UploadErrorException;
 import com.dropbox.core.v2.sharing.CreateSharedLinkWithSettingsErrorException;
 import com.dropbox.core.v2.sharing.SharedLinkMetadata;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,16 +19,18 @@ import java.nio.file.StandardCopyOption;
 
 @Service
 public class DropboxService {
+    //Appkey
     @Value("${dropbox.appKey}")
     private String dropboxAppKey;
-
+    //AppSecret
     @Value("${dropbox.appSecret}")
     private String dropboxAppSecret;
+    //accessToken
     @Value("${dropbox.accessToken}")
     private String accessToken;
+    private final String DROPBOX_ACCESS_TOKEN_FILE = "token.txt";
 
-    private final String DROPBOX_ACCESS_TOKEN_FILE = "sl.BqeiA7g47RdqPXew40HyB-0X5BC_2IL5Hci81waXua96VSEwQjSTqlcYZ2nmPqRxivY6yyW1-P_ZX8VnPArR7rABCcmEgUmtBRvcQTQ5DEVIMBB4KscI3siT-FW8Lce71fk9OytuztE4Sc0";
-
+    // using access token
     public String uploadAudioFileToDropboxV2(MultipartFile audioFile) {
         if (audioFile.isEmpty()) {
             return "redirect:/uploadFailure";
@@ -70,9 +73,10 @@ public class DropboxService {
             return "redirect:/uploadFailure";
         }
     }
+    // using key
     public String uploadAudioToDropbox(MultipartFile audioFile) throws IOException, DbxException {
         // Initialize Dropbox API
-        DbxRequestConfig config = new DbxRequestConfig("your-app-name");
+        DbxRequestConfig config = new DbxRequestConfig("diary-app");
         DbxAppInfo appInfo = new DbxAppInfo(dropboxAppKey, dropboxAppSecret);
         DbxWebAuth auth = new DbxWebAuth(config, appInfo);
 
@@ -91,7 +95,11 @@ public class DropboxService {
             try (InputStream inputStream = new FileInputStream(tempFile.toFile())) {
                 FileMetadata uploadedFile = client.files().uploadBuilder("/" + fileName)
                         .uploadAndFinish(inputStream);
-                return uploadedFile.getId();
+                SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/" + fileName);
+                // Extract the shared URL
+                String sharedUrl = sharedLinkMetadata.getUrl();
+                // Return the modified shared URL
+                return sharedUrl;
             }
         }
         catch (UploadErrorException e){
@@ -106,6 +114,7 @@ public class DropboxService {
         System.out.println("1. Go to: " + authorizeUrl);
         System.out.println("2. Click \"Allow\" (you might have to log in first)");
         System.out.println("3. Copy the authorization code.");
+        System.out.print("Enter the authorization code here: ");
 
         // Get authorization code
         String code = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();

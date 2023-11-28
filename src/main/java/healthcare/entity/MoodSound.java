@@ -14,7 +14,7 @@ public class MoodSound extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    private String name;
+    private String moodSound;
     @Enumerated(EnumType.STRING)
     private MoodStatus status;
 //    @ManyToMany(mappedBy = "moodSounds")
