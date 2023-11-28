@@ -3,15 +3,12 @@ package healthcare.api.service;
 import healthcare.entity.Account;
 import healthcare.entity.Role;
 import healthcare.entity.UserPrin;
-import healthcare.entity.dto.account.AccountDto;
 import healthcare.entity.dto.req.AccReq;
 import healthcare.entity.enums.AccountStatus;
 import healthcare.repository.AccountRepository;
 import healthcare.repository.AuthenRepository;
 import healthcare.repository.RoleRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
@@ -59,6 +56,7 @@ public class JwtUserDetailsService implements UserDetailsService   {
         role.isPresent();
         roles.add(role.get());
         newAccount.setRole(roles);
+        newAccount.setAvatar("https://i.imgur.com/6WCf7zr.jpg");
         return repository.save(newAccount);
     }
     public UserDetails updatePassword(UserDetails user, String newPassword) {

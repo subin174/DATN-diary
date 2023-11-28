@@ -9,16 +9,11 @@ import healthcare.entity.enums.AccountStatus;
 import healthcare.entity.enums.IdentityType;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
