@@ -15,7 +15,7 @@ public class SoundReq {
     private String cate;
     private String title;
     private String author;
-    private Long moodId;
+    private Long moodSoundId;
     @ElementCollection
     private List<String> images;
 }

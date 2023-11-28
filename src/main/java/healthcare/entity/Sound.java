@@ -1,5 +1,6 @@
 package healthcare.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,12 @@ public class Sound extends BaseEntity{
     private String cate;
     private String title;
     private String author;
-    private Long moodId;
+
+    @ManyToOne
+    @JoinColumn(name = "mood_sound_id")
+    @JsonBackReference
+    private MoodSound moodSound ;
+
     @ElementCollection
     private List<String> images;
 //    @ManyToMany
