@@ -83,7 +83,7 @@ public class DiaryService extends BaseService<Diary> {
         UserPrin user = accountService.getCurrentUser();
         Diary diary = getById(id);
         if (!diary.getCreatedBy().equals(user.getId())) {
-            throw new NoSuchElementException("error.job.permission-denied");
+            throw new NoSuchElementException("error.diary.permission-denied");
         }
         return entityToResp(diary, DiaryResp.class);
     }
@@ -94,9 +94,14 @@ public class DiaryService extends BaseService<Diary> {
         Page<Diary> diaries = this.getPaginated(specification, requestParams.getPageable());
         return diaries.map(diary -> this.entityToResp(diary, DiaryResp.class));
     }
-    public  List<?> getDiaryActive(RequestParams params)throws Exception{
+    public  List<?> getDiaryActive(RequestParams requestParams)throws Exception{
         accountService.getCurrentUser();
         List<Diary> diaries = repository.getDiariesByStatus("PUBLIC");
+        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
+    }
+    public  List<?> getDiaryActiveByCreatedBy(RequestParams requestParams,Long createdBy)throws Exception{
+        accountService.getCurrentUser();
+        List<Diary> diaries = repository.getDiariesByStatusAndCreatedBy("PUBLIC", createdBy);
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
     public List<?> getList(RequestParams params) throws Exception {

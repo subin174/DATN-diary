@@ -14,4 +14,6 @@ public interface DiaryRepository extends JpaRepository<Diary,Long>, JpaSpecifica
     @Query(value="select * from diary a where a.status= :status", nativeQuery=true)
     List<Diary> getDiariesByStatus(String status);
 
+    @Query(value="select * from diary a where a.status= :status and a.created_by = :createdBy", nativeQuery=true)
+    List<Diary> getDiariesByStatusAndCreatedBy(String status, Long createdBy);
 }

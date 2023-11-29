@@ -40,6 +40,10 @@ public class DiaryController extends ApiController {
         return responseSuccess(service.getDiaryActive(this.getParams()));
     }
 
+    @GetMapping("/feed/user")
+    public ResponseEntity<?> getDiaryPublicUser(@RequestParam Long createdBy) throws Exception{
+        return responseSuccess(service.getDiaryActiveByCreatedBy(this.getParams(),createdBy));
+    }
     @GetMapping("/calendar")
     public ResponseEntity<?> getListByUserCalendar(@RequestParam(required = false) String date) throws Exception{
         return responseSuccess(service.getListByUserCalendar(this.getParams()));
