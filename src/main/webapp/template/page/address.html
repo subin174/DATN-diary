@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}"
+      class="layout-account-root">
+
+<body>
+<main class="content" layout:fragment="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="mb-3">
+                    <h1 class="h3 d-inline align-middle">Thông tin âm thanh</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Audio File</h5>
+                </div>
+                <div class="card-body">
+                    <input type="file" accept="audio/*" id="audioInput">
+                    <audio controls id="audioPlayer" style="margin-top: 10px;"></audio>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Tên audio:</h5>
+                            </div>
+                            <div class="card-body">
+                                <input id="number" type="text" class="form-control"
+                                       placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="row">
+
+                        <div class="col-6">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Ca sĩ, tác giả trình bày:</h5>
+                            </div>
+                            <div class="card-body">
+                                <input id="lane" type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="row">
+                        <div class=" col-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Thể loại theo tâm trạng:</h5>
+                            </div>
+                            <div class="card-body">
+                                <select id="mood" class="form-select mb-3">
+                                    <option value="" selected disabled>Chọn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="row">
+                        <div class=" col-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Poster</h5>
+                            </div>
+                            <div class="card-body">
+                                <img id="previewImage" alt="Preview" width="80" height="80">
+                                <input type="file" accept="image/*" onchange="displayImage(this)">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="row">
+
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+<!--                                <button class="btn btn-primary btn-sm">Small</button>-->
+                                <button id="create" class="btn btn-primary">Thêm</button>
+<!--                                <button class="btn btn-primary btn-lg">Large</button>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('audioInput').addEventListener('change', function (event) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const file = event.target.files[0];
+
+            if (file) {
+                const objectURL = URL.createObjectURL(file);
+                audioPlayer.src = objectURL;
+            } else {
+                audioPlayer.src = ''; // Clear the source if no file selected
+            }
+        });
+        function displayImage(input) {
+            const preview = document.getElementById('previewImage');
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = ''; // Clear the preview if no file selected
+            }
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script src="js/address.js"></script>
+    <script src="js/map.js"></script>
+
+</main>
+</body>
+</html>
