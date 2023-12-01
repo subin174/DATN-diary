@@ -23,7 +23,7 @@ function signIn(){
         })
         .then(resp => {
             setToken("token", resp.token);
-            window.location.href = 'address';
+            window.location.href = 'sound';
         })
         .catch(error => {
             console.error('Error during sign-in:', error);

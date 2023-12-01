@@ -1,5 +1,7 @@
 package healthcare.api.controller;
 
+import healthcare.api.service.MoodSoundService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -8,15 +10,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping
 public class DashboardController {
+
+        final MoodSoundService moodSoundService;
+
     @GetMapping(value = "login")
     public String logIn(Model model) {
         return "page/login";
     }
-    @GetMapping(value = "address")
+    @GetMapping(value = "sound")
     public String address(Model model) {
-        return "page/address";
+
+
+        model.addAttribute("moodSound", moodSoundService.getList());
+        return "page/sound";
     }
     @GetMapping("home")
     public String home(Model model){
@@ -55,6 +64,10 @@ public class DashboardController {
     @GetMapping(value = "charts")
     public String charts(Model model){
         return "page/charts-chartjs";
+    }
+    @GetMapping(value = "icon-feather")
+    public String icon(Model model){
+        return "page/icon-feather";
     }
 
     @GetMapping(value = "web/{page}")

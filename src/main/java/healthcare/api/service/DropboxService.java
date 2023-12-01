@@ -81,7 +81,8 @@ public class DropboxService {
         DbxWebAuth auth = new DbxWebAuth(config, appInfo);
 
         // Load or authenticate Dropbox access token
-        String accessToken = loadAccessToken();
+        String accessToken = loadAccessToken();;
+//                loadAccessToken();
         if (accessToken == null) {
             accessToken = authenticateDropbox(auth);
             saveAccessToken(accessToken);
