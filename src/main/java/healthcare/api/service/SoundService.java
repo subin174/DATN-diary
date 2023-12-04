@@ -54,7 +54,7 @@ public class SoundService extends BaseService<Sound> {
         return this.entityToResp(this.save(sound),SoundResp.class);
     }*/
     public SoundResp create(SoundReq req) throws Exception {
-        UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
+        UserPrin user = accountService.getCurrentUser();
         MoodSound moodSound = moodSoundService.getEntityById(req.getMoodSoundId());
         if (!moodSound.getStatus().equals(MoodStatus.ACTIVE)) {
             throw new Exception("moodSound-not-active");

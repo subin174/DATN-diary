@@ -1,6 +1,7 @@
 package healthcare.api.controller;
 
 import healthcare.api.service.DropboxService;
+import healthcare.api.service.MoodSoundService;
 import healthcare.api.service.SoundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class SoundController extends ApiController{
     }
     final SoundService service;
     final DropboxService dropboxService;
+    final MoodSoundService moodSoundService;
     @GetMapping("/all")
     public ResponseEntity<?> getListSound() throws Exception{
         return responseSuccess(service.getListSound(this.getParams()));
@@ -39,5 +41,9 @@ public class SoundController extends ApiController{
     public ResponseEntity<?> getPageSound() throws Exception{
         return responseSuccess(service.getPaginated(this.getParams()));
     }
+//    @GetMapping("/all-mood-sound")
+//    public ResponseEntity<?> getListMoodSound() throws Exception{
+//        return responseSuccess(moodSoundService.getList(this.getParams()));
+//    }
 }
 //    @RequestParam("moodSound") String moodSound

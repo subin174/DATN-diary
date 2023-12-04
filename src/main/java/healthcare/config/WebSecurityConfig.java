@@ -1,5 +1,6 @@
 package healthcare.config;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerTypePredicate;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -26,12 +28,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig implements WebMvcConfigurer {
 
-
-
     @Autowired
     private UserDetailsService jwtUserDetailsService;
-
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,7 +53,15 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    //client
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
 
-
+    @Override
+    public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
+        viewControllerRegistry.addViewController("/").setViewName("redirect:/pages/dashboard");
+    }
 
 }

@@ -81,7 +81,8 @@ public class DropboxService {
         DbxWebAuth auth = new DbxWebAuth(config, appInfo);
 
         // Load or authenticate Dropbox access token
-        String accessToken = loadAccessToken();
+        String accessToken = loadAccessToken();;
+//                loadAccessToken();
         if (accessToken == null) {
             accessToken = authenticateDropbox(auth);
             saveAccessToken(accessToken);
@@ -95,6 +96,7 @@ public class DropboxService {
             try (InputStream inputStream = new FileInputStream(tempFile.toFile())) {
                 FileMetadata uploadedFile = client.files().uploadBuilder("/" + fileName)
                         .uploadAndFinish(inputStream);
+//                return uploadedFile.getId();
                 SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/" + fileName);
                 // Extract the shared URL
                 String sharedUrl = sharedLinkMetadata.getUrl();
