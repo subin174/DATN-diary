@@ -128,23 +128,12 @@ function create() {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                removeData()
             }
         });
 }
 
 function removeData() {
-    $("#ward").val('')
-    $("#district").val('')
-    $("#province").val('')
-    $("#number").val('')
-    $("#alley").val('')
-    $("#lane").val()
-    $("#street").val('')
-    $("#lat").val('')
-    $("#lng").val('')
-    removeOption('#ward');
-    removeOption('#district');
+
 }
 
 function readCookie(name) {

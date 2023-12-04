@@ -7,19 +7,13 @@ document.getElementById('audioInput').addEventListener('change', function (event
         audioPlayer.src = objectURL;
     }
 });
-function displayImage(input) {
-    const previewImage = document.getElementById('previewImage');
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            previewImage.src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
+
 $("#create").click(function(){
     create();
 });
+
+let audioUrl = '';
+let imgUrl = '';
 
 function readCookie(name) {
     var nameEQ = name + "=";
@@ -31,11 +25,13 @@ function readCookie(name) {
     }
     return null;
 }
-function create() {
+function create(imageData,audioData) {
     const body = {
         author:$("#author").val(),
         title:$("#title").val(),
-        moodSoundId: $("#moodSound").val()
+        moodSoundId: $("#moodSound").val(),
+        poster: imgUrl,
+        track: audioUrl
     }
     console.log(body)
 
@@ -52,32 +48,66 @@ function create() {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                removeData()
             }
         });
 }
-function create() {
-    const body = {
-        author:$("#author").val(),
-        title:$("#title").val(),
-        moodSoundId: $("#moodSound").val()
-    }
-    console.log(body)
 
-    const options = {
+function uploadAudio() {
+    const audioInput = document.getElementById('audioInput');
+    const audioFile = audioInput.files[0];
+
+    if (!audioFile) {
+        alert('Please select an audio file.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('audio', audioFile);
+
+    fetch('/api/v1/admin/sound/upload2', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + readCookie('token')
         },
-        body: JSON.stringify(body)
-    };
-    fetch('/api/v1/admin/sound/upload2', options)
+        body: formData
+    })
         .then((res) => res.json())
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                removeData()
+                audioUrl = resp.data;
             }
-        });
+        })
+}
+function uploadImage() {
+    const input = document.getElementById('imageInput');
+    const file = input.files[0];
+
+    if (!file) {
+        alert('Please select an image file.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('multipartFile', file);
+
+    fetch('/api/v1/admin/sound/upload-img', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + readCookie('token')
+        },
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(resp => {
+            console.log('Upload success:', resp);
+            if (resp.status === 'SUCCESS') {
+                imgUrl = resp.data;
+            }
+        })
 }

@@ -96,6 +96,7 @@ public class DropboxService {
             try (InputStream inputStream = new FileInputStream(tempFile.toFile())) {
                 FileMetadata uploadedFile = client.files().uploadBuilder("/" + fileName)
                         .uploadAndFinish(inputStream);
+//                return uploadedFile.getId();
                 SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/" + fileName);
                 // Extract the shared URL
                 String sharedUrl = sharedLinkMetadata.getUrl();
