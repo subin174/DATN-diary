@@ -132,6 +132,11 @@ public class AccountService extends BaseService<Account> {
         Account account = this.getById(id);
         return this.entityToResp(account,AccountDto.class);
     }
+    public AccountResp findInfoById(Long id)throws Exception{
+        getCurrentUser();
+        Account account = this.getById(id);
+        return this.entityToResp(account,AccountResp.class);
+    }
     public  AccountResp getInfoByUser(){
         UserPrin user = this.getCurrentUser();
         Account account = repository.findById(user.getId()).get();

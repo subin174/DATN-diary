@@ -33,6 +33,10 @@ public class AccountController extends ApiController  {
     public  ResponseEntity<?> findByPhone(@RequestParam(name = "phone") String phone) throws  Exception{
         return responseSuccess(service.findByPhone(phone));
     }
+    @GetMapping("/search/{id}")
+    public  ResponseEntity<?> findById(@PathVariable("id") Long id) throws  Exception{
+        return responseSuccess(service.findInfoById(id));
+    }
     @PutMapping("/update-info")
     public ResponseEntity<?> updateAccount(@RequestBody AccountResp accountResp) throws Exception{
         return responseSuccess(service.update(accountResp));
