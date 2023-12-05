@@ -1,6 +1,7 @@
 package healthcare.api.controller.admin;
 
 import healthcare.api.controller.ApiController;
+import healthcare.api.data.RequestParams;
 import healthcare.api.service.MoodSoundService;
 import healthcare.api.service.SoundService;
 import healthcare.entity.Sound;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequestMapping
 public class DashboardController extends ApiController {
 
-        final MoodSoundService moodSoundService;
+    final MoodSoundService moodSoundService;
     final SoundService soundService;
 
     @GetMapping(value = "login")
@@ -35,10 +36,10 @@ public class DashboardController extends ApiController {
         return "page/sound";
     }
     @GetMapping(value = "list-sound")
-    public String listSound(Model model){
-
+    public String listSound(Model model) throws Exception {
+        List<Sound> soundList = (List<Sound>) soundService.getListSoundApi();
 //            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
-
+        model.addAttribute("soundList", soundList);
         return "page/list-sound";
     }
     @GetMapping("home")
