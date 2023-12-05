@@ -43,16 +43,7 @@ public class SoundService extends BaseService<Sound> {
     final MoodSoundRepository moodSoundRepository;
     final DropboxService dropboxService;
     final MoodSoundService moodSoundService;
-    /*public SoundResp create(SoundReq req) throws Exception {
-        UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
-        MoodSound moodSound = moodSoundRepository.getById(req.getMoodId());
-        if (!moodSound.getStatus().equals(MoodStatus.ACTIVE)) {
-            throw new Exception("moodSound-not-active");
-        }
-        Sound sound = this.reqToEntity(req,new Sound());
-        sound.setCreatedBy(user.getId());
-        return this.entityToResp(this.save(sound),SoundResp.class);
-    }*/
+
     public SoundResp create(SoundReq req) throws Exception {
         UserPrin user = accountService.getCurrentUser();
         MoodSound moodSound = moodSoundService.getEntityById(req.getMoodSoundId());
@@ -87,6 +78,10 @@ public class SoundService extends BaseService<Sound> {
         List<Sound> sounds = this.getAll(specification);
         return sounds.stream().map(sound -> this.entityToResp(sound, SoundResp.class)).collect(Collectors.toList());
     }
+    public List<?> getListSoundApi(){
+        return  repository.findAll();
+    }
+
     public SoundResp findById(Long id){
         accountService.getCurrentUser();
         Sound sound = this.getById(id);

@@ -16,6 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class DropboxService {
@@ -26,12 +29,12 @@ public class DropboxService {
     @Value("${dropbox.appSecret}")
     private String dropboxAppSecret;
     //accessToken
-    @Value("${dropbox.accessToken}")
-    private String accessToken;
+//    @Value("${dropbox.accessToken}")
+//    private String accessToken;
     private final String DROPBOX_ACCESS_TOKEN_FILE = "token.txt";
 
     // using access token
-    public String uploadAudioFileToDropboxV2(MultipartFile audioFile) {
+    /*public String uploadAudioFileToDropboxV2(MultipartFile audioFile) {
         if (audioFile.isEmpty()) {
             return "redirect:/uploadFailure";
         }
@@ -72,7 +75,7 @@ public class DropboxService {
             e.printStackTrace();
             return "redirect:/uploadFailure";
         }
-    }
+    }*/
     // using key
     public String uploadAudioToDropbox(MultipartFile audioFile) throws IOException, DbxException {
         // Initialize Dropbox API
@@ -81,11 +84,13 @@ public class DropboxService {
         DbxWebAuth auth = new DbxWebAuth(config, appInfo);
 
         // Load or authenticate Dropbox access token
-        String accessToken = loadAccessToken();;
-//                loadAccessToken();
+        String accessToken = loadAccessToken();
+        String refreshToken = null;
         if (accessToken == null) {
-            accessToken = authenticateDropbox(auth);
-            saveAccessToken(accessToken);
+            Map<String, String> tokens = authenticateDropbox(auth);
+            accessToken = tokens.get("accessToken");
+            refreshToken = tokens.get("refreshToken");
+            saveAccessToken(accessToken, refreshToken);
         }
         DbxClientV2 client = new DbxClientV2(config, accessToken);
         try {
@@ -110,7 +115,7 @@ public class DropboxService {
 
     }
 
-    private String authenticateDropbox(DbxWebAuth auth) throws IOException, DbxException {
+    private Map<String, String> authenticateDropbox(DbxWebAuth auth) throws IOException, DbxException {
         DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().build();
         String authorizeUrl = auth.authorize(webAuthRequest);
         System.out.println("1. Go to: " + authorizeUrl);
@@ -121,18 +126,26 @@ public class DropboxService {
         // Get authorization code
         String code = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
 
-        // Exchange authorization code for access token
+        // Exchange authorization code for access token and refresh token
         DbxAuthFinish authFinish = auth.finishFromCode(code);
-        return authFinish.getAccessToken();
+
+        // Save the access token and refresh token
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("accessToken" , authFinish.getAccessToken());
+        tokens.put("refreshToken", authFinish.getRefreshToken());
+        return tokens;
     }
 
-    private void saveAccessToken(String accessToken) throws IOException {
-        Files.write(Paths.get(DROPBOX_ACCESS_TOKEN_FILE), accessToken.getBytes());
+    private void saveAccessToken(String accessToken,String refreshToken) throws IOException {
+        String content = accessToken + "\n" + refreshToken;
+        Files.write(Paths.get(DROPBOX_ACCESS_TOKEN_FILE), content.getBytes());
     }
 
     private String loadAccessToken() throws IOException {
         if (Files.exists(Paths.get(DROPBOX_ACCESS_TOKEN_FILE))) {
-            return new String(Files.readAllBytes(Paths.get(DROPBOX_ACCESS_TOKEN_FILE)));
+            // Read both access token and refresh token
+            List<String> lines = Files.readAllLines(Paths.get(DROPBOX_ACCESS_TOKEN_FILE));
+            return lines.isEmpty() ? null : lines.get(0);
         }
         return null;
     }
