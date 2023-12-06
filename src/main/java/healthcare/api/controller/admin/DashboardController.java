@@ -2,8 +2,10 @@ package healthcare.api.controller.admin;
 
 import healthcare.api.controller.ApiController;
 import healthcare.api.data.RequestParams;
+import healthcare.api.service.AccountService;
 import healthcare.api.service.MoodSoundService;
 import healthcare.api.service.SoundService;
+import healthcare.entity.Account;
 import healthcare.entity.Sound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ public class DashboardController extends ApiController {
 
     final MoodSoundService moodSoundService;
     final SoundService soundService;
+    final AccountService accountService;
 
     @GetMapping(value = "login")
     public String logIn(Model model) {
@@ -41,6 +44,13 @@ public class DashboardController extends ApiController {
 //            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
         model.addAttribute("soundList", soundList);
         return "page/list-sound";
+    }
+    @GetMapping(value = "user")
+    public String User(Model model) throws Exception {
+        List<Account> accounts = (List<Account>) accountService.getUser();
+//            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
+        model.addAttribute("accountList", accounts);
+        return "page/user-manager";
     }
     @GetMapping("home")
     public String home(Model model){

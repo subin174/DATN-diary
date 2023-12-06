@@ -24,9 +24,9 @@
                                 <h5 class="card-title mb-0">Audio File</h5>
                             </div>
                             <div class="card-body">
-                                <input type="file" accept="audio/*" id="audioInput">
-                                <audio controls id="audioPlayer" style="margin-top: 10px;"></audio>
-                                <button onclick="uploadAudio()">Upload Audio</button>
+                                <input  type="file" accept="audio/*" id="audioInput">
+                                <audio  controls id="audioPlayer" style="margin-top: 10px;"></audio>
+                                <button class="btn btn-outline-secondary" onclick="uploadAudio()">Upload Audio</button>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                                 <h5 class="card-title mb-0">Ca sĩ, tác giả trình bày:</h5>
                             </div>
                             <div class="card-body">
-                                <input id="author" type="text" class="form-control" placeholder="">
+                                <input id="author" type="text" class="form-control .alert-secondary" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -83,9 +83,8 @@
                             </div>
                             <div class="card-body">
                                 <img id="previewImage" alt="Preview" width="80" height="80">
-                                <input type="file" accept="image/*" id="imageInput" onchange="displayImage(this)" name="multipartFile">
-                                <button onclick="uploadImage()">Upload</button>
-<!--                                <button type="submit">Upload</button>-->
+                                <input  type="file" accept="image/*" id="imageInput"  onchange="displayImage(this)" name="multipartFile">
+                                <button class="btn btn-outline-secondary " onclick="uploadImage()">Upload</button>
                             </div>
                         </div>
                     </div>
@@ -96,17 +95,11 @@
 
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <!--                                <button class="btn btn-primary btn-sm">Small</button>-->
                                 <button id="create" class="btn btn-primary">Thêm</button>
-                                <!--                                    <input type="submit" value="submit" class="btn btn-primary">Thêm</input>-->
-                                <!--                                <button class="btn btn-primary btn-lg">Large</button>-->
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <!--            </form>-->
             </div>
         </div>
     </div>

@@ -90,6 +90,9 @@ public class AccountService extends BaseService<Account> {
         return accounts.stream().map(account -> this.entityToResp(account,AccountResp.class))
                 .collect(Collectors.toList());
     }
+    public List<Account> getUser(){
+        return repository.findAll();
+    }
 
     public Page<?> getPage(RequestParams params) throws Exception {
         checkUserPermission(Role.ADMIN.name());

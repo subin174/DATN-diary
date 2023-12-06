@@ -17,7 +17,7 @@
         <div class="col-12">
 
 
-            <h3 class="text-center">list of Sounds</h3>
+            <h3 class="text-center">List of Sounds</h3>
             <hr>
             <table class="table">
                 <thead class="thead-dark">
@@ -33,12 +33,12 @@
                 <tbody>
                 <tr th:each="sound : ${soundList}">
                     <td th:text="${sound.id}"></td>
-                    <th scope="row"><img alt="" th:src="'data:image/jpeg;base64,' + ${sound.poster}" style="width: 100px;height: 100px;"></th>
+                    <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${sound.poster}" style="width: 100px;height: 100px;"></th>
                     <td th:text="${sound.title}"></td>
                     <td th:text="${sound.author}"></td>
                     <td th:text="${sound.moodSound}"></td>
                     <td>
-                        <button class="update">
+                        <button class="btn btn-outline-secondary">Update
                         </button>
                     </td>
                 </tr>
