@@ -40,7 +40,7 @@ public class AdminAccountController extends ApiController {
     }
     @DeleteMapping("/{id}")
     public  ResponseEntity<?> delete( @PathVariable Long id)throws Exception {
-        service.delete(id);
+        service.deleteAccountAndRoles(id);
         return responseSuccess();
     }
 }

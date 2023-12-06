@@ -10,7 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class MoodSound extends BaseEntity{
+public class MoodSound{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;

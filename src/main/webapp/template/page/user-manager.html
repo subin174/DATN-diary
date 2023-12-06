@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}"
+      class="layout-account-root">
+
+<body>
+<main class="content" layout:fragment="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="mb-3">
+                    <h1 class="h3 d-inline align-middle">Thông tin người dùng</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class=".col-12 .overflow-scroll">
+
+
+            <h3 class="text-center">List user</h3>
+            <hr>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID Users</th>
+                        <th scope="col">avatar</th>
+                        <th scope="col">firstName</th>
+                        <th scope="col">lastName</th>
+                        <th scope="col">nickName</th>
+                        <th scope="col">email</th>
+                        <th scope="col">phone</th>
+                        <th scope="col">username</th>
+                        <th scope="col">password</th>
+                        <th scope="col">status</th>
+                        <th scope="col">delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class=".text-md-center" th:each="account : ${accountList}">
+                        <td th:text="${account.id}"></td>
+                        <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${account.avatar}" style="width: 100px;height: 100px;"></th>
+                        <td th:text="${account.firstName}"></td>
+                        <td th:text="${account.lastName}"></td>
+                        <td th:text="${account.nickName}"></td>
+                        <td th:text="${account.email}"></td>
+                        <td th:text="${account.phone}"></td>
+                        <td th:text="${account.username}"></td>
+                        <td th:text="${account.password}"></td>
+                        <!--                    th:text="${account.status}"-->
+                        <td>
+                            <button class="btn btn-outline-warning">ACTIVE
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger" data-account-id="${account.id}">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script>
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script src="js/user.js"></script>
+</main>
+</body>
+
+</html>
