@@ -6,10 +6,13 @@ import healthcare.api.data.OperatorBase;
 import healthcare.api.data.RequestParams;
 import healthcare.entity.*;
 import healthcare.entity.dto.req.DiaryReq;
+import healthcare.entity.dto.resp.DiaryCommentResp;
 import healthcare.entity.dto.resp.DiaryResp;
 import healthcare.entity.enums.DiaryStatus;
 import healthcare.entity.enums.Role;
 import healthcare.repository.DiaryRepository;
+import healthcare.repository.MoodRepository;
+import healthcare.repository.MoodSoundRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,10 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +39,7 @@ public class DiaryService extends BaseService<Diary> {
         return Diary.class;
     }
     final DiaryRepository repository;
+    final MoodRepository moodRepository;
     final AccountService accountService;
     final MessageResource messageResource;
     final MoodService moodService;
@@ -169,5 +170,15 @@ public class DiaryService extends BaseService<Diary> {
         }
         return this.entityToResp(this.save(diary), DiaryResp.class);
     }
+    public Map<Long, Long> getChart(Long createdBy) {
+        Map<Long, Long> moodCounts = new HashMap<>();
+        List<Mood> mood = moodRepository.findAll();
+        mood.forEach(m -> moodCounts.put(Long.valueOf(m.getMood()), repository.countByMoodIdAndCreatedBy(m.getId(), createdBy)));
+        return moodCounts;
+    }
+    public List<Object[]> getCountByMoodAndCreatedBy(Long createdBy) {
+        return repository.getCountByMoodAndCreatedBy(createdBy);
+    }
+
 
 }
