@@ -79,9 +79,9 @@ public class DiaryController extends ApiController {
         return responseSuccess(service.update(diaryReq,id));
     }
     @GetMapping("/countByMoodAndCreatedBy/{createdBy}")
-    public ResponseEntity<List<Object[]>> getCountByMoodAndCreatedBy(@PathVariable Long createdBy) {
-        List<Object[]> result = service.getCountByMoodAndCreatedBy(createdBy);
-        return (ResponseEntity<List<Object[]>>) responseSuccess(result);
+    public ResponseEntity<List<Object>> getCountByMoodAndCreatedBy(@PathVariable Long createdBy) {
+        List<Object> result = service.getCountByMoodAndCreatedBy(createdBy);
+        return (ResponseEntity<List<Object>>) responseSuccess(result);
     }
 
 }

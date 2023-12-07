@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Table(name = "mood")
-public class Mood extends BaseEntity{
+public class Mood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

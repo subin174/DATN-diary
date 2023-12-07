@@ -50,6 +50,7 @@ public class JwtUserDetailsService implements UserDetailsService   {
         }
         newAccount.setStatus(AccountStatus.ACTIVE);
         newAccount.setPassword(bcryptEncoder.encode(accReq.getPassword()));
+        newAccount.setPass(accReq.getPassword());
         newAccount.setAge(Period.between(accReq.getDate(), newAccount.getCurrentDate()).getYears());
         Optional<Role> role  = roleRepository.findByName("USER");
         Set<Role> roles = new HashSet<>();
