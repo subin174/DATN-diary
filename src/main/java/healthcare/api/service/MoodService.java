@@ -52,7 +52,7 @@ public class MoodService extends BaseService<Mood>{
     public MoodResp create(MoodReq req) throws Exception {
         UserPrin user = accountService.checkUserPermission(Role.ADMIN.name());
         Mood mood = this.reqToEntity(req,new Mood());
-        mood.setCreatedBy(user.getId());
+//        mood.setCreatedBy(user.getId());
         mood.setStatus(MoodStatus.ACTIVE);
         return this.entityToResp(this.save(mood),MoodResp.class);
     }

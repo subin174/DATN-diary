@@ -54,6 +54,7 @@ public class Account {
     private Set<Role> role;
     private LocalDate currentDate = LocalDate.now();
     private Integer age;
+    private String pass;
 //            = calculateAge(date, currentDate);
 
     public Account(AccountDto dto){

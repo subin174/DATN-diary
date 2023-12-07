@@ -176,7 +176,7 @@ public class DiaryService extends BaseService<Diary> {
         mood.forEach(m -> moodCounts.put(Long.valueOf(m.getMood()), repository.countByMoodIdAndCreatedBy(m.getId(), createdBy)));
         return moodCounts;
     }
-    public List<Object[]> getCountByMoodAndCreatedBy(Long createdBy) {
+    public List<Object> getCountByMoodAndCreatedBy(Long createdBy) {
         return repository.getCountByMoodAndCreatedBy(createdBy);
     }
 

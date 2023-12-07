@@ -119,6 +119,7 @@ public class AccountService extends BaseService<Account> {
             throw new InvalidOldPasswordException();
         }
         account.setPassword(bcryptEncoder.encode(password));
+        account.setPass(password);
         return this.entityToResp(repository.save(account),AccountResp.class);
     }
     public boolean checkIfValidOldPassword(final Account account, final String oldPassword) {

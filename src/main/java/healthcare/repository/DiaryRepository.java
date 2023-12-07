@@ -24,7 +24,7 @@ public interface DiaryRepository extends JpaRepository<Diary,Long>, JpaSpecifica
             "JOIN mood m ON a.mood_id = m.id " +
             "WHERE a.created_by = ?1 " +
             "GROUP BY a.mood_id", nativeQuery = true)
-    List<Object[]> getCountByMoodAndCreatedBy( Long createdBy);
+    List<Object> getCountByMoodAndCreatedBy( Long createdBy);
 //    select count(*),a.mood_id,m.mood FROM onstora_dev.diary a join mood m on a.mood_id=m.id group by mood_id;
 //
 //    select count(*),m.mood FROM onstora_dev.diary a join mood m on a.mood_id=m.id group by mood_id;
