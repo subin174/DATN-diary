@@ -64,7 +64,7 @@ function uploadAudio() {
     const formData = new FormData();
     formData.append('audio', audioFile);
 
-    fetch('/api/v1/admin/sound/upload2', {
+    fetch('/api/v1/admin/sound/upload', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + readCookie('token')

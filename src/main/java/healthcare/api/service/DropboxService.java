@@ -1,5 +1,8 @@
 package healthcare.api.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.utils.ObjectUtils;
 import com.dropbox.core.*;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
@@ -22,131 +25,16 @@ import java.util.Map;
 
 @Service
 public class DropboxService {
-    //Appkey
-    @Value("${dropbox.appKey}")
-    private String dropboxAppKey;
-    //AppSecret
-    @Value("${dropbox.appSecret}")
-    private String dropboxAppSecret;
-    //accessToken
-//    @Value("${dropbox.accessToken}")
-//    private String accessToken;
-    private final String DROPBOX_ACCESS_TOKEN_FILE = "token.txt";
 
-    // using access token
-    /*public String uploadAudioFileToDropboxV2(MultipartFile audioFile) {
-        if (audioFile.isEmpty()) {
-            return "redirect:/uploadFailure";
-        }
+    @Autowired
+    private Cloudinary cloudinary;
 
-        try {
-            DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-            DbxClientV2 client = new DbxClientV2(config, accessToken);
+    public String uploadAudioCloud(MultipartFile audioFile) throws IOException {
+        Map<?, ?> uploadResult = cloudinary.uploader().upload(audioFile.getBytes(),
+                ObjectUtils.asMap("resource_type", "auto", "transformation", new Transformation().fetchFormat("mp3")));
 
-            try (InputStream in = audioFile.getInputStream()) {
-                FileMetadata metadata = client.files().uploadBuilder("/" + audioFile.getOriginalFilename())
-                        .uploadAndFinish(in);
-
-
-                SharedLinkMetadata sharedLinkMetadata = null;
-                try {
-                    sharedLinkMetadata = client.sharing().createSharedLinkWithSettings(metadata.getPathDisplay());
-                } catch (CreateSharedLinkWithSettingsErrorException ex) {
-                    // Handle the case where the shared link already exists
-                    if (ex.errorValue.isSharedLinkAlreadyExists()) {
-                        // The shared link already exists, you can use the existing link
-                        sharedLinkMetadata = ex.errorValue.getSharedLinkAlreadyExistsValue().getMetadataValue();
-                    } else {
-                        // Handle other errors
-                        throw new RuntimeException(ex);
-                    }
-                }
-
-                // Now you can use sharedLinkMetadata.getUrl() or handle it as needed
-                String sharedLinkUrl = sharedLinkMetadata.getUrl();
-                System.out.println("Shared Link URL: " + sharedLinkUrl);
-                return sharedLinkUrl;
-            } catch (UploadErrorException e) {
-                throw new RuntimeException(e);
-            } catch (DbxException e) {
-                throw new RuntimeException(e);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "redirect:/uploadFailure";
-        }
-    }*/
-    // using key
-    public String uploadAudioToDropbox(MultipartFile audioFile) throws IOException, DbxException {
-        // Initialize Dropbox API
-        DbxRequestConfig config = new DbxRequestConfig("diary-app");
-        DbxAppInfo appInfo = new DbxAppInfo(dropboxAppKey, dropboxAppSecret);
-        DbxWebAuth auth = new DbxWebAuth(config, appInfo);
-
-        // Load or authenticate Dropbox access token
-        String accessToken = loadAccessToken();
-        String refreshToken = null;
-        if (accessToken == null) {
-            Map<String, String> tokens = authenticateDropbox(auth);
-            accessToken = tokens.get("accessToken");
-            refreshToken = tokens.get("refreshToken");
-            saveAccessToken(accessToken, refreshToken);
-        }
-        DbxClientV2 client = new DbxClientV2(config, accessToken);
-        try {
-            String fileName = audioFile.getOriginalFilename();
-            Path tempFile = Files.createTempFile("audio_", fileName.substring(fileName.lastIndexOf(".")));
-            Files.copy(audioFile.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
-
-            try (InputStream inputStream = new FileInputStream(tempFile.toFile())) {
-                FileMetadata uploadedFile = client.files().uploadBuilder("/" + fileName)
-                        .uploadAndFinish(inputStream);
-//                return uploadedFile.getId();
-                SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/" + fileName);
-                // Extract the shared URL
-                String sharedUrl = sharedLinkMetadata.getUrl();
-                // Return the modified shared URL
-                return sharedUrl;
-            }
-        }
-        catch (UploadErrorException e){
-            throw new RuntimeException("Error uploading file to Dropbox", e);
-        }
-
+        // Get the public URL of the uploaded audio file
+        return (String) uploadResult.get("url");
     }
 
-    private Map<String, String> authenticateDropbox(DbxWebAuth auth) throws IOException, DbxException {
-        DbxWebAuth.Request webAuthRequest = DbxWebAuth.newRequestBuilder().build();
-        String authorizeUrl = auth.authorize(webAuthRequest);
-        System.out.println("1. Go to: " + authorizeUrl);
-        System.out.println("2. Click \"Allow\" (you might have to log in first)");
-        System.out.println("3. Copy the authorization code.");
-        System.out.print("Enter the authorization code here: ");
-
-        // Get authorization code
-        String code = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
-
-        // Exchange authorization code for access token and refresh token
-        DbxAuthFinish authFinish = auth.finishFromCode(code);
-
-        // Save the access token and refresh token
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("accessToken" , authFinish.getAccessToken());
-        tokens.put("refreshToken", authFinish.getRefreshToken());
-        return tokens;
-    }
-
-    private void saveAccessToken(String accessToken,String refreshToken) throws IOException {
-        String content = accessToken + "\n" + refreshToken;
-        Files.write(Paths.get(DROPBOX_ACCESS_TOKEN_FILE), content.getBytes());
-    }
-
-    private String loadAccessToken() throws IOException {
-        if (Files.exists(Paths.get(DROPBOX_ACCESS_TOKEN_FILE))) {
-            // Read both access token and refresh token
-            List<String> lines = Files.readAllLines(Paths.get(DROPBOX_ACCESS_TOKEN_FILE));
-            return lines.isEmpty() ? null : lines.get(0);
-        }
-        return null;
-    }
 }
