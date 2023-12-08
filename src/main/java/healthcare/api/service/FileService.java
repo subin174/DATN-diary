@@ -60,6 +60,7 @@ public class FileService {
         String imgLink = dataNode.path("link").asText();
         return imgLink;
     }
+
     //download
     public byte[] downloadImageFromImgur(String imageId) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();

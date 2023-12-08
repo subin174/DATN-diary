@@ -31,13 +31,9 @@ public class AdminSoundController extends ApiController {
     public ResponseEntity<?> upLoadImg(@RequestParam MultipartFile multipartFile) throws Exception{
         return responseSuccess(fileService.uploadImageToImgur(multipartFile));
     }
-//    @PostMapping("/upload")
-//    public ResponseEntity<?> handleFileUpload(@RequestParam("audio") MultipartFile audio) {
-//        return  responseSuccess(dropboxService.uploadAudioFileToDropboxV2(audio));
-//    }
-    @PostMapping("/upload2")
-    public ResponseEntity<?> uploadAudio(@RequestParam("audio") MultipartFile audio) throws IOException, DbxException {
-        return  responseSuccess(dropboxService.uploadAudioToDropbox(audio));
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadAudioCloud(@RequestParam("audio") MultipartFile audio) throws IOException {
+        return  responseSuccess(dropboxService.uploadAudioCloud(audio));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(

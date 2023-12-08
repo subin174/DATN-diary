@@ -66,7 +66,7 @@ public class HealthCareApplication {
 		templateEngine.addDialect(new LayoutDialect());
 		return templateEngine;
 	}
-	/*@Bean
+	@Bean
 	public Cloudinary cloudinary(){
 		Cloudinary c =new Cloudinary(ObjectUtils.asMap(
 				"cloud_name", "dst4cbcr7",
@@ -75,5 +75,5 @@ public class HealthCareApplication {
 				"secure", true
 		));
 		return c;
-	}*/
+	}
 }
