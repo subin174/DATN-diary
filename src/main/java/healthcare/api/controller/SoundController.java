@@ -44,9 +44,9 @@ public class SoundController extends ApiController{
     public ResponseEntity<?> getPageSound() throws Exception{
         return responseSuccess(service.getPaginated(this.getParams()));
     }
-    @GetMapping("/mood-sound")
+    @GetMapping("/mood-sound-all")
     public ResponseEntity<?> getListMood() throws Exception{
-        return responseSuccess(moodSoundService.getList());
+        return responseSuccess(moodSoundService.getAll());
     }
 //    @GetMapping("/all-mood-sound")
 //    public ResponseEntity<?> getListMoodSound() throws Exception{
