@@ -14,13 +14,15 @@ import java.util.Map;
 public interface DiaryRepository extends JpaRepository<Diary,Long>, JpaSpecificationExecutor<Diary> {
     @Query(value="select * from diary a where a.status= :status", nativeQuery=true)
     List<Diary> getDiariesByStatus(String status);
+    @Query(value="select * from diary a where a.created_by= ?1", nativeQuery=true)
+    List<Diary> getDiariesByCreatedBy(Long CreatedBy);
 
     @Query(value="select * from diary a where a.status= :status and a.created_by = :createdBy", nativeQuery=true)
     List<Diary> getDiariesByStatusAndCreatedBy(String status, Long createdBy);
     long countByMoodIdAndCreatedBy(Long moodId, Long createdBy);
 
     @Query(value = "SELECT COUNT(*) AS count, m.mood " +
-            "FROM onstora_dev.diary a " +
+            "FROM diary_dev.diary a " +
             "JOIN mood m ON a.mood_id = m.id " +
             "WHERE a.created_by = ?1 " +
             "GROUP BY a.mood_id", nativeQuery = true)
