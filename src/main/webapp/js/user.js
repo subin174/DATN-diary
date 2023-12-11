@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function deleteAccount(accountId) {
+function deleteEntity(accountId) {
+    if (accountId === undefined || accountId === null) {
+        console.error('Invalid accountId:', accountId);
+        return;
+    }
     const options = {
         method: 'DELETE',
         headers: {
@@ -21,24 +25,16 @@ function deleteAccount(accountId) {
         },
     };
 
-    fetch('/api/v1/admin/account/' + accountId, options)
+    fetch(`/api/v1/admin/sound/${parseInt(accountId, 10)}`, options)
         .then((res) => res.json())
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                // You might want to update the UI or display a success message
-                console.log('Account deleted successfully');
-                // You might want to remove the corresponding HTML element as well
-                // Assuming each table row has a unique id, you can remove it like this:
-                document.getElementById('accountRow' + accountId).remove();
-            } else {
-                // Handle errors (e.g., display an error message)
-                console.error('Error deleting account', resp.message);
+                // Optional: Perform any actions after successful deletion
             }
         })
         .catch(error => {
-            // Handle network errors
-            console.error('Network error', error);
+            console.error('Error deleting entity:', error);
         });
 }
 

@@ -25,7 +25,7 @@ function readCookie(name) {
     }
     return null;
 }
-function create(imageData,audioData) {
+function create() {
     const body = {
         author:$("#author").val(),
         title:$("#title").val(),
