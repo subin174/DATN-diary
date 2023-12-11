@@ -37,7 +37,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:onclick="" class=".text-md-center" th:each="account : ${accountList} ">
+                    <tr  class=".text-md-center" th:each="account : ${accountList}" th:onclick="|test('${account.id}')|">
                         <td th:text="${account.id}"></td>
                         <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${account.avatar}" style="width: 100px;height: 100px;"></th>
                         <td th:text="${account.firstName}"></td>
@@ -65,6 +65,13 @@
     </div>
     </div>
     <script>
+        function test(id) {
+            console.log(id)
+
+            window.location.replace(' /user-detail?createdBy=' + id);
+
+
+        }
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
