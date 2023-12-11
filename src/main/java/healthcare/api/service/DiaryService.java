@@ -105,6 +105,10 @@ public class DiaryService extends BaseService<Diary> {
         List<Diary> diaries = repository.getDiariesByStatusAndCreatedBy("PUBLIC", createdBy);
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
+    public  List<?> getDiaryByCreatedBy(Long createdBy){
+        List<Diary> diaries = repository.getDiariesByCreatedBy(createdBy);
+        return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
+    }
     public List<?> getList(RequestParams params) throws Exception {
         accountService.checkUserPermission(Role.ADMIN.name());
         Specification<Diary> specification = this.buildSpecification(params.getFilter());

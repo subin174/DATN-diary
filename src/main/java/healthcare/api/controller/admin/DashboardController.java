@@ -3,9 +3,11 @@ package healthcare.api.controller.admin;
 import healthcare.api.controller.ApiController;
 import healthcare.api.data.RequestParams;
 import healthcare.api.service.AccountService;
+import healthcare.api.service.DiaryService;
 import healthcare.api.service.MoodSoundService;
 import healthcare.api.service.SoundService;
 import healthcare.entity.Account;
+import healthcare.entity.Diary;
 import healthcare.entity.Sound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class DashboardController extends ApiController {
     final MoodSoundService moodSoundService;
     final SoundService soundService;
     final AccountService accountService;
+    final DiaryService diaryService;
 
     @GetMapping(value = "login")
     public String logIn(Model model) {
@@ -51,6 +55,12 @@ public class DashboardController extends ApiController {
 //            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
         model.addAttribute("accountList", accounts);
         return "page/user-manager";
+    }
+    @GetMapping(value = "user-detail")
+    public String userDetail(Model model,@RequestParam Long createdBy){
+        List<Diary> diaries = (List<Diary>) diaryService.getDiaryByCreatedBy(createdBy);
+        model.addAttribute("diaries", diaries);
+        return "page/user-detail";
     }
     @GetMapping("home")
     public String home(Model model){

@@ -37,7 +37,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class=".text-md-center" th:each="account : ${accountList}">
+                    <tr th:onclick="" class=".text-md-center" th:each="account : ${accountList} ">
                         <td th:text="${account.id}"></td>
                         <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${account.avatar}" style="width: 100px;height: 100px;"></th>
                         <td th:text="${account.firstName}"></td>
