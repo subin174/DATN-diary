@@ -9,6 +9,7 @@ import healthcare.api.service.SoundService;
 import healthcare.entity.Account;
 import healthcare.entity.Diary;
 import healthcare.entity.Sound;
+import healthcare.entity.dto.account.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class DashboardController extends ApiController {
     @GetMapping(value = "list-sound")
     public String listSound(Model model) throws Exception {
         List<Sound> soundList = (List<Sound>) soundService.getListSoundApi();
+
 //            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
         model.addAttribute("soundList", soundList);
         return "page/list-sound";
@@ -57,7 +59,7 @@ public class DashboardController extends ApiController {
         return "page/user-manager";
     }
     @GetMapping(value = "user-detail")
-    public String userDetail(Model model,@RequestParam Long createdBy){
+    public String userDetail(Model model,@RequestParam Long createdBy) {
         List<Diary> diaries = (List<Diary>) diaryService.getDiaryByCreatedBy(createdBy);
         model.addAttribute("diaries", diaries);
         return "page/user-detail";
