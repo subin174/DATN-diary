@@ -68,40 +68,14 @@ public class DashboardController extends ApiController {
     public String home(Model model){
         return "page/index";
     }
-    @GetMapping(value = "sign-up")
-    public String signUp(Model model){
-        return "page/pages-sign-up";
-    }
-
-
-
     @GetMapping(value = "profile")
     public String profile(Model model){
         return "page/pages-profile";
     }
 
-    @GetMapping(value = "forms")
-    public String forms(Model model){
-        return "page/ui-forms";
-    }
-
-    @GetMapping(value = "cards")
-    public String cards(Model model){
-        return "page/ui-cards";
-    }
-
-    @GetMapping(value = "typography")
-    public String typography(Model model){
-        return "page/ui-typography";
-    }
-
     @GetMapping(value = "charts")
     public String charts(Model model){
         return "page/charts-chartjs";
-    }
-    @GetMapping(value = "icon-feather")
-    public String icon(Model model){
-        return "page/icon-feather";
     }
 
     @GetMapping(value = "web/{page}")

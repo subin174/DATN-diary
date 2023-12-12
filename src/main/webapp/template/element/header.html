@@ -52,12 +52,6 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/user-detail">
-                    <i class="align-middle" data-feather="bar-chart-2"></i> <span
-                        class="align-middle">User detail</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
                 <a class="sidebar-link" href="/login">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign out</span>
                 </a>
@@ -242,3 +236,41 @@
         </ul>
     </div>
 </nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const apiUrl = 'http://localhost:8080/api/v1/account/info';
+
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + readCookie('token')
+            },
+        })
+            .then((res) => res.json())
+            .then(resp => {
+                console.log(resp)
+                if (resp.status === 'SUCCESS') {
+                    addAddress(resp.data)
+                }
+            })
+            .then(data => {
+                const user = data.data;
+                document.getElementById('userAvatar').src = user.avatar;
+                document.getElementById('userAvatar').alt = `User Avatar: ${user.firstName} ${user.lastName}`;
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    });
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+</script>

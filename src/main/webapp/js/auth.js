@@ -23,10 +23,31 @@ function signIn(){
         })
         .then(resp => {
             setToken("token", resp.token);
-            window.location.href = 'sound';
+            getInfo(resp.token);
+            window.location.href = 'user';
         })
         .catch(error => {
             console.error('Error during sign-in:', error);
+        });
+}
+
+function getInfo(token) {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+    };
+    fetch('/api/v1/account/info', options)
+        .then((res) => res.json())
+        .then(resp => {
+            console.log(resp)
+            if (resp.status === 'SUCCESS') {
+                localStorage.setItem("nickName", resp.data.nickName);
+                localStorage.setItem("avatar", resp.data.avatar);
+
+            }
         });
 }
 
@@ -37,42 +58,6 @@ function deleteToken(name) {
     document.cookie = name +'=;';
 }
 
-//
-// $("#signIn").click(function(){
-//     signIn();
-// });
 
-// function signIn(){
-//
-//     const body = {
-//         username : $("#username").val(),
-//         password : $("#password").val(),
-//     }
-//     const options = {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(body)
-//     };
-//
-//     fetch('api/v1/auth/login', options)
-//         .then((res) => res.json())
-//         .then(resp => {
-//             if (resp.status === 'SUCCESS'){
-//                 setToken("accessToken",resp.token)
-//                 window.location.href = '../../../../../../client-admin/nhatro/src/main/webapp';
-//             }
-//             if (resp.status === 'ERROR'){
-//                 deleteToken("accessToken")
-//                 window.location.href = '/sign-in';
-//             }
-//         });
-// }
-//
-// function setToken(name,token){
-//     document.cookie = name +'='+ token +';';
-// }
-// function deleteToken(name) {
-//     document.cookie = name +'=;';
-// }
 
 
