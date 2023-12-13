@@ -22,7 +22,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead class="thead-dark">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">ID Users</th>
                         <th scope="col">avatar</th>
                         <th scope="col">firstName</th>
@@ -31,23 +31,21 @@
                         <th scope="col">email</th>
                         <th scope="col">phone</th>
                         <th scope="col">username</th>
-                        <th scope="col">password</th>
                         <th scope="col">status</th>
                         <th scope="col">delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class=".text-md-center" th:each="account : ${accountList}" th:onclick="|test('${account.id}')|">
+                    <tr class=".text-md-center text-center" th:each="account : ${accountList}" th:onclick="|test('${account.id}')|">
                         <td th:text="${account.id}"></td>
                         <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${account.avatar}"
                                              style="width: 100px;height: 100px;"></th>
                         <td th:text="${account.firstName}"></td>
                         <td th:text="${account.lastName}"></td>
                         <td th:text="${account.nickName}"></td>
-                        <td th:text="${account.email}"></td>
+                        <td class="col-md-2" th:text="${account.email}"></td>
                         <td th:text="${account.phone}"></td>
                         <td th:text="${account.username}"></td>
-                        <td th:text="${account.password}"></td>
                         <!--                    th:text="${account.status}"-->
                         <td>
                             <button class="btn btn-outline-warning">ACTIVE

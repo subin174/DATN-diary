@@ -20,6 +20,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -183,6 +186,14 @@ public class DiaryService extends BaseService<Diary> {
     public List<Object> getCountByMoodAndCreatedBy(Long createdBy) {
         return repository.getCountByMoodAndCreatedBy(createdBy);
     }
+    public List<Object> getCountByMoodAndCreatedByAndTime(Long createdBy, LocalDate start, LocalDate end) {
+//
+//        LocalDateTime startDate = LocalDateTime.of(start, LocalTime.of(0,0,0));
+//        LocalDateTime endDate = LocalDateTime.of(end, LocalTime.of(23,59,59));
+        return repository.getCountByMoodAndCreatedByAndTime(createdBy, start.toString(), end.toString());
+    }
+
+
 
 
 }
