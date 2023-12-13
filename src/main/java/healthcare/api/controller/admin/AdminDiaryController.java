@@ -2,8 +2,6 @@ package healthcare.api.controller.admin;
 
 import healthcare.api.controller.ApiController;
 import healthcare.api.service.DiaryService;
-import healthcare.entity.Diary;
-import healthcare.entity.dto.req.DiaryReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

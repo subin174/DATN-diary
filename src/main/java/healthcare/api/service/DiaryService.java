@@ -113,7 +113,7 @@ public class DiaryService extends BaseService<Diary> {
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
     public List<?> getList(RequestParams params) throws Exception {
-        accountService.checkUserPermission(Role.ADMIN.name());
+//        accountService.checkUserPermission(Role.ADMIN.name());
         Specification<Diary> specification = this.buildSpecification(params.getFilter());
         List<Diary> diaries = this.getAll(specification);
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());

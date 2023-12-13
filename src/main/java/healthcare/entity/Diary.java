@@ -43,22 +43,7 @@ public class Diary  {
     private Long createdBy;
     private String nickname;
     private String avatar;
-    //setting
-//    @OneToMany(
-//            mappedBy = "diary",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
     @Enumerated(EnumType.STRING)
     private DiaryStatus status;
-//    public void addComment(DiaryComment comment) {
-//        comments.add(comment);
-//        comment.setDiary(this);
-//    }
-//
-//    public void removeComment(DiaryComment comment) {
-//        comments.remove(comment);
-//        comment.setDiary(null);
-//    }
 
 }

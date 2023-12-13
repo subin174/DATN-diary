@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
+<body>
+<main layout:fragment="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-md-6 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Activities</h5>
+                    </div>
+                </div>
+                <div class="overflow-scroll" style="max-height: 55%">
+                    <div class="list-group ">
+                        <div th:each="diary : ${diaries}" class="list-group-item">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-2">
+                                    <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
+                                         height="50" alt="User Avatar">
+                                </div>
+                                <div class="col-4 inline-block-container">
+                                    <div style="display: inline-block;">
+                                        <strong>
+                                            <div class="text-dark" th:text="${diary.nickname}"></div>
+                                        </strong>
+                                    </div>
+                                    feeling
+                                    <div style="display: inline-block;">
+                                        <strong>
+                                            <div class="text-dark" th:text="${diary.mood}"></div>
+                                        </strong>
+                                    </div>
+                                    <div class="text-muted small mt-1" th:text="${diary.happened}"></div>
+                                    <div class="text-muted small mt-1"
+                                         th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')} + ' ago'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-6">
+                <div class="card">
+                    <div class="col-2">
+                        <img src="https://i.imgur.com/GuLEVKd.jpg" class="avatar img-fluid rounded-circle" width="50"
+                             height="50" alt="User Avatar">
+                    </div>
+                    <div class="col-4 inline-block-container">
+                        <div style="display: inline-block;">
+                            <strong>
+                                <div class="text-dark" text="${diary.nickname}"></div>
+                            </strong>
+                        </div>
+                        feeling
+                        <div style="display: inline-block;">
+                            <strong>
+                                <div class="text-dark" text="${diary.mood}"></div>
+                            </strong>
+                        </div>
+                        <div class="text-muted small mt-1"
+                             th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')} + ' ago'"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-xl-6">
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    console.log("bbb")
+</script>
+
+</body>
+
+</html>

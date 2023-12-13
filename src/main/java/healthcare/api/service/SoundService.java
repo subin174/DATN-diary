@@ -73,7 +73,7 @@ public class SoundService extends BaseService<Sound> {
         return sounds.stream().map(sound -> this.entityToResp(sound, SoundResp.class)).collect(Collectors.toList());
     }
     public List<?> getListSound(RequestParams params) throws Exception {
-        accountService.getCurrentUser();
+//        accountService.getCurrentUser();
         Specification<Sound> specification = this.buildSpecification(params.getFilter());
         List<Sound> sounds = this.getAll(specification);
         return sounds.stream().map(sound -> this.entityToResp(sound, SoundResp.class)).collect(Collectors.toList());
