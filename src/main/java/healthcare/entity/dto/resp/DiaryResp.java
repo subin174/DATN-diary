@@ -21,13 +21,14 @@ public class DiaryResp {
     private String mood;
     private String happened;
     private String thinkingMoment;
-    private LocalDateTime time;
+    private String time;
+    private String date;
     private String place;
     //checkit
-    private String thinkingNow;
+    private String level;
     //changeit
     private String thinkingFelt;
-    private String change;
+
     private String other;
     private DiaryStatus status;
     private String createdBy;

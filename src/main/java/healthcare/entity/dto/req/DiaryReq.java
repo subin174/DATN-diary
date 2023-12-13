@@ -19,13 +19,13 @@ public class DiaryReq {
     private Long moodId;
     private String happened;
     private String thinkingMoment;
-    private LocalDateTime time;
+    private String date;
+    private String time;
     private String place;
     //checkit
-    private String thinkingNow;
+    private String level;
     //changeit
     private String thinkingFelt;
-    private String change;
     private String other;
     private DiaryStatus status;
 }

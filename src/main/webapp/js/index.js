@@ -233,7 +233,7 @@ this.getInformation();
 
 function getInformation() {
 
-    const token = this.getCookie("accessToken");
+    const token = this.getCookie("token");
     if (token == null || token === '') {
         window.location.href = '/sign-in';
         return;
@@ -253,7 +253,7 @@ function getInformation() {
                 $('#username').html(resp.data.username)
             }
             if (resp.status === 'ERROR') {
-                this.deleteToken('accessToken')
+                this.deleteToken('token')
                 window.location.href = '/sign-in';
             }
         });

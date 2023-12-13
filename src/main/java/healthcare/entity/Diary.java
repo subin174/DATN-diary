@@ -30,14 +30,14 @@ public class Diary  {
     @JsonBackReference
     private Mood mood;
     private String happened;
-    private String thinkingMoment;
-    private LocalDateTime time;
+    private String date;
+    private String time;
     private String place;
     //checkit
-    private String thinkingNow;
+    private String level;
     //changeit
     private String thinkingFelt;
-    private String change;
+    private String thinkingMoment;
     private String other;
     private LocalDateTime createdAt = LocalDateTime.now();
     private Long createdBy;
