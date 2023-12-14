@@ -27,5 +27,5 @@ public class DiaryReq {
     //changeit
     private String thinkingFelt;
     private String other;
-    private DiaryStatus status;
+
 }

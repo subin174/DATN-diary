@@ -45,8 +45,8 @@ public class DashboardController extends ApiController {
     }
     @GetMapping(value = "list-sound")
     public String listSound(Model model) throws Exception {
-        List<Sound> soundList = (List<Sound>) soundService.getListSoundApi();
-
+//        List<Sound> soundList = (List<Sound>) soundService.getListSoundApi();
+        List<Sound> soundList = (List<Sound>) soundService.getListSound(this.getParams());
 //            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
         model.addAttribute("soundList", soundList);
         return "page/list-sound";
@@ -63,6 +63,12 @@ public class DashboardController extends ApiController {
         List<Diary> diaries = (List<Diary>) diaryService.getDiaryByCreatedBy(createdBy);
         model.addAttribute("diaries", diaries);
         return "page/user-detail";
+    }
+    @GetMapping("diary-manager")
+    public String diaryManager(Model model) throws Exception {
+        List<Diary> diaries = (List<Diary>) diaryService.getList(this.getParams());
+        model.addAttribute("diaries", diaries);
+        return "page/diary-manager";
     }
     @GetMapping("home")
     public String home(Model model){

@@ -56,10 +56,10 @@ function uploadAudio() {
     const audioInput = document.getElementById('audioInput');
     const audioFile = audioInput.files[0];
 
-    if (!audioFile) {
-        alert('Please select an audio file.');
-        return;
-    }
+    // if (!audioFile) {
+    //     alert('Please select an audio file.');
+    //     return;
+    // }
 
     const formData = new FormData();
     formData.append('audio', audioFile);

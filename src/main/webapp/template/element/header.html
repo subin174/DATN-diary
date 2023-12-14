@@ -1,7 +1,7 @@
 <nav th:fragment="header-left">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="/">
-            <img src="img/avatars/logo.png" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
+            <img id="avatarImage" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
             <span id="username" class="align-middle"></span>
         </a>
         <ul class="sidebar-nav">
@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/charts">
+                <a class="sidebar-link" href="/diary-manager">
                     <i class="align-middle" data-feather="book"></i> <span
                         class="align-middle">Diary management</span>
                 </a>
@@ -77,6 +77,7 @@
                         <span class="indicator">4</span>
                     </div>
                 </a>
+
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
                     <div class="dropdown-menu-header">
                         4 New Notifications
@@ -236,6 +237,24 @@
         </ul>
     </div>
 </nav>
+<script>
+    // Retrieve data from localStorage
+    console.log(abc+"abc")
+    const nickname = localStorage.getItem('nickName');
+    const avatarUrl = localStorage.getItem('avatar');
+
+    // Update HTML elements
+    document.getElementById('username').innerText = nickname;
+
+    // Update avatar image source
+    const avatarImage = document.getElementById('avatarImage');
+    if (avatarUrl) {
+        avatarImage.src = avatarUrl;
+    } else {
+        // Set a default avatar image if the avatar URL is not available
+        avatarImage.src = 'img/avatars/default-avatar.png'; // Replace with your default avatar image path
+    }
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const apiUrl = 'http://localhost:8080/api/v1/account/info';
