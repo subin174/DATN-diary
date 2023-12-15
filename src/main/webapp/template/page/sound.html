@@ -16,27 +16,12 @@
 
         <div class="row">
             <div class="col-12 col-lg-6">
-                <!--                <form th:href="@{/api/v1/admin/sound}" method="POST" >-->
-                <div class="card">
-<!--                    <div class="row">-->
-<!--                        <div class="col-4" >-->
-<!--                            <div class="card-header">-->
-<!--                                <h5 class="card-title mb-0">Audio File</h5>-->
-<!--                            </div>-->
-<!--                            <div class="card-body">-->
-<!--                                <input  type="file" accept="audio/*" id="audioInput">-->
-<!--                                <audio  controls id="audioPlayer" style="margin-top: 10px;"></audio>-->
-<!--                                <button class="btn btn-outline-secondary" onclick="uploadAudio()">Upload Audio</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                </div>
                 <div class="card">
                     <div class="mb-3">
                         <label for="audioInput" class="form-label card-title mb-0"> file input audio </label>
                         <input type="file" accept="audio/*" class="form-control" id="audioInput">
                         <audio  controls id="audioPlayer" style="margin-top: 10px"></audio>
-                        <button class="btn btn-outline-secondary" style="margin-top: 50px" onclick="uploadAudio()">Upload Audio</button>
+<!--                        <button class="btn btn-outline-secondary" style="margin-top: 50px" onclick="uploadAudio()">Upload Audio</button>-->
                     </div>
                 </div>
                 <div class="card">
@@ -89,15 +74,10 @@
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Poster</h5>
                             </div>
-<!--                            <div class="card-body">-->
-<!--                                <img id="previewImage" alt="Preview" width="120" height="120">-->
-<!--                                <input  type="file" accept="image/*" id="imageInput"  onchange="displayImage(this)" name="multipartFile">-->
-<!--                                <button class="btn btn-outline-secondary " onclick="uploadImage()">Upload</button>-->
-<!--                            </div>-->
                             <div class="mb-3" style="margin-left: 30px">
-                                <img id="previewImage" style="margin-left: 30px" alt="Preview" width="120" height="120">
+                                <img id="previewImage" class="rounded" style="margin-left: 30px" alt="Preview" width="120" height="120">
                                 <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"  accept="image/*" onchange="displayImage(this)" name="multipartFile" multiple>
-                                <button class="btn btn-outline-secondary " style="margin-top: 10px" onclick="uploadImage()">Upload image</button>
+<!--                                <button class="btn btn-outline-secondary " style="margin-top: 10px" onclick="uploadImage()">Upload image</button>-->
                             </div>
                         </div>
                     </div>
@@ -139,8 +119,6 @@
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
-    <!--    <script src="js/address.js"></script>-->
     <script src="js/sound.js"></script>
 
 </main>

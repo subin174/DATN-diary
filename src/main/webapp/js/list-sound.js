@@ -17,6 +17,7 @@ function getList() {
         });
 }
 function deleteAudio(id) {
+    console.log("id"+id)
     fetch(`/api/v1/admin/sound/${id}`, {
         method: 'DELETE',
         headers: {
@@ -32,7 +33,7 @@ function deleteAudio(id) {
         .then(resp => {
             console.log('delete success:', resp);
             if (resp.status === 'SUCCESS') {
-
+                location.reload();
             }
         })
 }

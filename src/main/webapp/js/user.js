@@ -13,10 +13,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function deleteEntity(accountId) {
-    if (accountId === undefined || accountId === null) {
+    // Check if accountId is a valid number
+    if (!accountId || isNaN(parseInt(accountId, 10))) {
         console.error('Invalid accountId:', accountId);
         return;
     }
+
+    // Confirm deletion
+    const confirmed = window.confirm('Are you sure you want to delete this entity?');
+    if (!confirmed) {
+        return;
+    }
+
     const options = {
         method: 'DELETE',
         headers: {
@@ -25,18 +33,19 @@ function deleteEntity(accountId) {
         },
     };
 
-    fetch(`/api/v1/admin/sound/${parseInt(accountId, 10)}`, options)
+    fetch(`/api/v1/admin/account/${accountId}`, options)
         .then((res) => res.json())
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                // Optional: Perform any actions after successful deletion
+                location.reload();
             }
         })
         .catch(error => {
             console.error('Error deleting entity:', error);
         });
 }
+
 
 function readCookie(name) {
     var nameEQ = name + "=";
