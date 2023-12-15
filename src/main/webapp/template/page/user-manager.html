@@ -45,24 +45,29 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class=".text-md-center text-center" th:each="account : ${accountList}" th:onclick="|test('${account.id}')|">
-                        <td th:text="${account.id}"></td>
-                        <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${account.avatar}"
+                    <tr class=".text-md-center text-center" th:each="account : ${accountList}">
+                        <td th:text="${account.id}" th:onclick="|test('${account.id}')|"></td>
+                        <th scope="row"><img class="rounded" alt="Cinque Terre" th:onclick="|test('${account.id}')|" th:src="${account.avatar}"
                                              style="width: 100px;height: 100px;"></th>
-                        <td th:text="${account.firstName}"></td>
-                        <td th:text="${account.lastName}"></td>
-                        <td th:text="${account.nickName}"></td>
-                        <td class="col-md-2" th:text="${account.email}"></td>
-                        <td th:text="${account.phone}"></td>
-                        <td th:text="${account.username}"></td>
+                        <td th:text="${account.firstName}" th:onclick="|test('${account.id}')|"></td>
+                        <td th:text="${account.lastName}" th:onclick="|test('${account.id}')|"></td>
+                        <td th:text="${account.nickName}" th:onclick="|test('${account.id}')|"></td>
+                        <td class="col-md-2" th:text="${account.email}" th:onclick="|test('${account.id}')|"></td>
+                        <td th:text="${account.phone}" th:onclick="|test('${account.id}')|"></td>
+                        <td th:text="${account.username}" th:onclick="|test('${account.id}')|"></td>
                         <!--                    th:text="${account.status}"-->
                         <td>
                             <button class="btn btn-outline-warning">ACTIVE
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-outline-danger" data-account-id="${account.id}"
-                                    onclick="deleteEntity('${account.id}')">Delete
+<!--                            <form action="#" th:action="@{'/user/{id}'(id=${account.id})}" th:method="delete" >-->
+<!--                                <input type="hidden" name="_method" value="delete" />-->
+<!--                                <button type="submit" class="btn btn-outline-danger">-->
+<!--                                    Delete-->
+<!--                                </button>-->
+<!--                            </form>-->
+                            <button class="btn btn-outline-danger" th:onclick="|deleteEntity('${account.id}')|">Delete
                             </button>
                         </td>
                     </tr>
@@ -85,9 +90,9 @@
 
     </script>
     <script>
-        import { Autocomplete, Input, Ripple, initMDB } from "mdb-ui-kit";
+        import {Autocomplete, Input, Ripple, initMDB} from "mdb-ui-kit";
 
-        initMDB({ Input, Ripple });
+        initMDB({Input, Ripple});
 
         const basicAutocomplete = document.querySelector('#search-autocomplete');
         const data = ['One', 'Two', 'Three', 'Four', 'Five'];

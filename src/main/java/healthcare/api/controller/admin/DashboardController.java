@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,17 +50,22 @@ public class DashboardController extends ApiController {
     }
     @GetMapping(value = "user")
     public String User(Model model) throws Exception {
-        List<Account> accounts = (List<Account>) accountService.getUser();
-//            model.addAttribute("sounds", soundService.getListSound(this.getParams()));
+        List<Account> accounts = accountService.getUser();
         model.addAttribute("accountList", accounts);
         return "page/user-manager";
     }
+//    @RequestMapping(value="/user/{id}", method = RequestMethod.DELETE)
+//    public String deleteUser(@PathVariable Long id) {
+//        accountService.deleteAccountAndRoles(id);
+//        return "page/user-manager";
+//    }
     @GetMapping(value = "user-detail")
     public String userDetail(Model model,@RequestParam Long createdBy) {
         List<Diary> diaries = (List<Diary>) diaryService.getDiaryByCreatedBy(createdBy);
         model.addAttribute("diaries", diaries);
         return "page/user-detail";
     }
+
     @GetMapping("diary-manager")
     public String diaryManager(Model model) throws Exception {
         List<Diary> diaries = (List<Diary>) diaryService.getList(this.getParams());

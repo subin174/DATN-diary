@@ -157,7 +157,6 @@ public class AccountService extends BaseService<Account> {
         this.deleteById(id);
     }
     public void deleteAccountAndRoles(Long Id) {
-         checkUserPermission(Role.ADMIN.name());
         Account account = entityManager.find(Account.class,Id);
         if (account != null) {
             account.getRole().clear();

@@ -45,7 +45,7 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-outline-danger" onclick="deleteAudio(${sound.id})">Delete
+                            <button class="btn btn-outline-danger" th:onclick="|deleteAudio('${sound.id}')|">Delete
                             </button>
                         </td>
                     </tr>

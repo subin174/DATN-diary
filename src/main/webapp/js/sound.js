@@ -25,13 +25,18 @@ function readCookie(name) {
     }
     return null;
 }
-function create() {
+async function create() {
+
+    let img = await uploadImg();
+    let aud = await uploadAud();
+    console.log("img" + img)
+    console.log("aud" + aud)
     const body = {
         author:$("#author").val(),
         title:$("#title").val(),
         moodSoundId: $("#moodSound").val(),
-        poster: imgUrl,
-        track: audioUrl
+        poster: img.data,
+        track: aud.data
     }
     console.log(body)
 
@@ -48,46 +53,86 @@ function create() {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
+                location.reload()
             }
         });
 }
 
-function uploadAudio() {
-    const audioInput = document.getElementById('audioInput');
-    const audioFile = audioInput.files[0];
+const uploadImg = () => {
+    return new Promise((resolve, reject) => {
+        const input = document.getElementById('imageInput');
+        const file = input.files[0];
+        if (!file) {
+            alert('Please select an image file.');
+            return;
+        }
+        const formData = new FormData();
+        formData.append('multipartFile', file);
 
-    // if (!audioFile) {
-    //     alert('Please select an audio file.');
-    //     return;
-    // }
-
-    const formData = new FormData();
-    formData.append('audio', audioFile);
-
-    fetch('/api/v1/admin/sound/upload', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + readCookie('token')
-        },
-        body: formData
-    })
-        .then((res) => res.json())
-        .then(resp => {
-            console.log(resp);
-            if (resp.status === 'SUCCESS') {
-                audioUrl = resp.data;
-            }
+        fetch('/api/v1/admin/sound/upload-img', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + readCookie('token')
+            },
+            body: formData
         })
+            .then(response => {
+                if (!response.ok) {
+                    reject("failed")
+                }
+                return response.json();
+            })
+            .then(resp => {
+                console.log('Upload success:', resp);
+                // if (resp.status === 'SUCCESS') {
+                //     imgUrl = resp.data;
+                // }
+                return  resolve(resp)
+            })
+
+
+
+    })
 }
+const uploadAud = () => {
+    return new Promise((resolve, reject) => {
+        const audioInput = document.getElementById('audioInput');
+        const audioFile = audioInput.files[0];
+        const formData = new FormData();
+        formData.append('audio', audioFile);
+        fetch('/api/v1/admin/sound/upload', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + readCookie('token')
+            },
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    reject("failed")
+                }
+                return response.json();
+            })
+            .then(resp => {
+                console.log('Upload success:', resp);
+                // if (resp.status === 'SUCCESS') {
+                //     imgUrl = resp.data;
+                // }
+                return  resolve(resp)
+            })
+
+
+
+    })
+}
+
 function uploadImage() {
     const input = document.getElementById('imageInput');
     const file = input.files[0];
-
     if (!file) {
         alert('Please select an image file.');
         return;
     }
-
     const formData = new FormData();
     formData.append('multipartFile', file);
 
@@ -111,3 +156,26 @@ function uploadImage() {
             }
         })
 }
+function uploadAudio() {
+    const audioInput = document.getElementById('audioInput');
+    const audioFile = audioInput.files[0];
+    const formData = new FormData();
+    formData.append('audio', audioFile);
+
+    fetch('/api/v1/admin/sound/upload', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + readCookie('token')
+        },
+        body: formData
+    })
+        .then((res) => res.json())
+        .then(resp => {
+            console.log(resp);
+            if (resp.status === 'SUCCESS') {
+                audioUrl = resp.data;
+            }
+        })
+}
+
+
