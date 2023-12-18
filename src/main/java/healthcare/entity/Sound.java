@@ -27,14 +27,9 @@ public class Sound extends BaseEntity{
     @JsonBackReference
     private MoodSound moodSound ;
 
-    @ElementCollection
-    private List<String> images;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "mood_sound_like",
-//            joinColumns = @JoinColumn(name = "sound_id"),
-//            inverseJoinColumns = @JoinColumn(name = "mood_id"))
-//    Set<MoodSound> moodSounds;
+//    @ElementCollection
+//    private List<String> images;
+
 
 
 }
