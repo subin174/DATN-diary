@@ -1,8 +1,8 @@
 <nav th:fragment="header-left">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="/">
-            <img id="avatarImage" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-            <span id="username" class="align-middle"></span>
+            <img id="avatarImage" class="avatar img-fluid rounded me-1" alt="Charles Hall"/> hi,
+            <span id="username" class="align-middle ">222</span>
         </a>
         <ul class="sidebar-nav">
             <li class="sidebar-header">
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/login">
+                <a class="sidebar-link" href="#" onclick="handleLogout()">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign out</span>
                 </a>
             </li>
@@ -237,59 +237,4 @@
         </ul>
     </div>
 </nav>
-<script>
-    // Retrieve data from localStorage
-    console.log(abc+"abc")
-    const nickname = localStorage.getItem('nickName');
-    const avatarUrl = localStorage.getItem('avatar');
 
-    // Update HTML elements
-    document.getElementById('username').innerText = nickname;
-
-    // Update avatar image source
-    const avatarImage = document.getElementById('avatarImage');
-    if (avatarUrl) {
-        avatarImage.src = avatarUrl;
-    } else {
-        // Set a default avatar image if the avatar URL is not available
-        avatarImage.src = 'img/avatars/default-avatar.png'; // Replace with your default avatar image path
-    }
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const apiUrl = 'http://localhost:8080/api/v1/account/info';
-
-        fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + readCookie('token')
-            },
-        })
-            .then((res) => res.json())
-            .then(resp => {
-                console.log(resp)
-                if (resp.status === 'SUCCESS') {
-                    addAddress(resp.data)
-                }
-            })
-            .then(data => {
-                const user = data.data;
-                document.getElementById('userAvatar').src = user.avatar;
-                document.getElementById('userAvatar').alt = `User Avatar: ${user.firstName} ${user.lastName}`;
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-    });
-    function readCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-</script>
