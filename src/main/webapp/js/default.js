@@ -1,12 +1,12 @@
 
+if (!window.location.pathname.includes('/login')) {
     const retrievedAvatar = localStorage.getItem('avatar');
     const avatarImage = document.getElementById('avatarImage');
     avatarImage.src = retrievedAvatar;
 
     var storedData = localStorage.getItem('nickName');
-
-        document.getElementById('username').textContent = storedData;
-
+    document.getElementById('username').textContent = storedData;
+}
     // const handleLogout = () => {
     //     // Clear local storage
     //     window.localStorage.clear();

@@ -1,9 +1,8 @@
-$("#signIn").click(function(){
-    signIn();
+$("#signIn").click(async function(){
+    await signIn();
 });
 
-function signIn(){
-
+async function signIn(){
     const body = {
         username : $("#username").val(),
         password : $("#password").val(),
@@ -14,24 +13,18 @@ function signIn(){
         body: JSON.stringify(body)
     };
 
-    fetch('api/v1/authenticate/login', options)
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then(resp => {
-            setToken("token", resp.token);
-            getInfo(resp.token);
-            window.location.href = 'user';
-        })
-        .catch(error => {
-            console.error('Error during sign-in:', error);
-        });
+    try {
+        let data = await fetch('api/v1/authenticate/login', options);
+        data = await data.json();
+        setToken("token", data.token);
+        await getInfo(data.token);
+        window.location.href = 'user';
+    } catch (e) {
+        console.log(e)
+    }
 }
 
-function getInfo(token) {
+async function getInfo(token) {
     const options = {
         method: 'GET',
         headers: {
@@ -39,16 +32,16 @@ function getInfo(token) {
             'Authorization': 'Bearer ' + token
         },
     };
-    fetch('/api/v1/account/info', options)
-        .then((res) => res.json())
-        .then(resp => {
-            console.log(resp)
-            if (resp.status === 'SUCCESS') {
-                localStorage.setItem("nickName", resp.data.nickName);
-                localStorage.setItem("avatar", resp.data.avatar);
-
-            }
-        });
+    try {
+        const _data = await fetch('/api/v1/account/info', options);
+        const { status, data } = await _data.json();
+        if (status === 'SUCCESS') {
+            localStorage.setItem("nickName", data.nickName);
+            localStorage.setItem("avatar", data.avatar);
+        }
+    } catch (e) {
+        console.log('e', e)
+    }
 }
 
 function setToken(name,token){

@@ -1,105 +1,105 @@
-document.addEventListener("DOMContentLoaded", function () {
-    var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-    var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-    gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-    gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-    // Line chart
-    new Chart(document.getElementById("chartjs-dashboard-line"), {
-        type: "line",
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Sales ($)",
-                fill: true,
-                backgroundColor: gradient,
-                borderColor: window.theme.primary,
-                data: [
-                    2115,
-                    1562,
-                    1584,
-                    1892,
-                    1587,
-                    1923,
-                    2566,
-                    2448,
-                    2805,
-                    3438,
-                    2917,
-                    3327
-                ]
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            tooltips: {
-                intersect: false
-            },
-            hover: {
-                intersect: true
-            },
-            plugins: {
-                filler: {
-                    propagate: false
-                }
-            },
-            scales: {
-                xAxes: [{
-                    reverse: true,
-                    gridLines: {
-                        color: "rgba(0,0,0,0.0)"
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        stepSize: 1000
-                    },
-                    display: true,
-                    borderDash: [3, 3],
-                    gridLines: {
-                        color: "rgba(0,0,0,0.0)"
-                    }
-                }]
-            }
-        }
-    });
-});
-
-
-
-
-
-this.getInformation();
-
-function getInformation() {
-
-    const token = this.getCookie("token");
-    if (token == null || token === '') {
-        window.location.href = '/sign-in';
-        return;
-    }
-    const options = {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + `${token}`
-        },
-    };
-
-    fetch('api/v1/auth/information', options)
-        .then((res) => res.json())
-        .then(resp => {
-            console.log(resp)
-            if (resp.status === 'SUCCESS') {
-                $('#username').html(resp.data.username)
-            }
-            if (resp.status === 'ERROR') {
-                this.deleteToken('token')
-                window.location.href = '/sign-in';
-            }
-        });
-}
+// document.addEventListener("DOMContentLoaded", function () {
+//     var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+//     var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+//     gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+//     gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+//     // Line chart
+//     new Chart(document.getElementById("chartjs-dashboard-line"), {
+//         type: "line",
+//         data: {
+//             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+//             datasets: [{
+//                 label: "Sales ($)",
+//                 fill: true,
+//                 backgroundColor: gradient,
+//                 borderColor: window.theme.primary,
+//                 data: [
+//                     2115,
+//                     1562,
+//                     1584,
+//                     1892,
+//                     1587,
+//                     1923,
+//                     2566,
+//                     2448,
+//                     2805,
+//                     3438,
+//                     2917,
+//                     3327
+//                 ]
+//             }]
+//         },
+//         options: {
+//             maintainAspectRatio: false,
+//             legend: {
+//                 display: false
+//             },
+//             tooltips: {
+//                 intersect: false
+//             },
+//             hover: {
+//                 intersect: true
+//             },
+//             plugins: {
+//                 filler: {
+//                     propagate: false
+//                 }
+//             },
+//             scales: {
+//                 xAxes: [{
+//                     reverse: true,
+//                     gridLines: {
+//                         color: "rgba(0,0,0,0.0)"
+//                     }
+//                 }],
+//                 yAxes: [{
+//                     ticks: {
+//                         stepSize: 1000
+//                     },
+//                     display: true,
+//                     borderDash: [3, 3],
+//                     gridLines: {
+//                         color: "rgba(0,0,0,0.0)"
+//                     }
+//                 }]
+//             }
+//         }
+//     });
+// });
+//
+//
+//
+//
+//
+// this.getInformation();
+//
+// function getInformation() {
+//
+//     const token = this.getCookie("token");
+//     if (token == null || token === '') {
+//         window.location.href = '/sign-in';
+//         return;
+//     }
+//     const options = {
+//         method: 'GET',
+//         headers: {
+//             'Authorization': 'Bearer ' + `${token}`
+//         },
+//     };
+//
+//     fetch('api/v1/auth/information', options)
+//         .then((res) => res.json())
+//         .then(resp => {
+//             console.log(resp)
+//             if (resp.status === 'SUCCESS') {
+//                 $('#username').html(resp.data.username)
+//             }
+//             if (resp.status === 'ERROR') {
+//                 this.deleteToken('token')
+//                 window.location.href = '/sign-in';
+//             }
+//         });
+// }
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -109,4 +109,9 @@ function getCookie(name) {
 
 function deleteToken(name) {
     document.cookie = name + '=;';
+}
+
+function handleLogout() {
+    this.deleteToken('token');
+    window.location.href = "/login";
 }

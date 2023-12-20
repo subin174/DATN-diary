@@ -11,42 +11,41 @@
                     </div>
                 </div>
                 <div class="overflow-scroll" style="max-height: 55%">
-                    <div class="list-group ">
-                        <a >
-                            <div th:each="diary : ${diaries}" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-1">
-                                        <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
-                                             height="50" alt="User Avatar">
+                    <div class="list-group diary">
+                        <div th:each="diary : ${diaries}" class="list-group-item diary-item-detail" th:id="${diary.id}">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-1">
+                                    <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
+                                         height="50" alt="User Avatar">
+                                </div>
+                                <div class="col-10 inline-block-container">
+                                    <div style="display: inline-block;">
+                                        <strong>
+                                            <div class="text-dark" th:text="${diary.nickname}"></div>
+                                        </strong>
                                     </div>
-                                    <div class="col-10 inline-block-container">
-                                        <div style="display: inline-block;">
-                                            <strong>
-                                                <div class="text-dark" th:text="${diary.nickname}"></div>
-                                            </strong>
-                                        </div>
-                                        feeling
-                                        <div style="display: inline-block;">
-                                            <strong>
-                                                <div class="text-dark" th:text="${diary.mood}"></div>
-                                            </strong>
-                                        </div>
-                                        <div class="text-muted small mt-1"
-                                             th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
-                                        </div>
-                                        <div class="text-nowrap bd-highlight" th:text="${diary.happened}"></div>
-
-                                        <!-- Assuming diary.createdAt is a LocalDateTime -->
-
-                                        <div class="time-box text-muted small mt-1" th:attr="data-action-time=${diary.createdAt}">
-                                                10p
-                                        </div>
-
-
+                                    feeling
+                                    <div style="display: inline-block;">
+                                        <strong>
+                                            <div class="text-dark" th:text="${diary.mood}"></div>
+                                        </strong>
                                     </div>
+                                    <div class="text-muted small mt-1"
+                                         th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
+                                    </div>
+                                    <div class="text-nowrap bd-highlight" th:text="${diary.happened}"></div>
+
+                                    <!-- Assuming diary.createdAt is a LocalDateTime -->
+
+                                    <div class="time-box text-muted small mt-1"
+                                         th:attr="data-action-time=${diary.createdAt}">
+                                        10p
+                                    </div>
+
+
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,18 +54,19 @@
                 <div class="card">
                     <div class="row" style="margin-left: 10px; margin-top: 10px">
                         <div class="user-avatar col-1">
-                            <img src="https://i.imgur.com/GuLEVKd.jpg" class="avatar img-fluid rounded-circle" width="50" height="50" alt="Dao Phu Hung's Avatar">
+                            <img class="avatar img-fluid rounded-circle diary-avatar"
+                                 width="50" height="50" alt="">
                         </div>
                         <div class="user-info inline-block-container col-10">
                             <div style="display: inline-block;">
                                 <strong>
-                                    <div class="text-dark">Dao Phu Hung</div>
+                                    <div class="text-dark diary-nickname"></div>
                                 </strong>
                             </div>
                             feeling
                             <div style="display: inline-block;">
                                 <strong>
-                                    <div class="text-dark">Vui vẻ</div>
+                                    <div class="text-dark diary-mood">Vui vẻ</div>
                                 </strong>
                             </div>
                             <div class="text-muted small mt-1">
@@ -75,33 +75,41 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="card-title">Mức độ tâm trạng: </div>
-                        <div class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
+<!--                        <div class="card-title">Mức độ tâm trạng:</div>-->
+<!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
+<!--                            of the card's content.-->
+<!--                        </div>-->
                     </div>
-                    <div class="card-body">
-                        <div class="card-title">Thời điểm tâm trạng / sự việc diễn ra: </div>
-                        <div class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title">Bạn gặp phải chuyện gì thế?</div>
-                        <div class="card-title">Trước tiên hay ghi lại những gì xảy ra khiến tâm trạng bạn thay đổi nhé!</div>
-                        <div class="card-text">Tailwind CSS works by scanning all of your HTML files, JavaScript components</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title">Cảm xúc và suy nghĩ của bạn tại thời điểm đó như thế nào: </div>
-                        <div class="card-text">any other templates for class names</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title">Hãy dành một chút thời gian để suy nghĩ về những sự việc vừa qua nhé!</div>
-                        <div class="card-text">generating the corresponding styles and then writing them to a static CSS file.</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title">Nếu bạn thay đổi cách bạn nghĩ, bạn sẽ thay đổi cách bạn cảm nhận!</div>
-                    </div>
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-title">Thời điểm tâm trạng / sự việc diễn ra:</div>-->
+<!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
+<!--                            of the card's content.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-title">Bạn gặp phải chuyện gì thế?</div>-->
+<!--                        <div class="card-title">Trước tiên hay ghi lại những gì xảy ra khiến tâm trạng bạn thay đổi-->
+<!--                            nhé!-->
+<!--                        </div>-->
+<!--                        <div class="card-text">Tailwind CSS works by scanning all of your HTML files, JavaScript-->
+<!--                            components-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-title">Cảm xúc và suy nghĩ của bạn tại thời điểm đó như thế nào:</div>-->
+<!--                        <div class="card-text">any other templates for class names</div>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-title">Hãy dành một chút thời gian để suy nghĩ về những sự việc vừa qua nhé!-->
+<!--                        </div>-->
+<!--                        <div class="card-text">generating the corresponding styles and then writing them to a static CSS-->
+<!--                            file.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-title">Nếu bạn thay đổi cách bạn nghĩ, bạn sẽ thay đổi cách bạn cảm nhận!</div>-->
+<!--                    </div>-->
                 </div>
-            </div>
-            <div class="col-md-6 col-xl-6">
-
             </div>
         </div>
     </div>
