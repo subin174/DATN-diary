@@ -34,7 +34,7 @@
                                         <div class="text-muted small mt-1"
                                              th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
                                         </div>
-                                        <div class="text-muted small mt-1" th:text="${diary.happened}"></div>
+                                        <div class="text-nowrap bd-highlight" th:text="${diary.happened}"></div>
 
                                         <!-- Assuming diary.createdAt is a LocalDateTime -->
 

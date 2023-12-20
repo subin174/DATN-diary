@@ -34,15 +34,10 @@ function resetTime(timeElement) {
         }
 
         if (days > 0)
-            timeElement.innerHTML = days + 'd ago'
+            timeElement.innerHTML = days + ' day ago'
         else if (hours > 0)
-            timeElement.innerHTML = hours + 'h ago'
+            timeElement.innerHTML = hours + ' hour ago'
         else if (minutes > 0)
-            timeElement.innerHTML = minutes + 'm ago'
-        // timeElement.innerHTML = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
-        // timeElement.querySelectorAll('.time-num')[0].innerHTML = days;
-        // timeElement.querySelectorAll('.time-num')[1].innerHTML = hours;
-        // timeElement.querySelectorAll('.time-num')[2].innerHTML = minutes;
-        // timeElement.querySelectorAll('.time-num')[3].innerHTML = seconds;
+            timeElement.innerHTML = minutes + ' min ago'
     }, 1000);
 }
