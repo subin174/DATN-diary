@@ -127,7 +127,6 @@ public class AccountService extends BaseService<Account> {
     }
 
     public AccountDto findById(Long id)throws Exception{
-        checkUserPermission(Role.ADMIN.name());
         Account account = this.getById(id);
         return this.entityToResp(account,AccountDto.class);
     }

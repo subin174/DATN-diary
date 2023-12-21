@@ -118,6 +118,7 @@ public class DiaryService extends BaseService<Diary> {
 //        accountService.checkUserPermission(Role.ADMIN.name());
         Specification<Diary> specification = this.buildSpecification(params.getFilter());
         List<Diary> diaries = this.getAll(specification);
+        Collections.sort(diaries, Comparator.comparing(Diary::getCreatedAt).reversed());
         return diaries.stream().map(diary -> this.entityToResp(diary, DiaryResp.class)).collect(Collectors.toList());
     }
     public List<?> getListByUserCalendar(RequestParams params) throws Exception {
