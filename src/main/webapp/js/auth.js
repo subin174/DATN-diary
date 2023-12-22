@@ -38,6 +38,13 @@ async function getInfo(token) {
         if (status === 'SUCCESS') {
             localStorage.setItem("nickName", data.nickName);
             localStorage.setItem("avatar", data.avatar);
+            localStorage.setItem("firstName", data.firstName);
+            localStorage.setItem("lastName", data.lastName);
+            localStorage.setItem("phone", data.phone);
+            localStorage.setItem("date", data.date);
+            localStorage.setItem("email", data.email);
+            localStorage.setItem("age", data.age);
+
         }
     } catch (e) {
         console.log('e', e)

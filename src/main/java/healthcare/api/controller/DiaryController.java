@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -103,7 +104,8 @@ public class DiaryController extends ApiController {
         return (ResponseEntity<List<Object>>) responseSuccess(result);
     }
 
-    @GetMapping("/countByMoodAndCreatedByAndTime/{createdBy}")
+
+    @GetMapping("/countByMoodAndCreatedByByStartTimeEndTime/{createdBy}")
     public ResponseEntity<List<Object>> getCountByMoodAndCreatedByAndTime(
             @PathVariable Long createdBy,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
@@ -111,5 +113,21 @@ public class DiaryController extends ApiController {
         List<Object> result = service.getCountByMoodAndCreatedByAndTime(createdBy, start, end);
         return (ResponseEntity<List<Object>>) responseSuccess(result);
     }
+    @GetMapping("/countByMoodAndCreatedByByYear/{createdBy}")
+    public ResponseEntity<Map<String, List<Object>>> getCountByMoodAndCreatedByByYear(@PathVariable Long createdBy) {
+        Map<String, List<Object>> result = service.getCountByMoodAndCreatedByYear(createdBy);
+        return ResponseEntity.ok(result);
+    }
+    @GetMapping("/countByMoodAndCreatedByByMonth/{createdBy}")
+    public ResponseEntity<Map<String, List<Object>>> getCountByMoodAndCreatedByByMonth(@PathVariable Long createdBy, @RequestParam("month")Integer i) {
+        Map<String, List<Object>> result = service.getCountByMoodAndCreatedByMonth(createdBy,i);
+        return ResponseEntity.ok(result);
+    }
+    @GetMapping("/countByYear")
+    public ResponseEntity<Map<String, List<Object>>> getCountByByYear() {
+        Map<String, List<Object>> result = service.getCountByYear();
+        return ResponseEntity.ok(result);
+    }
+
 
 }

@@ -12,7 +12,8 @@
                 </div>
                 <div class="overflow-scroll" style="max-height: 55%">
                     <div class="list-group diary">
-                        <div th:each="diary : ${diaries}" class="list-group-item diary-item-detail" th:id="${diary.id}">
+                        <div th:each="diary : ${diaries}" th:sortedby="${diary.createdAt}"
+                             th:order="${'desc'}" class="list-group-item diary-item-detail" th:id="${diary.id}">
                             <div class="row g-0 align-items-center">
                                 <div class="col-1">
                                     <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
@@ -31,9 +32,10 @@
                                         </strong>
                                     </div>
                                     <div class="text-muted small mt-1"
-                                         th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
+                                         th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'MMMM dd, yyyy h:mm a')}">
                                     </div>
-                                    <div class="text-nowrap bd-highlight" th:text="${diary.happened}"></div>
+
+                                    <div class="text-nowrap bd-highlight col-9" th:text="${diary.happened}"></div>
 
                                     <!-- Assuming diary.createdAt is a LocalDateTime -->
 
@@ -42,6 +44,9 @@
                                         10p
                                     </div>
 
+
+                                </div>
+                                <div class="col-1" data-feather="trash-2" style="margin-top: -45px; margin-left: 40px">
 
                                 </div>
                             </div>
@@ -69,7 +74,8 @@
                                     <div class="text-dark diary-mood">Vui vẻ</div>
                                 </strong>
                             </div>
-                            <div class="text-muted small mt-1">
+
+                            <div class="text-muted small mt-1 diary-createdAt" >
                                 January 1, 2023 12:00:00 ago
                             </div>
                         </div>
