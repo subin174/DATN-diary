@@ -28,13 +28,19 @@ public interface DiaryRepository extends JpaRepository<Diary,Long>, JpaSpecifica
             "WHERE a.created_by = ?1 " +
             "GROUP BY a.mood_id", nativeQuery = true)
     List<Object> getCountByMoodAndCreatedBy( Long createdBy);
-    @Query(value = "SELECT COUNT(*) AS count, m.mood " +
+    @Query(value = " SELECT COUNT(*) AS count, m.mood " +
             "FROM `diary-app`.diary a " +
             "JOIN mood m ON a.mood_id = m.id " +
             "WHERE a.created_by = ?1 " +
             "and a.created_at between ?2  AND ?3 " +
             "GROUP BY a.mood_id", nativeQuery = true)
     List<Object> getCountByMoodAndCreatedByAndTime(Long createdBy, String startDate, String endDate);
+    @Query(value = " SELECT COUNT(*) AS count " +
+            "FROM `diary-app`.diary a " +
+            "JOIN mood m ON a.mood_id = m.id " +
+            "WHERE a.created_at BETWEEN ?1 AND ?2" , nativeQuery = true)
+    List<Object> getCountByYear( String startDate, String endDate);
+
 //    select count(*),a.mood_id,m.mood FROM onstora_dev.diary a join mood m on a.mood_id=m.id group by mood_id;
 //
 //    select count(*),m.mood FROM onstora_dev.diary a join mood m on a.mood_id=m.id group by mood_id;
