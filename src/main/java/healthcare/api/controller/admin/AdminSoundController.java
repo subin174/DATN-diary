@@ -8,12 +8,15 @@ import healthcare.api.service.FileService;
 import healthcare.api.service.SoundService;
 import healthcare.entity.dto.req.SoundReq;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,6 +67,17 @@ public class AdminSoundController extends ApiController {
     @GetMapping
     public ResponseEntity<?> getPageSound() throws Exception{
         return responseSuccess(service.getPaginated(this.getParams()));
+    }
+    @GetMapping("/getCountMood")
+    public ResponseEntity<List<Object>> getCountMood(
+            ) {
+        List<Object> result = service.getCountMood();
+        return (ResponseEntity<List<Object>>) responseSuccess(result);
+    }
+    @GetMapping("/count-quantity-sound")
+    public ResponseEntity<Object> getCountQuantitySound() {
+        Object object = service.getCountQuantitySound();
+        return ResponseEntity.ok(object);
     }
 
 }
