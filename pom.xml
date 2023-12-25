@@ -184,12 +184,6 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/com.dropbox.core/dropbox-core-sdk -->
-		<dependency>
-			<groupId>com.dropbox.core</groupId>
-			<artifactId>dropbox-core-sdk</artifactId>
-			<version>6.0.0</version>
-		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
