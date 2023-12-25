@@ -21,6 +21,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -198,7 +199,7 @@ public class DiaryService extends BaseService<Diary> {
         Map<String, List<Object>> resultMap = new LinkedHashMap<>();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
         for (int i = 1; i <= 12; i++) {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -211,7 +212,7 @@ public class DiaryService extends BaseService<Diary> {
             System.out.println(endDate);
 
             List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
-            resultMap.put("month " + i, monthlyResult);
+            resultMap.put(monthNames[i - 1], monthlyResult);
         }
 
         return resultMap;
@@ -220,7 +221,7 @@ public class DiaryService extends BaseService<Diary> {
         Map<String, List<Object>> resultMap = new LinkedHashMap<>();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
         calendar.set(Calendar.MONTH,i -1);
         calendar.set(Calendar.DAY_OF_MONTH,1);
 //            String b = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
@@ -234,15 +235,16 @@ public class DiaryService extends BaseService<Diary> {
         System.out.println(endDate);
 
             List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
-            resultMap.put("month " + i, monthlyResult);
+        resultMap.put(monthNames[i - 1], monthlyResult);
 
         return resultMap;
     }
 
-    public Map<String, List<Object>> getCountByYear() {
+    public Map<String, List<Object>> getCountMoodByYear() {
         Map<String, List<Object>> resultMap = new LinkedHashMap<>();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
 
         for (int i = 1; i <= 12; i++) {
             calendar.set(Calendar.MONTH, i - 1);
@@ -255,10 +257,36 @@ public class DiaryService extends BaseService<Diary> {
             String endDate = dateFormat.format(calendar.getTime());
             System.out.println(endDate);
 
-            List<Object> monthlyResult = repository.getCountByYear( startDate, endDate);
-            resultMap.put("month " + i, monthlyResult);
+            List<Object> monthlyResult = repository.getCountMoodByYear(startDate, endDate);
+            resultMap.put(monthNames[i - 1], monthlyResult);
+        }
+
+        return resultMap;
+    }
+
+    public Map<String, List<Object>> getCountDiaryByYear() {
+        Map<String, List<Object>> resultMap = new LinkedHashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
+        for (int i = 1; i <= 12; i++) {
+            calendar.set(Calendar.MONTH, i - 1);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            String startDate = dateFormat.format(calendar.getTime());
+            System.out.println(startDate);
+
+            calendar.set(Calendar.MONTH, i);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            String endDate = dateFormat.format(calendar.getTime());
+            System.out.println(endDate);
+
+            List<Object> monthlyResult = repository.getCountDiaryByYear( startDate, endDate);
+            resultMap.put(monthNames[i - 1], monthlyResult);
         }
         return resultMap;
+    }
+    public Object getCountQuantityDiary() {
+        return repository.getCountQuantityDiary();
     }
 
 //    public static void main(String[] args) {

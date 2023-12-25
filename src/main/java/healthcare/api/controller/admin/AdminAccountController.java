@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +43,15 @@ public class AdminAccountController extends ApiController {
     public  ResponseEntity<?> delete( @PathVariable Long id)throws Exception {
         service.deleteAccountAndRoles(id);
         return responseSuccess();
+    }
+    @GetMapping("/count-account-by-year")
+    public ResponseEntity<Map<String, List<Object>>> getCountAccountByByYear() {
+        Map<String, List<Object>> result = service.getCountAccByYear();
+        return ResponseEntity.ok(result);
+    }
+    @GetMapping("/count-quantity-account")
+    public ResponseEntity<Object> getCountQuantityAccount() {
+        Object object = service.getCountQuantityAccount();
+        return ResponseEntity.ok(object);
     }
 }
