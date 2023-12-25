@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -92,6 +93,12 @@ public class SoundService extends BaseService<Sound> {
         Specification<Sound> specification = this.buildSpecification(requestParams.getFilter());
         Page<Sound> sounds = this.getPaginated(specification, requestParams.getPageable());
         return sounds.map(sound -> this.entityToResp(sound, DiaryResp.class));
+    }
+    public List<Object> getCountMood() {
+        return repository.getCountMood();
+    }
+    public Object getCountQuantitySound() {
+        return repository.getCountQuantitySound();
     }
 
 }

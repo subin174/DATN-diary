@@ -8,10 +8,10 @@
             <h1 class="h3 d-inline align-middle">Profile</h1>
         </div>
         <div class="row">
-            <div class="col-md-4 col-xl-3">
+            <div class="col-md-3 col-xl-3">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Profile Details</h5>
+                        <h5 class="card-title mb-0">Profile admin details</h5>
                     </div>
                     <div class="card-body text-center">
                         <img id="avaProfile" src="img/avaad.png" alt="Christina Mason"
@@ -50,27 +50,139 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-8 col-xl-9">
-                <div class="card">
+                <div class="card flex-fill">
                     <div class="card-header">
 
-                        <h5 class="card-title mb-0">Activities</h5>
+                        <h5 class="card-title mb-0">Calendar</h5>
+                    </div>
+                    <div class="card-body d-flex">
+                        <div class="align-self-center w-100">
+                            <div class="chart">
+                                <div id="datetimepicker-dashboard"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-lg-6">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+                        <h5 class="card-title">Biểu đồ số lượng người tham gia app</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="chartjs-line"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+                        <h5 class="card-title">Biểu đồ số lượng người dùng tạo nhật ký</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="chartjs-line-2"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+                        <h5 class="card-title">Biểu đồ cảm xúc người dùng</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="chartjs-line-3"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Tổng số người dùng</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="users"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="quantityAcc">2.382</h1>
+                        <div class="mb-0">
+                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 0.00% </span>
+                            <span class="text-muted">Since last year</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Tổng số nhật ký được tạo</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="book"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="quantityDiary">2.382</h1>
+                        <div class="mb-0">
+                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 0.00% </span>
+                            <span class="text-muted">Since last year</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Tổng số âm thanh được thêm</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="truck"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="quantitySound">2.382</h1>
+                        <div class="mb-0">
+                            <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 0.00% </span>
+                            <span class="text-muted">Since last year</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Biểu đồ thống kê cảm xúc các âm thanh được thêm</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart chart-sm">
+                            <canvas id="chartjs-doughnut"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
     <script src="js/default.js"></script>
+    <script src="js/pages-profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+    </script>
+<!--    chartjs-line-->
 
 </main>
-
-<script>
-    console.log("bbb")
-</script>
-
 </body>
 
 </html>

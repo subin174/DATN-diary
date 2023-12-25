@@ -25,9 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.nio.file.attribute.UserPrincipal;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -169,5 +169,30 @@ public class AccountService extends BaseService<Account> {
                 .operator(OperatorBase.EQUALS)
                 .condition(ConditionBase.AND)
                 .build();
+    }
+
+    public Map<String, List<Object>> getCountAccByYear() {
+        Map<String, List<Object>> resultMap = new LinkedHashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
+        for (int i = 1; i <= 12; i++) {
+            calendar.set(Calendar.MONTH, i - 1);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            String startDate = dateFormat.format(calendar.getTime());
+            System.out.println(startDate);
+
+            calendar.set(Calendar.MONTH, i);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            String endDate = dateFormat.format(calendar.getTime());
+            System.out.println(endDate);
+
+            List<Object> monthlyResult = repository.getCountAccountByYear( startDate, endDate);
+            resultMap.put(monthNames[i - 1], monthlyResult);
+        }
+        return resultMap;
+    }
+    public Object getCountQuantityAccount() {
+        return repository.getCountQuantityAccount();
     }
 }
