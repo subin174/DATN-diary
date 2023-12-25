@@ -18,7 +18,7 @@ async function signIn(){
         data = await data.json();
         setToken("token", data.token);
         await getInfo(data.token);
-        window.location.href = 'user';
+        window.location.href = 'profile';
     } catch (e) {
         console.log(e)
     }

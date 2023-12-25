@@ -2,18 +2,32 @@
 
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}"
       class="layout-account-root">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+</head>
 <body>
 <main class="content" layout:fragment="content">
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <form class="d-flex" style="margin-left: 40%">
-                    <input class="form-control me-5" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+        </div>
         <div class="row" style="margin-top: 20px">
             <div class="col-12 col-lg-6">
                 <div class="mb-3">
@@ -68,6 +82,11 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="js/list-sound.js"></script>
+    <script>
+        import { Ripple, initMDB } from "mdb-ui-kit";
+
+        initMDB({ Ripple });
+    </script>
 
 </main>
 </body>
