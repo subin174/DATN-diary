@@ -1,6 +1,6 @@
 package healthcare.api.controller.admin;
 
-import com.dropbox.core.DbxException;
+
 import groovy.util.logging.Slf4j;
 import healthcare.api.controller.ApiController;
 import healthcare.api.service.DropboxService;

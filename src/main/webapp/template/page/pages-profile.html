@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Admin DiaryApp</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+</head>
 <body>
 <main layout:fragment="content">
     <div class="container-fluid p-0">
 
         <div class="mb-3">
-            <h1 class="h3 d-inline align-middle">Profile</h1>
+            <h1 class="h3 d-inline align-middle">Dashboard admin Diary APP</h1>
         </div>
         <div class="row">
             <div class="col-md-3 col-xl-3">
-                <div class="card mb-3" style="border-radius:10% 10% 10% 10%">
+                <div class="card mb-3 rounded-6">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Profile admin details</h5>
                     </div>
@@ -50,8 +72,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="card flex-fill" style="border-radius:10% 10% 10% 10%;">
-                    <div class="card-header" style="border-radius:10% 10% 10% 10%">
+                <div class="card flex-fill rounded-6">
+                    <div class="card-header">
 
                         <h5 class="card-title mb-0">Calendar</h5>
                     </div>
@@ -64,8 +86,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6" >
-                <div class="card flex-fill w-100" style="border-radius:10%;">
+            <div class="col-12 col-lg-6">
+                <div class="card flex-fill w-100 rounded-6" >
                     <div class="card-header">
                         <h5 class="card-title">Biểu đồ số lượng người tham gia app</h5>
                     </div>
@@ -75,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card flex-fill w-100" style="border-radius:10% ">
+                <div class="card flex-fill w-100 rounded-6">
                     <div class="card-header">
                         <h5 class="card-title">Biểu đồ số lượng người dùng tạo nhật ký</h5>
                     </div>
@@ -85,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card flex-fill w-100" style="border-radius:10%">
+                <div class="card flex-fill w-100 rounded-6">
                     <div class="card-header">
                         <h5 class="card-title">Biểu đồ cảm xúc người dùng</h5>
                     </div>
@@ -97,7 +119,7 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div class="card">
+                <div class="card rounded-6">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -117,8 +139,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
+                <div class="card rounded-6">
+                    <div class="card-body rounded-6">
                         <div class="row">
                             <div class="col mt-0">
                                 <h5 class="card-title">Tổng số nhật ký được tạo</h5>
@@ -137,7 +159,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card rounded-6">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -146,7 +168,7 @@
 
                             <div class="col-auto">
                                 <div class="stat text-primary">
-                                    <i class="align-middle" data-feather="truck"></i>
+                                    <i class="align-middle" data-feather="music"></i>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +180,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card rounded-6">
                     <div class="card-header">
                         <h5 class="card-title">Biểu đồ thống kê cảm xúc các âm thanh được thêm</h5>
                     </div>
@@ -180,7 +202,7 @@
     <script>
 
     </script>
-<!--    chartjs-line-->
+    <!--    chartjs-line-->
 
 </main>
 </body>

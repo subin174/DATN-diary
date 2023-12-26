@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +8,17 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
 
@@ -295,6 +304,17 @@
                                 </ul>
                             </div>
                         </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Pie Chart</h5>
+                                    <h6 class="card-subtitle text-muted">Biều đồ tâm trạng người dùng</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart chart-sm">
+                                        <canvas id="chartjs-pie"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
 
                     <div class="col-md-6 col-xl-6">
@@ -331,19 +351,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 col-xl-3">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">Pie Chart</h5>
-                                <h6 class="card-subtitle text-muted">Biều đồ tâm trạng người dùng</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart chart-sm">
-                                    <canvas id="chartjs-pie"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </main>

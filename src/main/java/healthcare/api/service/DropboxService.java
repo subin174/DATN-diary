@@ -3,12 +3,7 @@ package healthcare.api.service;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
-import com.dropbox.core.*;
-import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.FileMetadata;
-import com.dropbox.core.v2.files.UploadErrorException;
-import com.dropbox.core.v2.sharing.CreateSharedLinkWithSettingsErrorException;
-import com.dropbox.core.v2.sharing.SharedLinkMetadata;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

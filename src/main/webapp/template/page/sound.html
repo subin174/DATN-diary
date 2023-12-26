@@ -2,7 +2,27 @@
 
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}"
       class="layout-account-root">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
+
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+<!--    <link rel="stylesheet" href="css/sound.css" />-->
+</head>
 <body>
 <main class="content" layout:fragment="content">
     <div class="container-fluid p-0">
@@ -79,6 +99,7 @@
                                 <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"  accept="image/*" onchange="displayImage(this)" name="multipartFile" multiple>
 <!--                                <button class="btn btn-outline-secondary " style="margin-top: 10px" onclick="uploadImage()">Upload image</button>-->
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -88,7 +109,7 @@
 
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <button id="create" class="btn btn-primary">Thêm</button>
+                                <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init data-mdb-ripple-color="dark">Thêm</button>
                             </div>
                         </div>
                     </div>
@@ -120,6 +141,7 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="js/sound.js"></script>
+
 
 </main>
 </body>
