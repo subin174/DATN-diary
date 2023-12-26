@@ -17,6 +17,7 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
     />
+    <link href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- MDB -->
     <link rel="stylesheet" href="css/mdb.min.css" />
@@ -24,24 +25,115 @@
 <body>
 <main class="content" layout:fragment="content">
     <div class="container-fluid p-0">
+        <div class="container">
+            <div class="row">
+                <div class="card rounded-6 col-md-2 ">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Tổng số âm thanh được thêm</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="music"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="quantitySound">2.382</h1>
+                    </div>
+                </div>
+                <div class="card rounded-6 col-md-2 ">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Vui vẻ</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="fab face-grin-beam"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="vuive">2.382</h1>
+                    </div>
+                </div>
+                <div class="card rounded-6 col-md-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Thư giãn</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="music"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="thugian">2.382</h1>
+                    </div>
+                </div>
+                <div class="card rounded-6 col-md-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Dễ ngủ</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="music"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="dengu">2.382</h1>
+                    </div>
+                </div>
+                <div class="card rounded-6 col-md-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Hạnh phúc</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="face-grin-hearts"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="hanhphuc">2.382</h1>
+                    </div>
+                </div>
+                <div class="card rounded-6 col-md-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mt-0">
+                                <h5 class="card-title">Giải tỏa</h5>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="stat text-primary">
+                                    <i class="align-middle" data-feather="music"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="mt-1 mb-3" id="giaitoa">2.382</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
         <div class="input-group">
             <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
             <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
         </div>
-        <div class="row" style="margin-top: 20px">
-            <div class="col-12 col-lg-6">
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle">Thông tin âm thanh</h1>
-                </div>
-            </div>
-        </div>
-
         <div class="col-12">
-
-
-            <h3 class="text-center">List of Sounds</h3>
+<!--            <h3 class="text-center">List of Sounds</h3>-->
             <hr>
-            <div class="table-responsive">
+            <div class="table-responsive ">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
@@ -82,6 +174,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="js/list-sound.js"></script>
+    <script src="js/pages-profile.js"></script>
     <script>
         import { Ripple, initMDB } from "mdb-ui-kit";
 

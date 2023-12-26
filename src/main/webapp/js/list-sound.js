@@ -50,3 +50,72 @@ function readCookie(name) {
     }
     return null;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Make an AJAX request to the API endpoint
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/api/v1/admin/sound/getCountMood", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var thuGianData = response.data.find(function (item) {
+                return item[1] === "Thư giãn";
+            });
+            if (thuGianData) {
+                document.getElementById("thugian").textContent = thuGianData[0];
+            } else {
+                // Handle the case where "Thư giãn" is not found in the response
+                document.getElementById("thugian").textContent = "0";
+            }
+        }
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var thuGianData = response.data.find(function (item) {
+                return item[1] === "Giải toả";
+            });
+            if (thuGianData) {
+                document.getElementById("giaitoa").textContent = thuGianData[0];
+            } else {
+                // Handle the case where "Thư giãn" is not found in the response
+                document.getElementById("giaitoa").textContent = "0";
+            }
+        }
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var thuGianData = response.data.find(function (item) {
+                return item[1] === "Dễ ngủ";
+            });
+            if (thuGianData) {
+                document.getElementById("dengu").textContent = thuGianData[0];
+            } else {
+                // Handle the case where "Thư giãn" is not found in the response
+                document.getElementById("dengu").textContent = "0";
+            }
+        }
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var thuGianData = response.data.find(function (item) {
+                return item[1] === "Hạnh phúc";
+            });
+            if (thuGianData) {
+                document.getElementById("hanhphuc").textContent = thuGianData[0];
+            } else {
+                // Handle the case where "Thư giãn" is not found in the response
+                document.getElementById("hanhphuc").textContent = "0";
+            }
+        }
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var thuGianData = response.data.find(function (item) {
+                return item[1] === "Vui vẻ";
+            });
+            if (thuGianData) {
+                document.getElementById("vuive").textContent = thuGianData[0];
+            } else {
+                // Handle the case where "Thư giãn" is not found in the response
+                document.getElementById("vuive").textContent = "0";
+            }
+        }
+    };
+    xhr.send();
+});

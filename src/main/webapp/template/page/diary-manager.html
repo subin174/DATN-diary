@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Material Design for Bootstrap</title>
     <!-- MDB icon -->
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon"/>
     <!-- Font Awesome -->
     <link
             rel="stylesheet"
@@ -19,7 +19,7 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
+    <link rel="stylesheet" href="css/mdb.min.css"/>
 </head>
 <body>
 <main layout:fragment="content">
@@ -31,16 +31,14 @@
                         <h5 class="card-title mb-0">Activities</h5>
                     </div>
                 </div>
-                <div class="overflow-scroll" style="max-height: 55%">
+                <div class="overflow-scroll" style="max-height: 30%">
                     <div class="list-group diary">
                         <div th:each="diary : ${diaries}" th:sortedby="${diary.createdAt}"
                              th:order="${'desc'}" class="list-group-item diary-item-detail" th:id="${diary.id}">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-1">
-                                    <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
-                                         height="50" alt="User Avatar">
-                                </div>
-                                <div class="col-10 inline-block-container">
+                            <div class="d-flex align-items-start">
+                                <img th:src="${diary.avatar}" class="rounded-circle me-2" width="50"
+                                     height="50" alt="User Avatar">
+                                <div class="col-9 inline-block-container">
                                     <div style="display: inline-block;">
                                         <strong>
                                             <div class="text-dark" th:text="${diary.nickname}"></div>
@@ -64,12 +62,9 @@
                                          th:attr="data-action-time=${diary.createdAt}">
                                         10p
                                     </div>
-
-
                                 </div>
-<!--                                <div class="col-1" data-feather="trash-2" style="margin-top: 20px; margin-left: 20px">-->
-
-<!--                                </div>-->
+                                <div class="col-1" data-feather="trash-2" style="margin-top: 20px; margin-right: 10px">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,7 +72,7 @@
             </div>
 
             <div class="col-md-6 col-xl-6">
-                <div class="card">
+                <div class="card" style="max-height: 35%">
                     <div class="row" style="margin-left: 10px; margin-top: 10px">
                         <div class="user-avatar col-1">
                             <img class="avatar img-fluid rounded-circle diary-avatar"
@@ -92,50 +87,50 @@
                             feeling
                             <div style="display: inline-block;">
                                 <strong>
-                                    <div class="text-dark diary-mood">Vui vẻ</div>
+                                    <div class="text-dark diary-mood"></div>
                                 </strong>
                             </div>
 
-                            <div class="text-muted small mt-1 diary-createdAt" >
+                            <div class="text-muted small mt-1 diary-createdAt">
                                 January 1, 2023 12:00:00 ago
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-<!--                        <div class="card-title">Mức độ tâm trạng:</div>-->
-<!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
-<!--                            of the card's content.-->
-<!--                        </div>-->
+                        <!--                        <div class="card-title">Mức độ tâm trạng:</div>-->
+                        <!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
+                        <!--                            of the card's content.-->
+                        <!--                        </div>-->
                     </div>
-<!--                    <div class="card-body">-->
-<!--                        <div class="card-title">Thời điểm tâm trạng / sự việc diễn ra:</div>-->
-<!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
-<!--                            of the card's content.-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="card-title">Bạn gặp phải chuyện gì thế?</div>-->
-<!--                        <div class="card-title">Trước tiên hay ghi lại những gì xảy ra khiến tâm trạng bạn thay đổi-->
-<!--                            nhé!-->
-<!--                        </div>-->
-<!--                        <div class="card-text">Tailwind CSS works by scanning all of your HTML files, JavaScript-->
-<!--                            components-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="card-title">Cảm xúc và suy nghĩ của bạn tại thời điểm đó như thế nào:</div>-->
-<!--                        <div class="card-text">any other templates for class names</div>-->
-<!--                    </div>-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="card-title">Hãy dành một chút thời gian để suy nghĩ về những sự việc vừa qua nhé!-->
-<!--                        </div>-->
-<!--                        <div class="card-text">generating the corresponding styles and then writing them to a static CSS-->
-<!--                            file.-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="card-title">Nếu bạn thay đổi cách bạn nghĩ, bạn sẽ thay đổi cách bạn cảm nhận!</div>-->
-<!--                    </div>-->
+                    <!--                    <div class="card-body">-->
+                    <!--                        <div class="card-title">Thời điểm tâm trạng / sự việc diễn ra:</div>-->
+                    <!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
+                    <!--                            of the card's content.-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="card-body">-->
+                    <!--                        <div class="card-title">Bạn gặp phải chuyện gì thế?</div>-->
+                    <!--                        <div class="card-title">Trước tiên hay ghi lại những gì xảy ra khiến tâm trạng bạn thay đổi-->
+                    <!--                            nhé!-->
+                    <!--                        </div>-->
+                    <!--                        <div class="card-text">Tailwind CSS works by scanning all of your HTML files, JavaScript-->
+                    <!--                            components-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="card-body">-->
+                    <!--                        <div class="card-title">Cảm xúc và suy nghĩ của bạn tại thời điểm đó như thế nào:</div>-->
+                    <!--                        <div class="card-text">any other templates for class names</div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="card-body">-->
+                    <!--                        <div class="card-title">Hãy dành một chút thời gian để suy nghĩ về những sự việc vừa qua nhé!-->
+                    <!--                        </div>-->
+                    <!--                        <div class="card-text">generating the corresponding styles and then writing them to a static CSS-->
+                    <!--                            file.-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="card-body">-->
+                    <!--                        <div class="card-title">Nếu bạn thay đổi cách bạn nghĩ, bạn sẽ thay đổi cách bạn cảm nhận!</div>-->
+                    <!--                    </div>-->
                 </div>
             </div>
         </div>
