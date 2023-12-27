@@ -25,91 +25,92 @@
 </head>
 <body>
 <main class="content" layout:fragment="content">
-    <div class="container-fluid p-0">
-        <div class="row">
-            <div class="col-12 col-lg-6">
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle">Thông tin âm thanh</h1>
-                </div>
-            </div>
-        </div>
+    <div>
+        <div class="container-fluid p-0">
+<!--            <div class="row">-->
+<!--                <div class="col-12 col-lg-6">-->
+<!--                    <div class="mb-3">-->
+<!--                        <h1 class="h3 d-inline align-middle">Thông tin âm thanh</h1>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
-        <div class="row">
-            <div class="col-12 col-lg-6">
-                <div class="card">
-                    <div class="mb-3">
-                        <label for="audioInput" class="form-label card-title mb-0"> file input audio </label>
-                        <input type="file" accept="audio/*" class="form-control" id="audioInput">
-                        <audio  controls id="audioPlayer" style="margin-top: 10px"></audio>
-<!--                        <button class="btn btn-outline-secondary" style="margin-top: 50px" onclick="uploadAudio()">Upload Audio</button>-->
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="mb-3">
+                            <label for="audioInput" class="form-label card-title mb-0"> file input audio </label>
+                            <input type="file" accept="audio/*" class="form-control" id="audioInput">
+                            <audio  controls id="audioPlayer" style="margin-top: 10px"></audio>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Tên audio:</h5>
-                            </div>
-                            <div class="card-body">
-                                <input id="title" type="text" class="form-control" placeholder="">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Tên audio:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input id="title" type="text" class="form-control" placeholder="">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card">
-                    <div class="row">
+                    <div class="card">
+                        <div class="row">
 
-                        <div class="col-6">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Ca sĩ, tác giả trình bày:</h5>
-                            </div>
-                            <div class="card-body">
-                                <input id="author" type="text" class="form-control .alert-secondary" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="row">
-                        <div class=" col-4">
-                            <div class="card-header">
-                                <label class="card-title mb-0" for="moodSound">Thể loại theo tâm trạng:</label>
-                            </div>
-                            <div class="card-body">
-                                <select id="moodSound" name="moodSound" class="form-control form-select mb-3">
-                                    <option value="" selected disabled>Chọn</option>
-                                    <option th:each="o : ${moodSound}" th:value="${o.id}">[[${o.moodSound}]]
-                                    </option>
-                                </select>
+                            <div class="col-6">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Ca sĩ, tác giả trình bày:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input id="author" type="text" class="form-control .alert-secondary" placeholder="">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Poster</h5>
+                    <div class="card">
+                        <div class="row">
+                            <div class=" col-4">
+                                <div class="card-header">
+                                    <label class="card-title mb-0" for="moodSound">Thể loại theo tâm trạng:</label>
+                                </div>
+                                <div class="card-body">
+                                    <select id="moodSound" name="moodSound" class="form-control form-select mb-3">
+                                        <option value="" selected disabled>Chọn</option>
+                                        <option th:each="o : ${moodSound}" th:value="${o.id}">[[${o.moodSound}]]
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="mb-3" style="margin-left: 30px">
-                                <img id="previewImage" class="rounded" style="margin-left: 30px" alt="Preview" width="120" height="120">
-                                <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"  accept="image/*" onchange="displayImage(this)" name="multipartFile" multiple>
-<!--                                <button class="btn btn-outline-secondary " style="margin-top: 10px" onclick="uploadImage()">Upload image</button>-->
-                            </div>
-
                         </div>
                     </div>
-                </div>
 
-                <div class="card">
-                    <div class="row">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Poster</h5>
+                                </div>
+                                <div class="mb-3" style="margin-left: 30px">
+                                    <img id="previewImage" class="rounded" style="margin-left: 30px" alt="Preview" width="120" height="120">
+                                    <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"  accept="image/*" onchange="displayImage(this)" name="multipartFile" multiple>
 
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init data-mdb-ripple-color="dark">Thêm</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="row">
+
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init data-mdb-ripple-color="dark">Thêm</button>
+                                </div>
                             </div>
                         </div>
                     </div>
