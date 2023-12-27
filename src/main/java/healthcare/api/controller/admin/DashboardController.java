@@ -34,9 +34,9 @@ public class DashboardController extends ApiController {
         return "page/login";
     }
     @GetMapping(value = "sound")
-    public String address(Model model) {
-
-
+    public String address(Model model) throws Exception {
+        List<Sound> soundList = (List<Sound>) soundService.getListSound(this.getParams());
+        model.addAttribute("soundList", soundList);
         model.addAttribute("moodSound", moodSoundService.getList());
         return "page/sound";
     }
