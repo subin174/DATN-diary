@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Material Design for Bootstrap</title>
     <!-- MDB icon -->
     <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon"/>
     <!-- Font Awesome -->
@@ -31,7 +30,7 @@
                         <h5 class="card-title mb-0">Activities</h5>
                     </div>
                 </div>
-                <div class="overflow-scroll" style="max-height: 30%">
+                <div class="overflow-scroll" style="max-height: 37%">
                     <div class="list-group diary">
                         <div th:each="diary : ${diaries}" th:sortedby="${diary.createdAt}"
                              th:order="${'desc'}" class="list-group-item diary-item-detail" th:id="${diary.id}">
@@ -72,7 +71,7 @@
             </div>
 
             <div class="col-md-6 col-xl-6">
-                <div class="card" style="max-height: 35%">
+                <div class="card" style="max-height: 40%">
                     <div class="row" style="margin-left: 10px; margin-top: 10px">
                         <div class="user-avatar col-1">
                             <img class="avatar img-fluid rounded-circle diary-avatar"
@@ -97,40 +96,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <!--                        <div class="card-title">Mức độ tâm trạng:</div>-->
-                        <!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
-                        <!--                            of the card's content.-->
-                        <!--                        </div>-->
                     </div>
-                    <!--                    <div class="card-body">-->
-                    <!--                        <div class="card-title">Thời điểm tâm trạng / sự việc diễn ra:</div>-->
-                    <!--                        <div class="card-text">Some quick example text to build on the card title and make up the bulk-->
-                    <!--                            of the card's content.-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="card-body">-->
-                    <!--                        <div class="card-title">Bạn gặp phải chuyện gì thế?</div>-->
-                    <!--                        <div class="card-title">Trước tiên hay ghi lại những gì xảy ra khiến tâm trạng bạn thay đổi-->
-                    <!--                            nhé!-->
-                    <!--                        </div>-->
-                    <!--                        <div class="card-text">Tailwind CSS works by scanning all of your HTML files, JavaScript-->
-                    <!--                            components-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="card-body">-->
-                    <!--                        <div class="card-title">Cảm xúc và suy nghĩ của bạn tại thời điểm đó như thế nào:</div>-->
-                    <!--                        <div class="card-text">any other templates for class names</div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="card-body">-->
-                    <!--                        <div class="card-title">Hãy dành một chút thời gian để suy nghĩ về những sự việc vừa qua nhé!-->
-                    <!--                        </div>-->
-                    <!--                        <div class="card-text">generating the corresponding styles and then writing them to a static CSS-->
-                    <!--                            file.-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="card-body">-->
-                    <!--                        <div class="card-title">Nếu bạn thay đổi cách bạn nghĩ, bạn sẽ thay đổi cách bạn cảm nhận!</div>-->
-                    <!--                    </div>-->
+
                 </div>
             </div>
         </div>

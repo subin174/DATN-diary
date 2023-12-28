@@ -74,27 +74,13 @@
                             </button>
                         </td>
                         <td>
-<!--                            <form action="#" th:action="@{'/user/{id}'(id=${account.id})}" th:method="delete" >-->
-<!--                                <input type="hidden" name="_method" value="delete" />-->
-<!--                                <button type="submit" class="btn btn-outline-danger">-->
-<!--                                    Delete-->
-<!--                                </button>-->
-<!--                            </form>-->
+
                             <button class="btn btn-outline-danger" th:onclick="|deleteEntity('${account.id}')|">Delete
                             </button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-<!--                <nav aria-label="Page navigation example">-->
-<!--                    <ul class="pagination">-->
-<!--                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
-<!--                        <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--                        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--                        <li class="page-item"><a class="page-link" href="#">Next</a></li>-->
-<!--                    </ul>-->
-<!--                </nav>-->
             </div>
             <hr>
         </div>
@@ -110,23 +96,6 @@
 
         }
 
-    </script>
-    <script>
-        // import {Autocomplete, Input, Ripple, initMDB} from "mdb-ui-kit";
-        //
-        // initMDB({Input, Ripple});
-        //
-        // const basicAutocomplete = document.querySelector('#search-autocomplete');
-        // const data = ['One', 'Two', 'Three', 'Four', 'Five'];
-        // const dataFilter = (value) => {
-        //     return data.filter((item) => {
-        //         return item.toLowerCase().startsWith(value.toLowerCase());
-        //     });
-        // };
-        //
-        // new Autocomplete(basicAutocomplete, {
-        //     filter: dataFilter
-        // });
     </script>
     <script src="js/user.js"></script>
     <script>
