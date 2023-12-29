@@ -4,30 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-    <meta name="author" content="AdminKit">
-    <meta name="keywords"
-          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
-
-    <link rel="canonical" href="https://demo-basic.adminkit.io/charts-chartjs.html"/>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shotcut icon" href="img/icons/icon2.png"/>
+    <link rel="canonical" href="https://demo-basic.adminkit.io/">
     <title>Diary ADMIN</title>
-
     <link href="css/app.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/user-detail.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -39,17 +23,11 @@
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
-                    Setting, tools
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/">
-                        <i class="align-middle" data-feather="sliders"></i> <span
-                            class="align-middle">Dashboard</span>
-                    </a>
+                    Charts & Dashboard
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
                 <li class="sidebar-header">
@@ -109,57 +87,6 @@
                                 4 New Notifications
                             </div>
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-danger" data-feather="alert-circle"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Update completed</div>
-                                            <div class="text-muted small mt-1">Restart server 12 to complete the
-                                                update.
-                                            </div>
-                                            <div class="text-muted small mt-1">30m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-warning" data-feather="bell"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Lorem ipsum</div>
-                                            <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
-                                                hendrerit et.
-                                            </div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-primary" data-feather="home"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Login from 192.186.1.8</div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-success" data-feather="user-plus"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">New connection</div>
-                                            <div class="text-muted small mt-1">Christina accepted your request.</div>
-                                            <div class="text-muted small mt-1">14h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
                             </div>
                             <div class="dropdown-menu-footer">
                                 <a href="#" class="text-muted">Show all notifications</a>
@@ -180,63 +107,7 @@
                                 </div>
                             </div>
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Vanessa Tucker">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Vanessa Tucker</div>
-                                            <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu
-                                                tortor.
-                                            </div>
-                                            <div class="text-muted small mt-1">15m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="William Harris">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">William Harris</div>
-                                            <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.
-                                            </div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Christina Mason">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Christina Mason</div>
-                                            <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-                                            <div class="text-muted small mt-1">4h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Sharon Lessman">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Sharon Lessman</div>
-                                            <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-                                                posuere ac, mattis non.
-                                            </div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
+
                             </div>
                             <div class="dropdown-menu-footer">
                                 <a href="#" class="text-muted">Show all messages</a>
@@ -324,8 +195,10 @@
                             </div>
                         </div>
                         <div class="list-group">
-                            <div th:each="diary : ${diaries}" class="list-group-item diary-item-detail" th:id="${diary.id}">
-                                <div class="row g-0 align-items-center">
+                            <div th:each="diary : ${diaries}" class="list-group-item diary-item-detail"
+                                 th:id="${diary.id}">
+                                <div class="row g-0 align-items-center" data-bs-toggle="modal"
+                                     data-bs-target="#exampleModal">
                                     <div class="col-1">
                                         <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
                                              height="50" alt="User Avatar">
@@ -342,60 +215,108 @@
                                                 <div class="text-dark" th:text="${diary.mood}"></div>
                                             </strong>
                                         </div>
-                                        <div class="time-box text-muted small mt-1"
-                                             th:attr="data-action-time=${diary.createdAt}">
-                                            10p
+                                        level
+                                        <div style="display: inline-block;">
+                                            <strong>
+                                                <div class="text-dark" th:text="${diary.level}"></div>
+                                            </strong>
+                                        </div>
+                                        <div class="row">
+                                            <div class="time-box text-muted small mt-1 col-9"
+                                                 th:attr="data-action-time=${diary.createdAt}">
+                                                10p
+                                            </div>
+                                            <div class="text-muted small mt-1 col-3"
+                                                 th:text="${diary.status}">
+                                                10p
+                                            </div>
                                         </div>
                                         <div class="text-nowrap bd-highlight" th:text="${diary.happened}"></div>
 
                                         <div class="text-muted small mt-1"
                                              th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
                                         </div>
+                                        <!--                                        detail-->
+<!--                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"-->
+<!--                                                data-bs-target="#exampleModal">-->
+<!--                                            for more...-->
+<!--                                        </button>-->
+
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Diary detail</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card" style="max-height: 40%">
+                                                            <div class="row" style="margin-left: 10px; margin-top: 10px">
+                                                                <div class="user-avatar col-1">
+                                                                    <img class="avatar img-fluid rounded-circle diary-avatar" width="10" height="10" alt="User Avatar">
+                                                                </div>
+                                                                <div class="user-info inline-block-container col-10">
+                                                                    <div style="display: inline-block;">
+                                                                        <strong>
+                                                                            <div class="text-dark diary-nickname"></div>
+                                                                        </strong>
+                                                                    </div>
+                                                                    feeling
+                                                                    <div style="display: inline-block;">
+                                                                        <strong>
+                                                                            <div class="text-dark diary-mood"></div>
+                                                                        </strong>
+                                                                    </div>
+                                                                    level
+                                                                    <div style="display: inline-block;">
+                                                                        <strong>
+                                                                            <div class="text-dark diary-level"></div>
+                                                                        </strong>
+                                                                    </div>
+
+                                                                    <div class="text-muted small mt-1 diary-createdAt">
+                                                                        January 1, 2023 12:00:00 ago
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="abc" class="card-body user">
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                                        detail-->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card" style="max-height: 40%">
-                            <div class="row" style="margin-left: 10px; margin-top: 10px">
-                                <div class="user-avatar col-1">
-                                    <img class="avatar img-fluid rounded-circle diary-avatar"
-                                         width="50" height="50" alt="">
-                                </div>
-                                <div class="user-info inline-block-container col-10">
-                                    <div style="display: inline-block;">
-                                        <strong>
-                                            <div class="text-dark diary-nickname"></div>
-                                        </strong>
-                                    </div>
-                                    feeling
-                                    <div style="display: inline-block;">
-                                        <strong>
-                                            <div class="text-dark diary-mood"></div>
-                                        </strong>
-                                    </div>
 
-                                    <div class="text-muted small mt-1 diary-createdAt">
-                                        January 1, 2023 12:00:00 ago
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body detail">
-                            </div>
+
 
                         </div>
+
                     </div>
-
-
                 </div>
             </div>
         </main>
     </div>
+
+
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/default.js"></script>
 <script src="js/app.js"></script>
-<script src="js/diary-manager.js"></script>
-
+<script src="js/user-detail.js"></script>
+<script src="js/mdb.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function getUrlParameter(name) {
@@ -463,8 +384,15 @@
         }
         return null;
     }
+
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
 </script>
-<script src="js/diary-manager.js"></script>
+
 
 </body>
 

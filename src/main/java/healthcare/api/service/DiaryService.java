@@ -83,6 +83,12 @@ public class DiaryService extends BaseService<Diary> {
         }
     }
 
+    public void deleteById(Long id) {
+        getRepository().deleteById(id);
+    }
+
+
+
     public DiaryResp findById(Long id){
         Diary diary = this.getById(id);
         return this.entityToResp(diary,DiaryResp.class);
@@ -258,6 +264,29 @@ public class DiaryService extends BaseService<Diary> {
             System.out.println(endDate);
 
             List<Object> monthlyResult = repository.getCountMoodByYear(startDate, endDate);
+            resultMap.put(monthNames[i - 1], monthlyResult);
+        }
+
+        return resultMap;
+    }
+    public Map<String, List<Object>> getCountDiaryMoodPublicByYear() {
+        Map<String, List<Object>> resultMap = new LinkedHashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
+
+        for (int i = 1; i <= 12; i++) {
+            calendar.set(Calendar.MONTH, i - 1);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            String startDate = dateFormat.format(calendar.getTime());
+            System.out.println(startDate);
+
+            calendar.set(Calendar.MONTH, i);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            String endDate = dateFormat.format(calendar.getTime());
+            System.out.println(endDate);
+
+            List<Object> monthlyResult = repository.getCountDiaryMoodPublicByYear(startDate, endDate);
             resultMap.put(monthNames[i - 1], monthlyResult);
         }
 

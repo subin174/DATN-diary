@@ -89,6 +89,13 @@ public class DiaryController extends ApiController {
         service.delete(id);
         return responseSuccess();
     }
+    @DeleteMapping("/deleteById/{id}")
+    public ResponseEntity<?> deleteById(
+            @PathVariable Long id
+    ) {
+        service.deleteById(id);
+        return responseSuccess();
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(
@@ -126,6 +133,11 @@ public class DiaryController extends ApiController {
     @GetMapping("/count-mood-by-year")
     public ResponseEntity<Map<String, List<Object>>> getCountMoodByYear() {
         Map<String, List<Object>> result = service.getCountMoodByYear();
+        return ResponseEntity.ok(result);
+    }
+    @GetMapping("/count-diary-mood-public-by-year")
+    public ResponseEntity<Map<String, List<Object>>> getCountDiaryMoodPublicByYear() {
+        Map<String, List<Object>> result = service.getCountDiaryMoodPublicByYear();
         return ResponseEntity.ok(result);
     }
 
