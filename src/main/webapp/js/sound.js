@@ -84,15 +84,12 @@ const uploadImg = () => {
             })
             .then(resp => {
                 console.log('Upload success:', resp);
-                if (resp.status === 'SUCCESS') {
-                    alert('upload success');
-                    return;
-                }
+                // if (resp.status === 'SUCCESS') {
+                //     alert('upload success');
+                //     return;
+                // }
                 return  resolve(resp)
             })
-
-
-
     })
 }
 const uploadAud = () => {
@@ -178,17 +175,17 @@ function uploadAudio() {
             }
         })
 }
-$("#file-upload").css("opacity", "0");
+// $("#file-upload").css("opacity", "0");
+//
+// $("#file-browser").click(function(e) {
+//     e.preventDefault();
+//     $("#file-upload").trigger("click");
+// });
 
-$("#file-browser").click(function(e) {
-    e.preventDefault();
-    $("#file-upload").trigger("click");
-});
-
-$(document).ready(function () {
-    $('#dtHorizontalExample').DataTable({
-        "scrollX": true
-    });
-    $('.dataTables_length').addClass('bs-select');
-});
+// $(document).ready(function () {
+//     $('#dtHorizontalExample').DataTable({
+//         "scrollX": true
+//     });
+//     $('.dataTables_length').addClass('bs-select');
+// });
 
