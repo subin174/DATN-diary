@@ -39,6 +39,14 @@ public interface DiaryRepository extends JpaRepository<Diary,Long>, JpaSpecifica
             "FROM `diary-app`.diary a " +
             "JOIN mood m ON a.mood_id = m.id " +
             "WHERE a.created_at BETWEEN ?1 AND ?2 " +
+            "AND a.status = 'PUBLIC' " +
+            "GROUP BY a.mood_id", nativeQuery = true)
+    List<Object> getCountDiaryMoodPublicByYear(String startDate, String endDate);
+
+    @Query(value = "SELECT COUNT(*) AS count, m.mood " +
+            "FROM `diary-app`.diary a " +
+            "JOIN mood m ON a.mood_id = m.id " +
+            "WHERE a.created_at BETWEEN ?1 AND ?2 " +
             "GROUP BY a.mood_id", nativeQuery = true)
     List<Object> getCountMoodByYear(String startDate, String endDate);
 

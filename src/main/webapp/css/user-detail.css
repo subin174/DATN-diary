@@ -1,0 +1,152 @@
+/* Variables */
+.modal-inner-padding {
+    padding: var(--spacer);
+}
+
+.modal-footer-margin-between {
+    margin-bottom: 0.5rem;
+}
+
+.modal-dialog-margin {
+    margin: 0.5rem;
+}
+
+.modal-dialog-margin-y-sm-up {
+    margin-top: 1.75rem;
+}
+
+.modal-title-line-height {
+    line-height: var(--line-height-base);
+}
+
+.modal-content-color {
+    color: null;
+}
+
+.modal-content-bg {
+    background-color: var(--white);
+}
+
+.modal-content-border-color {
+    border-color: rgba(var(--black), 0.2);
+}
+
+.modal-content-border-width {
+    border-width: var(--border-width);
+}
+
+.modal-content-border-radius {
+    border-radius: var(--border-radius-lg);
+}
+
+.modal-content-inner-border-radius {
+    border-radius: calc(var(--modal-content-border-radius) - var(--modal-content-border-width));
+}
+
+.modal-content-box-shadow-xs {
+    box-shadow: var(--box-shadow-sm);
+}
+
+.modal-content-box-shadow-sm-up {
+    box-shadow: var(--box-shadow);
+}
+
+.modal-backdrop-bg {
+    background-color: var(--black);
+}
+
+.modal-backdrop-opacity {
+    opacity: 0.5;
+}
+
+.modal-header-border-color {
+    border-color: var(--border-color);
+}
+
+.modal-footer-border-color {
+    border-color: var(--modal-header-border-color);
+}
+
+.modal-header-border-width {
+    border-width: var(--modal-content-border-width);
+}
+
+.modal-footer-border-width {
+    border-width: var(--modal-header-border-width);
+}
+
+.modal-header-padding-y {
+    padding-top: var(--modal-inner-padding);
+    padding-bottom: var(--modal-inner-padding);
+}
+
+.modal-header-padding-x {
+    padding-left: var(--modal-inner-padding);
+    padding-right: var(--modal-inner-padding);
+}
+
+.modal-header-padding {
+    padding: var(--modal-header-padding-y) var(--modal-header-padding-x);
+}
+
+.modal-sm {
+    width: 300px;
+}
+
+.modal-md {
+    width: 500px;
+}
+
+.modal-lg {
+    width: 800px;
+}
+
+.modal-xl {
+    width: 1140px;
+}
+
+.modal-fade-transform {
+    transform: translate(0, -50px);
+}
+
+.modal-show-transform {
+    transform: none;
+}
+
+.modal-transition {
+    transition: transform 0.3s ease-out;
+}
+
+.modal-scale-transform {
+    transform: scale(1.02);
+}
+
+/* Loop */
+@media (max-width: 575.98px) {
+    .modal-fullscreen-down {
+        width: 100vw;
+        max-width: none;
+        height: 100%;
+        margin: 0;
+    }
+
+    .modal-fullscreen-down .modal-content {
+        height: 100%;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .modal-fullscreen-down .modal-header {
+        border-radius: 0;
+    }
+
+    .modal-fullscreen-down .modal-body {
+        overflow-y: auto;
+    }
+
+    .modal-fullscreen-down .modal-footer {
+        border-radius: 0;
+    }
+}
+
+/* Repeat the above styles for other breakpoints as needed */

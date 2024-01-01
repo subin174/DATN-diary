@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}"
       class="layout-account-root">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
 
 
     <!-- Font Awesome -->
@@ -20,28 +19,27 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
-<!--    <link rel="stylesheet" href="css/sound.css" />-->
+    <link rel="stylesheet" href="css/mdb.min.css"/>
+    <link rel="stylesheet" href="css/sound.css" />
 </head>
 <body>
 <main class="content" layout:fragment="content">
     <div class="container-fluid p-0">
-        <div class="row">
-            <div class="col-12 col-lg-6">
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle">Thông tin âm thanh</h1>
-                </div>
-            </div>
-        </div>
+        <!--            <div class="row">-->
+        <!--                <div class="col-12 col-lg-6">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <h1 class="h3 d-inline align-middle">Thông tin âm thanh</h1>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
 
         <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-md-5 col-xl-5">
                 <div class="card">
                     <div class="mb-3">
                         <label for="audioInput" class="form-label card-title mb-0"> file input audio </label>
                         <input type="file" accept="audio/*" class="form-control" id="audioInput">
-                        <audio  controls id="audioPlayer" style="margin-top: 10px"></audio>
-<!--                        <button class="btn btn-outline-secondary" style="margin-top: 50px" onclick="uploadAudio()">Upload Audio</button>-->
+                        <audio controls id="audioPlayer" style="margin-top: 10px"></audio>
                     </div>
                 </div>
                 <div class="card">
@@ -95,9 +93,11 @@
                                 <h5 class="card-title mb-0">Poster</h5>
                             </div>
                             <div class="mb-3" style="margin-left: 30px">
-                                <img id="previewImage" class="rounded" style="margin-left: 30px" alt="Preview" width="120" height="120">
-                                <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"  accept="image/*" onchange="displayImage(this)" name="multipartFile" multiple>
-<!--                                <button class="btn btn-outline-secondary " style="margin-top: 10px" onclick="uploadImage()">Upload image</button>-->
+                                <img id="previewImage" class="rounded" style="margin-left: 30px" alt="Preview"
+                                     width="120" height="120">
+                                <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"
+                                       accept="image/*" onchange="displayImage(this)" name="multipartFile" multiple>
+
                             </div>
 
                         </div>
@@ -109,11 +109,52 @@
 
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init data-mdb-ripple-color="dark">Thêm</button>
+                                <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init
+                                        data-mdb-ripple-color="dark">Thêm
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-7 col-xl-7">
+                <hr>
+                <div class="table-responsive overflow-scroll" style="max-height: 65%">
+                    <table id="dtHorizontalExample" class="table table-striped table-bordered table-sm " cellspacing="0"
+                           width="100%">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID Sound</th>
+                            <th scope="col">Poster</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Mood sound</th>
+<!--                            <th scope="col"></th>-->
+<!--                            <th scope="col"></th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="sound : ${soundList}">
+                            <td th:text="${sound.id}"></td>
+                            <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${sound.poster}"
+                                                 style="width: 100px;height: 100px;"></th>
+                            <td th:text="${sound.title}"></td>
+                            <td th:text="${sound.author}"></td>
+                            <td th:text="${sound.moodSound}"></td>
+<!--                            <td>-->
+<!--                                <button class="btn btn-outline-secondary">Update-->
+<!--                                </button>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <button class="btn btn-outline-danger" th:onclick="|deleteAudio('${sound.id}')|">Delete-->
+<!--                                </button>-->
+<!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr>
             </div>
         </div>
     </div>
@@ -127,6 +168,7 @@
                 audioPlayer.src = objectURL;
             }
         });
+
         function displayImage(input) {
             const previewImage = document.getElementById('previewImage');
             if (input.files && input.files[0]) {

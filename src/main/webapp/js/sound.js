@@ -84,9 +84,10 @@ const uploadImg = () => {
             })
             .then(resp => {
                 console.log('Upload success:', resp);
-                // if (resp.status === 'SUCCESS') {
-                //     imgUrl = resp.data;
-                // }
+                if (resp.status === 'SUCCESS') {
+                    alert('upload success');
+                    return;
+                }
                 return  resolve(resp)
             })
 
@@ -184,4 +185,10 @@ $("#file-browser").click(function(e) {
     $("#file-upload").trigger("click");
 });
 
+$(document).ready(function () {
+    $('#dtHorizontalExample').DataTable({
+        "scrollX": true
+    });
+    $('.dataTables_length').addClass('bs-select');
+});
 

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}"
-      class="layout-account-root">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
 
     <!-- Font Awesome -->
     <link
@@ -17,17 +15,17 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
     />
-    <link href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" rel="stylesheet">
+    <!--    <link href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/mdb.min.css" rel="stylesheet">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
+    <link rel="stylesheet" href="css/mdb.min.css"/>
 </head>
 <body>
 <main class="content" layout:fragment="content">
     <div class="container-fluid p-0">
-        <div class="container">
+
             <div class="row">
-                <div class="card rounded-6 col-md-2 ">
+                <div class="card rounded-6 col-md-2 col-xl-2" style="width: 250px;height: 120px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -43,7 +41,7 @@
                         <h1 class="mt-1 mb-3" id="quantitySound">2.382</h1>
                     </div>
                 </div>
-                <div class="card rounded-6 col-md-2 ">
+                <div class="card rounded-6 col-md-2 col-xl-2" style="width: 250px;height: 120px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -52,14 +50,14 @@
 
                             <div class="col-auto">
                                 <div class="stat text-primary">
-                                    <i class="fab face-grin-beam"></i>
+                                    <i class="fa-regular fa-face-laugh-beam"></i>
                                 </div>
                             </div>
                         </div>
                         <h1 class="mt-1 mb-3" id="vuive">2.382</h1>
                     </div>
                 </div>
-                <div class="card rounded-6 col-md-2">
+                <div class="card rounded-6 col-md-2 col-xl-2" style="width: 250px;height: 120px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -68,14 +66,14 @@
 
                             <div class="col-auto">
                                 <div class="stat text-primary">
-                                    <i class="align-middle" data-feather="music"></i>
+                                    <i class="fa-regular fa-face-kiss-beam"></i>
                                 </div>
                             </div>
                         </div>
                         <h1 class="mt-1 mb-3" id="thugian">2.382</h1>
                     </div>
                 </div>
-                <div class="card rounded-6 col-md-2">
+                <div class="card rounded-6 col-md-2 col-xl-2" style="width: 250px;height: 120px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -84,14 +82,14 @@
 
                             <div class="col-auto">
                                 <div class="stat text-primary">
-                                    <i class="align-middle" data-feather="music"></i>
+                                    <i class="fa-regular fa-face-dizzy"></i>
                                 </div>
                             </div>
                         </div>
                         <h1 class="mt-1 mb-3" id="dengu">2.382</h1>
                     </div>
                 </div>
-                <div class="card rounded-6 col-md-2">
+                <div class="card rounded-6 col-md-2 col-xl-2" style="width: 250px;height: 120px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -100,14 +98,14 @@
 
                             <div class="col-auto">
                                 <div class="stat text-primary">
-                                    <i class="face-grin-hearts"></i>
+                                    <i class="fa-regular fa-face-grin-hearts"></i>
                                 </div>
                             </div>
                         </div>
                         <h1 class="mt-1 mb-3" id="hanhphuc">2.382</h1>
                     </div>
                 </div>
-                <div class="card rounded-6 col-md-2">
+                <div class="card rounded-6 col-md-2 col-xl-2" style="width: 250px;height: 120px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col mt-0">
@@ -116,7 +114,8 @@
 
                             <div class="col-auto">
                                 <div class="stat text-primary">
-                                    <i class="align-middle" data-feather="music"></i>
+                                    <i class="fa-regular fa-face-grin-squint-tears"></i>
+
                                 </div>
                             </div>
                         </div>
@@ -124,51 +123,52 @@
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-        <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
-        </div>
-        <div class="col-12">
-<!--            <h3 class="text-center">List of Sounds</h3>-->
-            <hr>
-            <div class="table-responsive ">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID Sound</th>
-                        <th scope="col">Poster</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Mood sound</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="sound : ${soundList}">
-                        <td th:text="${sound.id}"></td>
-                        <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${sound.poster}"
-                                             style="width: 100px;height: 100px;"></th>
-                        <td th:text="${sound.title}"></td>
-                        <td th:text="${sound.author}"></td>
-                        <td th:text="${sound.moodSound}"></td>
-                        <td>
-                            <button class="btn btn-outline-secondary">Update
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-outline-danger" th:onclick="|deleteAudio('${sound.id}')|">Delete
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <hr>
+    </div>
+    <div class="input-group">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+               aria-describedby="search-addon"/>
+        <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+    </div>
+    <div class="col-12">
+        <!--            <h3 class="text-center">List of Sounds</h3>-->
+        <hr>
+        <div class="table-responsive ">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID Sound</th>
+                    <th scope="col">Poster</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Mood sound</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sound : ${soundList}">
+                    <td th:text="${sound.id}"></td>
+                    <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${sound.poster}"
+                                         style="width: 100px;height: 100px;"></th>
+                    <td th:text="${sound.title}"></td>
+                    <td th:text="${sound.author}"></td>
+                    <td th:text="${sound.moodSound}"></td>
+                    <td>
+                        <button class="btn btn-outline-secondary">Update
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-danger" th:onclick="|deleteAudio('${sound.id}')|">Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+
+        <hr>
+    </div>
     </div>
     </div>
     </div>
@@ -176,9 +176,9 @@
     <script src="js/list-sound.js"></script>
     <script src="js/pages-profile.js"></script>
     <script>
-        import { Ripple, initMDB } from "mdb-ui-kit";
+        import {Ripple, initMDB} from "mdb-ui-kit";
 
-        initMDB({ Ripple });
+        initMDB({Ripple});
     </script>
 
 </main>
