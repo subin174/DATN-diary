@@ -53,6 +53,7 @@ async function create() {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
+                alert('upload success');
                 location.reload()
             }
         });
@@ -188,4 +189,3 @@ function uploadAudio() {
 //     });
 //     $('.dataTables_length').addClass('bs-select');
 // });
-
