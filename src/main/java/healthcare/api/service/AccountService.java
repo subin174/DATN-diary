@@ -180,12 +180,12 @@ public class AccountService extends BaseService<Account> {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             String startDate = dateFormat.format(calendar.getTime());
-            System.out.println(startDate);
+
 
             calendar.set(Calendar.MONTH, i);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             String endDate = dateFormat.format(calendar.getTime());
-            System.out.println(endDate);
+
 
             List<Object> monthlyResult = repository.getCountAccountByYear( startDate, endDate);
             resultMap.put(monthNames[i - 1], monthlyResult);

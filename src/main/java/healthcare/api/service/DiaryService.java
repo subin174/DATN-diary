@@ -210,12 +210,10 @@ public class DiaryService extends BaseService<Diary> {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             String startDate = dateFormat.format(calendar.getTime());
-            System.out.println(startDate);
 
             calendar.set(Calendar.MONTH, i);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             String endDate = dateFormat.format(calendar.getTime());
-            System.out.println(endDate);
 
             List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
             resultMap.put(monthNames[i - 1], monthlyResult);
@@ -232,13 +230,12 @@ public class DiaryService extends BaseService<Diary> {
         calendar.set(Calendar.DAY_OF_MONTH,1);
 //            String b = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
         String startDate = dateFormat.format(calendar.getTime());
-        System.out.println( startDate);
 
         calendar.set(Calendar.MONTH,i );
         calendar.add(Calendar.DAY_OF_MONTH,-1);
 //            String a = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
         String endDate = dateFormat.format(calendar.getTime());
-        System.out.println(endDate);
+
 
             List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
         resultMap.put(monthNames[i - 1], monthlyResult);
@@ -256,12 +253,12 @@ public class DiaryService extends BaseService<Diary> {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             String startDate = dateFormat.format(calendar.getTime());
-            System.out.println(startDate);
+
 
             calendar.set(Calendar.MONTH, i);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             String endDate = dateFormat.format(calendar.getTime());
-            System.out.println(endDate);
+
 
             List<Object> monthlyResult = repository.getCountMoodByYear(startDate, endDate);
             resultMap.put(monthNames[i - 1], monthlyResult);
@@ -279,12 +276,12 @@ public class DiaryService extends BaseService<Diary> {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             String startDate = dateFormat.format(calendar.getTime());
-            System.out.println(startDate);
+
 
             calendar.set(Calendar.MONTH, i);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             String endDate = dateFormat.format(calendar.getTime());
-            System.out.println(endDate);
+
 
             List<Object> monthlyResult = repository.getCountDiaryMoodPublicByYear(startDate, endDate);
             resultMap.put(monthNames[i - 1], monthlyResult);
@@ -302,12 +299,12 @@ public class DiaryService extends BaseService<Diary> {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             String startDate = dateFormat.format(calendar.getTime());
-            System.out.println(startDate);
+
 
             calendar.set(Calendar.MONTH, i);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             String endDate = dateFormat.format(calendar.getTime());
-            System.out.println(endDate);
+
 
             List<Object> monthlyResult = repository.getCountDiaryByYear( startDate, endDate);
             resultMap.put(monthNames[i - 1], monthlyResult);
@@ -318,25 +315,16 @@ public class DiaryService extends BaseService<Diary> {
         return repository.getCountQuantityDiary();
     }
 
-//    public static void main(String[] args) {
-//        Calendar calendar = Calendar.getInstance();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        Integer a =
-//        for (int i = 1; i <= 12; i++) {
-//
-//            calendar.set(Calendar.MONTH,i -1);
-//            calendar.set(Calendar.DAY_OF_MONTH,1);
-////            String b = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
-//            String startDate = dateFormat.format(calendar.getTime());
-//            System.out.println( startDate);
-//
-//            calendar.set(Calendar.MONTH,i );
-//            calendar.add(Calendar.DAY_OF_MONTH,-1);
-////            String a = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
-//            String endDate = dateFormat.format(calendar.getTime());
-//            System.out.println(endDate);
-//        }
-//    }
+
+
+
+
+
+
+
+
+
+
     public static void main(String[] args) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

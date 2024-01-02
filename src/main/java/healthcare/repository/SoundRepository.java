@@ -13,12 +13,12 @@ import java.util.List;
 public interface SoundRepository extends JpaRepository<Sound, Long>, JpaSpecificationExecutor<Sound> {
     List<Sound> findAllByMoodSound(MoodSound moodSound);
     @Query(value = "SELECT COUNT(*) AS count, m.mood_sound " +
-            "FROM `diary-app`.sound a " +
+            "FROM `diary_dev`.sound a " +
             "JOIN mood_sound m ON a.mood_sound_id = m.id  " +
             "GROUP BY a.mood_sound_id", nativeQuery = true)
     List<Object> getCountMood();
 
     @Query(value = " SELECT COUNT(*) AS count " +
-            "FROM `diary-app`.sound a ", nativeQuery = true)
+            "FROM `diary_dev`.sound a ", nativeQuery = true)
     List<Object> getCountQuantitySound();
 }
