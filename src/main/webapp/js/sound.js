@@ -53,7 +53,6 @@ async function create() {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                alert('upload success');
                 location.reload()
             }
         });
@@ -85,12 +84,15 @@ const uploadImg = () => {
             })
             .then(resp => {
                 console.log('Upload success:', resp);
-                // if (resp.status === 'SUCCESS') {
-                //     alert('upload success');
-                //     return;
-                // }
+                if (resp.status === 'SUCCESS') {
+                    alert('upload success');
+                    return;
+                }
                 return  resolve(resp)
             })
+
+
+
     })
 }
 const uploadAud = () => {
@@ -182,7 +184,7 @@ function uploadAudio() {
 //     e.preventDefault();
 //     $("#file-upload").trigger("click");
 // });
-
+//
 // $(document).ready(function () {
 //     $('#dtHorizontalExample').DataTable({
 //         "scrollX": true

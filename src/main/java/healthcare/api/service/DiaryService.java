@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DiaryService extends BaseService<Diary> {
 
-
     @Override
     protected DiaryRepository getRepository() {
         return repository;

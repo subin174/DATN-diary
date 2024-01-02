@@ -8,6 +8,7 @@ import healthcare.entity.Account;
 import healthcare.entity.UserPrin;
 import healthcare.entity.dto.account.AccountDto;
 import healthcare.entity.dto.resp.AccountResp;
+import healthcare.entity.dto.resp.AccountUpdateResp;
 import healthcare.entity.enums.Role;
 import healthcare.exception.InvalidOldPasswordException;
 import healthcare.repository.AccountRepository;
@@ -100,7 +101,6 @@ public class AccountService extends BaseService<Account> {
         UserPrin userPrin = getCurrentUser();
         Account account = this.getById(userPrin.getId());
         account.updateAccount(accountResp);
-
         return this.entityToResp(repository.save(account),Account.class);
     }
     public Account setAvatar(MultipartFile file) throws Exception {

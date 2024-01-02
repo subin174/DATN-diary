@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import healthcare.entity.dto.account.AccountDto;
 import healthcare.entity.dto.req.AccReq;
 import healthcare.entity.dto.resp.AccountResp;
+import healthcare.entity.dto.resp.AccountUpdateResp;
 import healthcare.entity.enums.AccountStatus;
 import healthcare.entity.enums.IdentityType;
 import lombok.*;
@@ -65,10 +66,10 @@ public class Account {
     }
     public void updateAccount(AccountResp accountResp){
         this.nickName =accountResp.getNickName();
-        this.firstName=accountResp.getFirstName();
-        this.lastName=accountResp.getLastName();
+ //       this.firstName=accountResp.getFirstName();
+ //       this.lastName=accountResp.getLastName();
         this.phone=accountResp.getPhone();
-        this.avatar=accountResp.getAvatar();
+ //       this.avatar=accountResp.getAvatar();
         this.email=accountResp.getEmail();
         this.date=accountResp.getDate();
     }
