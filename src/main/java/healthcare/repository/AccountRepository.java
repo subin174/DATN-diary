@@ -13,12 +13,12 @@ public interface AccountRepository extends JpaRepository<Account,Long>, JpaSpeci
     Account findByPhone(String phone);
 
     @Query(value = " SELECT COUNT(*) AS count " +
-            "FROM `diary_dev`.account a " +
+            "FROM `diary-app`.account a " +
             "WHERE a.created_at BETWEEN ?1 AND ?2" , nativeQuery = true)
     List<Object> getCountAccountByYear(String startDate, String endDate);
 
     @Query(value = " SELECT COUNT(*) AS count " +
-            "FROM `diary_dev`.account a ", nativeQuery = true)
+            "FROM `diary-app`.account a ", nativeQuery = true)
     List<Object> getCountQuantityAccount();
 
 }
