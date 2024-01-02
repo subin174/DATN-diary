@@ -125,68 +125,22 @@ const uploadAud = () => {
     })
 }
 
-function uploadImage() {
-    const input = document.getElementById('imageInput');
-    const file = input.files[0];
-    if (!file) {
-        alert('Please select an image file.');
-        return;
-    }
-    const formData = new FormData();
-    formData.append('multipartFile', file);
 
-    fetch('/api/v1/admin/sound/upload-img', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + readCookie('token')
-        },
-        body: formData
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(resp => {
-            console.log('Upload success:', resp);
-            if (resp.status === 'SUCCESS') {
-                imgUrl = resp.data;
-            }
-        })
-}
-function uploadAudio() {
-    const audioInput = document.getElementById('audioInput');
-    const audioFile = audioInput.files[0];
-    const formData = new FormData();
-    formData.append('audio', audioFile);
+// .then(response => {
+//     if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//     }
+//     return response.json();
+// })
+//     .then(resp => {
+//         console.log('Upload success:', resp);
+//         if (resp.status === 'SUCCESS') {
+//             imgUrl = resp.data;
+//         }
+//     })
 
-    fetch('/api/v1/admin/sound/upload', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + readCookie('token')
-        },
-        body: formData
-    })
-        .then((res) => res.json())
-        .then(resp => {
-            console.log(resp);
-            if (resp.status === 'SUCCESS') {
-                audioUrl = resp.data;
-            }
-        })
-}
-// $("#file-upload").css("opacity", "0");
-//
-// $("#file-browser").click(function(e) {
-//     e.preventDefault();
-//     $("#file-upload").trigger("click");
-// });
 
-// $(document).ready(function () {
-//     $('#dtHorizontalExample').DataTable({
-//         "scrollX": true
-//     });
-//     $('.dataTables_length').addClass('bs-select');
-// });
+
+
+
 
