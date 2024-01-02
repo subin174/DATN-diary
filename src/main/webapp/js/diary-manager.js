@@ -264,26 +264,6 @@ if (createdByParam) {
     getInfoById(createdByParam);
 }
 
-// Define the getLineColor function
-
-
-$("#close").click(function(){
-    close();
-    location.reload();
-});
-$("#exampleModal").click(function(){
-    location.reload();
-});
-exampleModal
-$("#close2").click(function(){
-    close();
-    location.reload();
-});
-$("#delete").click(function(){
-    const diaryId = $(this).attr("data-diary-id");
-    deleteEntity(diaryId);
-});
-
 function deleteEntity(diaryId) {
     // Check if diaryId is a valid number
     if (!diaryId || isNaN(parseInt(diaryId, 10))) {
@@ -318,3 +298,70 @@ function deleteEntity(diaryId) {
             console.error('Error deleting entity:', error);
         });
 }
+//cmt
+function getComments(diaryId) {
+    // Specify the API endpoint
+    const apiUrl = `http://localhost:8080/api/v1/comments/list/${diaryId}`;
+
+    // Make a GET request using the Fetch API
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "SUCCESS") {
+                // If the API response is successful, display the comments
+                displayComments(data.data);
+            } else {
+                console.error("Error fetching comments:", data.status);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching comments:", error);
+        });
+}
+
+// Function to display comments in the HTML
+function displayComments(comments) {
+    const commentContainer = document.getElementById('cmt');
+
+    // Clear existing comments
+    commentContainer.innerHTML = '';
+
+    // Iterate through comments and append them to the container
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.className = 'comment';
+
+        // Add comment content (you can customize this based on your needs)
+        commentElement.innerHTML = `
+        <strong>${comment.nickName}</strong>
+        <div class="text-muted small mt-1">${comment.createdAt} ago</div>
+        <p>${comment.comment}</p>
+        <img src="${comment.avatar}" alt="User Avatar" class="avatar img-fluid rounded-circle cmt-avatar">
+      `;
+
+        // Append the comment element to the container
+        commentContainer.appendChild(commentElement);
+    });
+}
+
+// Call the function with the diaryId you want to fetch comments for
+getComments(15);
+
+
+$("#close").click(function(){
+    close();
+    location.reload();
+});
+$("#exampleModal").click(function(){
+    location.reload();
+});
+exampleModal
+$("#close2").click(function(){
+    close();
+    location.reload();
+});
+$("#delete").click(function(){
+    const diaryId = $(this).attr("data-diary-id");
+    deleteEntity(diaryId);
+});
+

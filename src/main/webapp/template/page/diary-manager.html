@@ -28,7 +28,7 @@
                         <h5 class="card-title mb-0">Diary Public</h5>
                     </div>
                 </div>
-                <div class="overflow-scroll" style="max-height: 45%">
+                <div class="overflow-scroll" style="max-height: 100%">
                     <div class="list-group diary">
                         <div th:each="diary : ${diaries}" th:sortedby="${diary.createdAt}"
                              th:order="${'desc'}" class="list-group-item diary-item-detail" th:id="${diary.id}">
@@ -59,7 +59,6 @@
                                     </div>
 
                                     <div class="text-nowrap bd-highlight col-9" th:text="${diary.happened}"></div>
-
 
 
                                     <div class="time-box text-muted small mt-1"
@@ -111,11 +110,34 @@
                                                         <div id="abc" class="card-body user">
                                                         </div>
                                                     </div>
+                                                    <div class="card" style="max-height: 40%">
+                                                        <div class="row" style="margin-left: 10px; margin-top: 10px">
+                                                            <div class="user-avatar col-1">
+                                                                <img class="avatar img-fluid rounded-circle cmt-avatar"
+                                                                     width="5px" height="5px" alt="User Avatar">
+                                                            </div>
+                                                            <div class="user-info inline-block-container col-10">
+                                                                <div style="display: inline-block;">
+                                                                    <strong>
+                                                                        <div class="text-dark cmt-nickname"></div>
+                                                                    </strong>
+                                                                </div>
+                                                                <div class="text-muted small mt-1 cmt-createdAt">
+                                                                    January 1, 2023 12:00:00 ago
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="cmt" class="card-body user">
+                                                        </div>
+                                                    </div>
                                                     <div class="modal-footer">
-<!--                                                        <div class="col-1" data-feather="trash-2"-->
-<!--                                                             style="margin-top: 20px; margin-right: 10px">-->
-<!--                                                        </div>-->
-                                                        <button type="button" class="btn btn-danger" id="delete" th:attr="data-diary-id=${diary.id}" th:onclick="|deleteEntity('${diary.id}')|">Delete</button>
+                                                        <!--                                                        <div class="col-1" data-feather="trash-2"-->
+                                                        <!--                                                             style="margin-top: 20px; margin-right: 10px">-->
+                                                        <!--                                                        </div>-->
+                                                        <button type="button" class="btn btn-danger" id="delete"
+                                                                th:attr="data-diary-id=${diary.id}"
+                                                                th:onclick="|deleteEntity('${diary.id}')|">Delete
+                                                        </button>
 
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal" id="close">Close
@@ -147,16 +169,12 @@
                 </div>
             </div>
         </div>
-        <script>
-            var myModal = document.getElementById('myModal')
-            var myInput = document.getElementById('myInput')
-
-            myModal.addEventListener('shown.bs.modal', function () {
-                myInput.focus()
-            })
-        </script>
         <script src="js/diary-manager.js"></script>
     </div>
+    <script>
+        // Function to fetch and display comments
+
+    </script>
 </main>
 </body>
 </html>
