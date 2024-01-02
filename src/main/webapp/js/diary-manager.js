@@ -267,18 +267,18 @@ if (createdByParam) {
 // Define the getLineColor function
 
 
-$("#close").click(function(){
-    close();
-    location.reload();
-});
-$("#exampleModal").click(function(){
-    location.reload();
-});
-exampleModal
-$("#close2").click(function(){
-    close();
-    location.reload();
-});
+// $("#close").click(function(){
+//     close();
+//     location.reload();
+// });
+// $("#exampleModal").click(function(){
+//     location.reload();
+// });
+//
+// $("#close2").click(function(){
+//     close();
+//     location.reload();
+// });
 $("#delete").click(function(){
     const diaryId = $(this).attr("data-diary-id");
     deleteEntity(diaryId);
@@ -311,7 +311,7 @@ function deleteEntity(diaryId) {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
                 // Reload the page after successful deletion
-                location.reload();
+                // location.reload();
             }
         })
         .catch(error => {
