@@ -25,7 +25,7 @@
 
     <div class="container-fluid p-0">
         <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <input type="search" class="form-control rounded key-search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
             <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
         </div>
         <div class="row" style="margin-top: 20px">
@@ -57,29 +57,31 @@
                         <th scope="col">delete</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr class=".text-md-center text-center" th:each="account : ${accountList}">
-                        <td th:text="${account.id}" th:onclick="|test('${account.id}')|"></td>
-                        <th scope="row"><img class="rounded" alt="Cinque Terre" th:onclick="|test('${account.id}')|" th:src="${account.avatar}"
-                                             style="width: 100px;height: 100px;"></th>
-                        <td th:text="${account.firstName}" th:onclick="|test('${account.id}')|"></td>
-                        <td th:text="${account.lastName}" th:onclick="|test('${account.id}')|"></td>
-                        <td th:text="${account.nickName}" th:onclick="|test('${account.id}')|"></td>
-                        <td class="col-md-2" th:text="${account.email}" th:onclick="|test('${account.id}')|"></td>
-                        <td th:text="${account.phone}" th:onclick="|test('${account.id}')|"></td>
-                        <td th:text="${account.username}" th:onclick="|test('${account.id}')|"></td>
-                        <!--                    th:text="${account.status}"-->
-                        <td>
-                            <button class="btn btn-outline-warning">ACTIVE
-                            </button>
-                        </td>
-                        <td>
+                    <tbody class="list-user-active">
 
-                            <button class="btn btn-outline-danger" th:onclick="|deleteEntity('${account.id}')|">Delete
-                            </button>
-                        </td>
-                    </tr>
+<!--                    <tr class=".text-md-center text-center" th:each="account : ${accountList}">-->
+<!--                        <td th:text="${account.id}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        <th scope="row"><img class="rounded" alt="Cinque Terre" th:onclick="|test('${account.id}')|" th:src="${account.avatar}"-->
+<!--                                             style="width: 100px;height: 100px;"></th>-->
+<!--                        <td th:text="${account.firstName}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        <td th:text="${account.lastName}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        <td th:text="${account.nickName}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        <td class="col-md-2" th:text="${account.email}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        <td th:text="${account.phone}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        <td th:text="${account.username}" th:onclick="|test('${account.id}')|"></td>-->
+<!--                        &lt;!&ndash;                    th:text="${account.status}"&ndash;&gt;-->
+<!--                        <td>-->
+<!--                            <button class="btn btn-outline-warning">ACTIVE-->
+<!--                            </button>-->
+<!--                        </td>-->
+<!--                        <td>-->
+
+<!--                            <button class="btn btn-outline-danger" th:onclick="|deleteEntity('${account.id}')|">Delete-->
+<!--                            </button>-->
+<!--                        </td>-->
+<!--                    </tr>-->
                     </tbody>
+
                 </table>
             </div>
             <hr>

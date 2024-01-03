@@ -17,8 +17,34 @@ async function signIn(){
         let data = await fetch('api/v1/authenticate/login', options);
         data = await data.json();
         setToken("token", data.token);
-        await getInfo(data.token);
-        window.location.href = 'profile';
+        const _data = await getInfo(data.token);
+
+        if (_data && _data.id) {
+            const isAdmin = _data.role.find(item => item.id === 1);
+            if (isAdmin && isAdmin.id) {
+                localStorage.setItem("nickName", _data.nickName);
+                localStorage.setItem("avatar", _data.avatar);
+                localStorage.setItem("firstName", _data.firstName);
+                localStorage.setItem("lastName", _data.lastName);
+                localStorage.setItem("phone", _data.phone);
+                localStorage.setItem("date", _data.date);
+                localStorage.setItem("email", _data.email);
+                localStorage.setItem("age", _data.age);
+                window.location.href = 'profile';
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Please login again, account is not admin!",
+                });
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please login again, account is not admin!",
+            });
+        }
     } catch (e) {
         console.log(e)
     }
@@ -36,15 +62,7 @@ async function getInfo(token) {
         const _data = await fetch('/api/v1/account/info', options);
         const { status, data } = await _data.json();
         if (status === 'SUCCESS') {
-            localStorage.setItem("nickName", data.nickName);
-            localStorage.setItem("avatar", data.avatar);
-            localStorage.setItem("firstName", data.firstName);
-            localStorage.setItem("lastName", data.lastName);
-            localStorage.setItem("phone", data.phone);
-            localStorage.setItem("date", data.date);
-            localStorage.setItem("email", data.email);
-            localStorage.setItem("age", data.age);
-
+            return data;
         }
     } catch (e) {
         console.log('e', e)
