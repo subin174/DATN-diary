@@ -55,7 +55,7 @@ for (let i = 0; i < timeElement.length; i++) {
 function resetTime(timeElement) {
 
     //console.log('CountDownTime');
-    let strDate = timeElement.getAttribute("data-action-time").substring(0,19) + 'z';
+    let strDate = timeElement.getAttribute("data-action-time").substring(0, 19) + 'z';
     // console.log("strDate " + strDate)
 
     let countDownDate = new Date(strDate);
@@ -65,7 +65,7 @@ function resetTime(timeElement) {
     // countDownDate = new Date(countDownDate.getTime() + (countDownDate.getTimezoneOffset()*60*1000));
 
     // console.log(countDownDate)
-    let x = setInterval(function() {
+    let x = setInterval(function () {
         //let distance = countDownDate - timeNow;
 
         let distance = (new Date().getTime()) - countDownDate.getTime();
@@ -87,6 +87,7 @@ function resetTime(timeElement) {
             timeElement.innerHTML = minutes + ' min ago'
     }, 1000);
 }
+
 const getDiaryById = async () => {
     const options = {
         method: 'GET',
@@ -104,7 +105,7 @@ const getDiaryById = async () => {
                     const id = this.id;
                     if (id) {
                         const req = await fetch(`api/v1/admin/diary/${id}`, options);
-                        const { status, data } = await req.json();
+                        const {status, data} = await req.json();
                         if (status === 'SUCCESS') {
                             $('.card-body').empty();
 
@@ -191,6 +192,105 @@ const getDiaryById = async () => {
         console.log('Error', e);
     }
 }
+getDiaryById();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + readCookie('token')
+        },
+    };
+
+    const cmtItemElements = document.querySelectorAll('.cmt-item-detail');
+    if (cmtItemElements && cmtItemElements.length) {
+        cmtItemElements.forEach(item => {
+            item.addEventListener('click', async function () {
+                const diaryId = this.id;
+                if (diaryId) {
+                    try {
+
+                        const response = await fetch(`http://localhost:8080/api/v1/comments/list/${diaryId}`, options);
+                        const data = await response.json();
+
+                        // Clear existing comments
+                        const cmtContainer = document.getElementById('cmt');
+                        cmtContainer.innerHTML = '';
+                        // $('.card-comment').empty();
+
+                        // const cmtAvatar = document.querySelector('.cmt-avatar');
+                        // if (cmtAvatar) {
+                        //     cmtAvatar.setAttribute('src', data.data[0].avatar);
+                        // }
+                        // // document.querySelector('.cmt-avatar').textContent = data.data[0].avatar;
+                        // document.querySelector('.cmt-nickname').textContent = data.data[0].nickName;
+                        // document.querySelector('.comment').textContent = data.data[0].comment;
+                        // // document.querySelector('.cmt-createdAt').textContent = data.data[0].createdAt + ' ago';
+                        // const cmtTime = document.querySelector('.cmt-createdAt');
+                        // if (cmtTime) {
+                        //     const createdAtDate = new Date(data.data[0].createdAt);
+                        //
+                        //
+                        //     const formattedDate = createdAtDate.toLocaleString('en-US', {
+                        //         year: 'numeric',
+                        //         month: 'long',
+                        //         day: 'numeric',
+                        //         hour: 'numeric',
+                        //         minute: 'numeric',
+                        //         hour12: true
+                        //     });
+                        //
+                        //
+                        //     cmtTime.innerText = formattedDate;
+                        // }
+
+                        data.data.forEach(comment => {
+                            const commentElement = document.createElement('div');
+                            const createdAtDate = new Date(comment.createdAt);
+
+                            // Format the date using toLocaleString
+                            const formattedDate = createdAtDate.toLocaleString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: true
+                            });
+                            commentElement.innerHTML = `
+                                
+                                
+                                <div class="row">
+                                <div class="user-avatar col-2">
+                                    <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
+                                </div>
+                                <div class="user-info inline-block-container col-9">
+                                    <div style="display: inline-block;">
+                                        <strong>
+                                            <div class="text-dark">${comment.nickName}</div>
+                                        </strong>
+                                    </div>
+                                    <div class="text-muted small mt-1 cmt-createdAt">
+                                                                ${formattedDate}
+                                                            </div>
+                                    <div class=" mt-1">${comment.comment}</div>
+                                </div>
+                                
+                                </div>
+                                 
+                            `;
+                            cmtContainer.appendChild(commentElement);
+                        });
+                    } catch (error) {
+                        console.error('Error fetching comments:', error);
+                    }
+                }
+            });
+        });
+    }
+});
+
 
 function readCookie(name) {
     var nameEQ = name + "=";
@@ -202,9 +302,6 @@ function readCookie(name) {
     }
     return null;
 }
-
-getDiaryById();
-
 
 
 function getParameterByName(name, url) {
@@ -221,12 +318,11 @@ function setProfile(elementId, content) {
     var element = document.getElementById(elementId);
     if (elementId === 'avatarUser') {
         element.src = content;
-    }
-
-    else {
+    } else {
         element.innerHTML = content;
     }
 }
+
 function getInfoById(id) {
     console.log("id: " + id);
     fetch(`/api/v1/admin/account/${id}`, {
@@ -298,69 +394,21 @@ function deleteEntity(diaryId) {
             console.error('Error deleting entity:', error);
         });
 }
+
 //cmt
-function getComments(diaryId) {
-    // Specify the API endpoint
-    const apiUrl = `http://localhost:8080/api/v1/comments/list/${diaryId}`;
 
-    // Make a GET request using the Fetch API
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "SUCCESS") {
-                // If the API response is successful, display the comments
-                displayComments(data.data);
-            } else {
-                console.error("Error fetching comments:", data.status);
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching comments:", error);
-        });
-}
-
-// Function to display comments in the HTML
-function displayComments(comments) {
-    const commentContainer = document.getElementById('cmt');
-
-    // Clear existing comments
-    commentContainer.innerHTML = '';
-
-    // Iterate through comments and append them to the container
-    comments.forEach(comment => {
-        const commentElement = document.createElement('div');
-        commentElement.className = 'comment';
-
-        // Add comment content (you can customize this based on your needs)
-        commentElement.innerHTML = `
-        <strong>${comment.nickName}</strong>
-        <div class="text-muted small mt-1">${comment.createdAt} ago</div>
-        <p>${comment.comment}</p>
-        <img src="${comment.avatar}" alt="User Avatar" class="avatar img-fluid rounded-circle cmt-avatar">
-      `;
-
-        // Append the comment element to the container
-        commentContainer.appendChild(commentElement);
-    });
-}
-
-// Call the function with the diaryId you want to fetch comments for
-getComments(15);
-
-
-$("#close").click(function(){
-    close();
-    location.reload();
-});
-$("#exampleModal").click(function(){
-    location.reload();
-});
-exampleModal
-$("#close2").click(function(){
-    close();
-    location.reload();
-});
-$("#delete").click(function(){
+// $("#close").click(function () {
+//     close();
+//     location.reload();
+// });
+// $("#exampleModal").click(function () {
+//     location.reload();
+// });
+// $("#close2").click(function () {
+//     close();
+//     location.reload();
+// });
+$("#delete").click(function () {
     const diaryId = $(this).attr("data-diary-id");
     deleteEntity(diaryId);
 });

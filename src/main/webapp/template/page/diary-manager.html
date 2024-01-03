@@ -31,7 +31,7 @@
                 <div class="overflow-scroll" style="max-height: 100%">
                     <div class="list-group diary">
                         <div th:each="diary : ${diaries}" th:sortedby="${diary.createdAt}"
-                             th:order="${'desc'}" class="list-group-item diary-item-detail" th:id="${diary.id}">
+                             th:order="${'desc'}" class="list-group-item diary-item-detail cmt-item-detail " th:id="${diary.id}">
                             <div class="d-flex align-items-start" data-bs-toggle="modal"
                                  data-bs-target="#exampleModal">
                                 <img th:src="${diary.avatar}" class="rounded-circle me-2" width="50"
@@ -79,9 +79,8 @@
                                                 <div class="modal-body">
                                                     <div class="card" style="max-height: 40%">
                                                         <div class="row" style="margin-left: 10px; margin-top: 10px">
-                                                            <div class="user-avatar col-1">
-                                                                <img class="avatar img-fluid rounded-circle diary-avatar"
-                                                                     width="5px" height="5px" alt="User Avatar">
+                                                            <div class="user-avatar col-2">
+                                                                <img class="img-fluid rounded-circle diary-avatar" width="40px" height="40px" alt="User Avatar">
                                                             </div>
                                                             <div class="user-info inline-block-container col-10">
                                                                 <div style="display: inline-block;">
@@ -110,25 +109,16 @@
                                                         <div id="abc" class="card-body user">
                                                         </div>
                                                     </div>
-                                                    <div class="card" style="max-height: 40%">
-                                                        <div class="row" style="margin-left: 10px; margin-top: 10px">
-                                                            <div class="user-avatar col-1">
-                                                                <img class="avatar img-fluid rounded-circle cmt-avatar"
-                                                                     width="5px" height="5px" alt="User Avatar">
+                                                    <div class="d-flex align-items-start card-comment" style="max-height: 40%">
+
+                                                        <div class="user-info inline-block-container col-10">
+
+
+                                                            <div id="cmt" class=" comment">
                                                             </div>
-                                                            <div class="user-info inline-block-container col-10">
-                                                                <div style="display: inline-block;">
-                                                                    <strong>
-                                                                        <div class="text-dark cmt-nickname"></div>
-                                                                    </strong>
-                                                                </div>
-                                                                <div class="text-muted small mt-1 cmt-createdAt">
-                                                                    January 1, 2023 12:00:00 ago
-                                                                </div>
-                                                            </div>
+
                                                         </div>
-                                                        <div id="cmt" class="card-body user">
-                                                        </div>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <!--                                                        <div class="col-1" data-feather="trash-2"-->
@@ -161,7 +151,7 @@
                     <div class="card-header">
                         <h5 class="card-title">Biểu đồ cảm xúc nhật ký công khai</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-bod">
                         <div class="chart">
                             <canvas id="chartjs-line-3"></canvas>
                         </div>
