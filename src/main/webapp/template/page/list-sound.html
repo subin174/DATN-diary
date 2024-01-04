@@ -19,6 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- MDB -->
     <link rel="stylesheet" href="css/mdb.min.css"/>
+    <link rel="stylesheet" href="css/list-sound.css"/>
 </head>
 <body>
 <main class="content" layout:fragment="content">
@@ -126,7 +127,7 @@
 
     </div>
     <div class="input-group">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        <input type="search" class="form-control rounded key-search" placeholder="Search" aria-label="Search"
                aria-describedby="search-addon"/>
         <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
     </div>
@@ -137,34 +138,39 @@
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID Sound</th>
-                    <th scope="col">Poster</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Mood sound</th>
+                    <th scope="col" style="text-align: center">ID Sound</th>
+                    <th scope="col" style="text-align: center">Poster</th>
+                    <th scope="col" style="text-align: center">Title</th>
+                    <th scope="col" style="text-align: center">Author</th>
+                    <th scope="col" style="text-align: center">Mood sound</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="sound : ${soundList}">
-                    <td th:text="${sound.id}"></td>
-                    <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${sound.poster}"
-                                         style="width: 100px;height: 100px;"></th>
-                    <td th:text="${sound.title}"></td>
-                    <td th:text="${sound.author}"></td>
-                    <td th:text="${sound.moodSound}"></td>
-                    <td>
-                        <button class="btn btn-outline-secondary">Update
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-danger" th:onclick="|deleteAudio('${sound.id}')|">Delete
-                        </button>
-                    </td>
-                </tr>
+                <tbody class="list-sound">
+<!--                <tr th:each="sound : ${soundList}">-->
+<!--                    <td th:text="${sound.id}"></td>-->
+<!--                    <th scope="row"><img class="rounded" alt="Cinque Terre" th:src="${sound.poster}"-->
+<!--                                         style="width: 100px;height: 100px;"></th>-->
+<!--                    <td th:text="${sound.title}"></td>-->
+<!--                    <td th:text="${sound.author}"></td>-->
+<!--                    <td th:text="${sound.moodSound}"></td>-->
+<!--                    <td>-->
+<!--                        <button class="btn btn-outline-secondary">Update-->
+<!--                        </button>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <button class="btn btn-outline-danger" th:onclick="|deleteAudio('${sound.id}')|">Delete-->
+<!--                        </button>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
+            <nav aria-label="...">
+                <ul class="pagination">
+
+                </ul>
+            </nav>
         </div>
 
         <hr>

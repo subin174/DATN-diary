@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             const labels = Object.keys(data);
-            const emotions = ["Trầm cảm", "Lo lắng", "Áp lực", "Mất kiểm soát", "Vui vẻ", "Hạnh phúc", "Buồn bã"];
+            const emotions = ["Trầm cảm", "Lo lắng", "Áp lực", "Mất kiểm soát", "Vui vẻ", "Hạnh phúc", "Buồn bã","Hứng khởi"];
 
             const datasets = emotions.map((emotion, index) => {
                 const countValues = labels.map(month => {
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getLineColor(index) {
-    const colors = ["red", "brown", "yellow", "purple", "green", "pink", "black"/* Add more colors here */];
+    const colors = ["red", "brown", "yellow", "purple", "green", "pink", "black", ""/* Add more colors here */];
     return colors[index] || getRandomColor();
 }
 

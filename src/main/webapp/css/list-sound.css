@@ -1,0 +1,22 @@
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed for spacing from the content */
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    gap: 10px; /* Adjust as needed for spacing between pagination items */
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    /* Add any additional styling for pagination items here */
+}
+
+.page-link {
+    /* Add any additional styling for pagination links here */
+}

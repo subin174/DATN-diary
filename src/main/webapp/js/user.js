@@ -3,10 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     deleteButtons.forEach(function (button) {
         button.addEventListener('click', function () {
-            // Get the account ID from the data attribute
             var accountId = button.getAttribute('data-account-id');
 
-            // Call the deleteAccount function to handle the delete operation
             deleteAccount(accountId);
         });
     });
@@ -67,7 +65,7 @@ const getAllUsers = async () => {
             const inputSearch = document.querySelector('.key-search');
             if (inputSearch) {
                 inputSearch.onchange = function (e) {
-                    listUser = getListUserRes.data.filter(item => item.nickName.includes(e.target.value.trim()));
+                    listUser = getListUserRes.data.filter(item => item.nickName.includes(e.target.value.trim()) || item.phone.includes(e.target.value.trim()) || item.email.includes(e.target.value.trim()));
                     showListUser(listUser);
                 }
             }

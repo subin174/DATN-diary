@@ -99,9 +99,11 @@ public class AccountService extends BaseService<Account> {
     public Account update(AccountResp accountResp) throws Exception {
         UserPrin userPrin = getCurrentUser();
         Account account = this.getById(userPrin.getId());
-        account.updateAccount(accountResp);
 
-        return this.entityToResp(repository.save(account),Account.class);
+         Account newAccount = this.reqToEntity(accountResp,account);
+//        account.updateAccount(accountResp);
+
+        return this.entityToResp(repository.save(newAccount),Account.class);
     }
     public Account setAvatar(MultipartFile file) throws Exception {
         UserPrin userPrin = getCurrentUser();

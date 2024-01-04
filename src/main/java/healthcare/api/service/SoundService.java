@@ -92,7 +92,7 @@ public class SoundService extends BaseService<Sound> {
     public Page<?> getPaginated(RequestParams requestParams) throws Exception {
         Specification<Sound> specification = this.buildSpecification(requestParams.getFilter());
         Page<Sound> sounds = this.getPaginated(specification, requestParams.getPageable());
-        return sounds.map(sound -> this.entityToResp(sound, DiaryResp.class));
+        return sounds.map(sound -> this.entityToResp(sound, SoundResp.class));
     }
     public List<Object> getCountMood() {
         return repository.getCountMood();
