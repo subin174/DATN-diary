@@ -199,105 +199,115 @@
                                  th:id="${diary.id}">
                                 <div class="row g-0 align-items-center" data-bs-toggle="modal"
                                      data-bs-target="#exampleModal">
-                                    <div class="col-1">
-                                        <img th:src="${diary.avatar}" class="avatar img-fluid rounded-circle" width="50"
-                                             height="50" alt="User Avatar">
-                                    </div>
-                                    <div class="col-4 inline-block-container">
-                                        <div style="display: inline-block;">
-                                            <strong>
-                                                <div class="text-dark" th:text="${diary.nickname}"></div>
-                                            </strong>
-                                        </div>
-                                        feeling
-                                        <div style="display: inline-block;">
-                                            <strong>
-                                                <div class="text-dark" th:text="${diary.mood}"></div>
-                                            </strong>
-                                        </div>
-                                        level
-                                        <div style="display: inline-block;">
-                                            <strong>
-                                                <div class="text-dark" th:text="${diary.level}"></div>
-                                            </strong>
-                                        </div>
-                                        <div class="row">
-                                            <div class="time-box text-muted small mt-1 col-9"
-                                                 th:attr="data-action-time=${diary.createdAt}">
-                                                10p
-                                            </div>
-                                            <div class="text-muted small mt-1 col-3"
-                                                 th:text="${diary.status}">
-                                                10p
-                                            </div>
-                                        </div>
-                                        <div class="text-nowrap bd-highlight" th:text="${diary.happened}"></div>
-
-                                        <div class="text-muted small mt-1"
-                                             th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
-                                        </div>
-                                        <!--                                        detail-->
-<!--                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"-->
-<!--                                                data-bs-target="#exampleModal">-->
-<!--                                            for more...-->
-<!--                                        </button>-->
-
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Diary detail</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                    <div class="col-12 mt-2">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        <div style="display: inline-block;">
+                                                            <img th:src="${diary.avatar}"
+                                                                 class="avatar img-fluid rounded-circle" width="50"
+                                                                 height="50" alt="User Avatar">
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <div class="card" style="max-height: 40%">
-                                                            <div class="row" style="margin-left: 10px; margin-top: 10px">
-                                                                <div class="user-avatar col-1">
-                                                                    <img class="avatar img-fluid rounded-circle diary-avatar" width="10" height="10" alt="User Avatar">
-                                                                </div>
-                                                                <div class="user-info inline-block-container col-10">
-                                                                    <div style="display: inline-block;">
-                                                                        <strong>
-                                                                            <div class="text-dark diary-nickname"></div>
-                                                                        </strong>
-                                                                    </div>
-                                                                    feeling
-                                                                    <div style="display: inline-block;">
-                                                                        <strong>
-                                                                            <div class="text-dark diary-mood"></div>
-                                                                        </strong>
-                                                                    </div>
-                                                                    level
-                                                                    <div style="display: inline-block;">
-                                                                        <strong>
-                                                                            <div class="text-dark diary-level"></div>
-                                                                        </strong>
-                                                                    </div>
 
-                                                                    <div class="text-muted small mt-1 diary-createdAt">
-                                                                        January 1, 2023 12:00:00 ago
-                                                                    </div>
-                                                                </div>
+                                                    <div class="col-6">
+                                                        <div style="display: inline-block;">
+                                                            <strong>
+                                                                <div class="text-dark"
+                                                                     th:text="${diary.nickname}"></div>
+                                                            </strong>
+                                                        </div>
+                                                        feeling
+                                                        <div style="display: inline-block;">
+                                                            <strong>
+                                                                <div class="text-dark" th:text="${diary.mood}"></div>
+                                                            </strong>
+                                                        </div>
+                                                        level
+                                                        <div style="display: inline-block;">
+                                                            <strong>
+                                                                <div class="text-dark" th:text="${diary.level}"></div>
+                                                            </strong>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="time-box text-muted small mt-1 col-9"
+                                                                 th:attr="data-action-time=${diary.createdAt}">
+                                                                10p
                                                             </div>
-                                                            <div id="abc" class="card-body user">
+                                                            <div class="text-muted small mt-1 col-3"
+                                                                 th:text="${diary.status}">
                                                             </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close
-                                                        </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="card-body" >
+                                                <div class="text-nowrap bd-highlight" style="display: inline-block;"
+                                                     th:text="${diary.happened}"></div>
+
+                                                <div class="text-muted small mt-1"
+                                                     th:text="${#temporals.format(T(java.time.LocalDateTime).parse(diary.createdAt, T(java.time.format.DateTimeFormatter).ISO_DATE_TIME), 'yyyy-MM-dd HH:mm:ss')}">
+                                                </div>
+
+                                            </div>
                                         </div>
-                                        <!--                                        detail-->
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Diary detail</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card" style="max-height: 40%">
+                                            <div class="row" style="margin-left: 10px; margin-top: 10px">
+                                                <div class="user-avatar col-1">
+                                                    <img class="avatar img-fluid rounded-circle diary-avatar" width="10"
+                                                         height="10" alt="User Avatar">
+                                                </div>
+                                                <div class="user-info inline-block-container col-10">
+                                                    <div style="display: inline-block;">
+                                                        <strong>
+                                                            <div class="text-dark diary-nickname"></div>
+                                                        </strong>
+                                                    </div>
+                                                    feeling
+                                                    <div style="display: inline-block;">
+                                                        <strong>
+                                                            <div class="text-dark diary-mood"></div>
+                                                        </strong>
+                                                    </div>
+                                                    level
+                                                    <div style="display: inline-block;">
+                                                        <strong>
+                                                            <div class="text-dark diary-level"></div>
+                                                        </strong>
+                                                    </div>
 
+                                                    <div class="text-muted small mt-1 diary-createdAt">
+                                                        January 1, 2023 12:00:00 ago
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="abc" class="card-body user">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
                         </div>

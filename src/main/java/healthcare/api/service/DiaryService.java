@@ -201,11 +201,17 @@ public class DiaryService extends BaseService<Diary> {
     public List<Object> getCountByMoodAndCreatedByAndTime(Long createdBy, LocalDate start, LocalDate end) {
         return repository.getCountByMoodAndCreatedByAndTime(createdBy, start.toString(), end.toString());
     }
-    public Map<String, List<Object>> getCountByMoodAndCreatedByYear(Long createdBy) {
+    public Map<String, List<Object>> getCountByMoodAndCreatedByYear(Integer year) {
+        UserPrin userPrin = accountService.getCurrentUser();
+        Long createdBy = userPrin.getId();
         Map<String, List<Object>> resultMap = new LinkedHashMap<>();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String[] monthNames = new DateFormatSymbols().getShortMonths();
+
+        if (Objects.nonNull(year)){
+            calendar.set(Calendar.YEAR,year);
+        }
         for (int i = 1; i <= 12; i++) {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);

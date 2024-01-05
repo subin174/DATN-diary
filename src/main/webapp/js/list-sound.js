@@ -1,25 +1,28 @@
-// this.getList();
-// function getList() {
-//     const options = {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': 'Bearer ' + readCookie('token')
-//         },
-//     };
-//     fetch('/api/v1/admin/sound/all', options)
-//         .then((res) => res.json())
-//         .then(resp => {
-//             console.log(resp)
-//             if (resp.status === 'SUCCESS') {
-//                 addAddress(resp.data)
-//             }
-//         });
-// }
 
-const ITEMS_PER_PAGE = 7
+function deleteAudio(id) {
+    console.log("id" + id)
+    fetch(`/api/v1/admin/sound/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + readCookie('token')
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('delete er');
+            }
+            return response.json();
+        })
+        .then(resp => {
+            console.log('delete success:', resp);
+            if (resp.status === 'SUCCESS') {
+                location.reload();
+            }
+        })
+}
+const ITEMS_PER_PAGE = 10
 let listSoundData = [];
-const getAllSounds = async () => {
+const getAllSounds = async (page = 1) => {
     const options = {
         method: 'GET',
         headers: {
@@ -28,13 +31,14 @@ const getAllSounds = async () => {
         },
     };
 
-    const getListSoundReq = await fetch(`/api/v1/admin/sound`, options);
+    const getListSoundReq = await fetch(`/api/v1/admin/sound?page=${page}`, options);
     const getListSoundRes = await getListSoundReq.json();
 
     if (getListSoundRes && getListSoundRes.status === 'SUCCESS') {
-        listSoundData = getListSoundRes.data;
+        listSoundData = getListSoundRes.data || [];
 
         showListSound(listSoundData);
+        console.log('Number of sounds received:', listSoundData.length);
 
         const inputSearch = document.querySelector('.key-search');
         if (inputSearch) {
@@ -55,45 +59,44 @@ const showListSound = (listSound, page = 1) => {
     if (elementListSound) {
         $('.list-sound').empty();
 
-        const startIndex = (page - 1) * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
+        if (listSound.length > 0) {
+            const startIndex = (page - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
 
-        listSound.slice(startIndex, endIndex).forEach(sound => {
-            elementListSound.insertAdjacentHTML('beforeend',
-                `
-                        <tr class=".text-md-center text-center">
-                            
-                                <td>${sound.id}</td>
-                                <th scope="row">
-                                    
-                                        <img class="rounded" alt="Cinque Terre" src="${sound.poster}" style="width: 100px;height: 100px;">
-                                    
-                                </th>
-                                <td style="text-align: center">${sound.title}</td>
-                                <td>${sound.author}</td>
-                                <td>${sound.moodSound}</td>
-                                
-                                <td>
-                                    <button class="btn btn-outline-secondary btn-active-user" sound-id="${sound.id}">Update
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-outline-danger btn-delete-sound" sound-id="${sound.id}">Delete
-                                    </button>
-                                </td>
-                            
-                            
-                        </tr>
-                        
+            listSound.slice(startIndex, endIndex).forEach(sound => {
+                elementListSound.insertAdjacentHTML('beforeend',
                     `
-            );
-        })
+                        <tr class="text-md-center text-center">
+                            <td>${sound.id}</td>
+                            <th scope="row">
+                                <img class="rounded" alt="Cinque Terre" src="${sound.poster}" style="width: 100px;height: 100px;">
+                            </th>
+                            <td style="text-align: center">${sound.title}</td>
+                            <td>${sound.author}</td>
+                            <td>${sound.moodSound}</td>
+                            <td>
+                                <button class="btn btn-outline-secondary btn-active-user" sound-id="${sound.id}">Update
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-danger btn-delete-sound" sound-id="${sound.id}">Delete
+                                </button>
+                            </td>
+                        </tr>
+                    `
+                );
+            });
+        } else {
+            // Handle case when the list is empty
+            elementListSound.insertAdjacentHTML('beforeend', '<tr><td colspan="6">No data available</td></tr>');
+        }
     }
 }
 
+
 const addPagination = (totalPages) => {
     const paginationElement = document.querySelector('.pagination');
-    if (paginationElement) {
+    if (paginationElement && totalPages > 0) {
         $('.pagination').empty();
 
         for (let i = 1; i <= totalPages; i++) {
@@ -113,8 +116,9 @@ const addPagination = (totalPages) => {
     }
 }
 
+
 const handlePageClick = (page) => {
-    showListSound(listSoundData, page);
+    getAllSounds(page);
 }
 
 const deleteSound = async () => {
@@ -193,13 +197,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             var thuGianData = response.data.find(function (item) {
-                return item[1] === "Dễ ngủ";
+                return item[1] === "Thấu hiểu";
             });
             if (thuGianData) {
-                document.getElementById("dengu").textContent = thuGianData[0];
+                document.getElementById("thauhieu").textContent = thuGianData[0];
             } else {
                 // Handle the case where "Thư giãn" is not found in the response
-                document.getElementById("dengu").textContent = "0";
+                document.getElementById("thauhieu").textContent = "0";
             }
         }
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -210,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (thuGianData) {
                 document.getElementById("hanhphuc").textContent = thuGianData[0];
             } else {
-                // Handle the case where "Thư giãn" is not found in the response
+
                 document.getElementById("hanhphuc").textContent = "0";
             }
         }

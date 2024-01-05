@@ -92,12 +92,13 @@ const showListUser = (listUser) => {
                                     <a href="/user-detail?createdBy=${account.id}">
                                         <img class="rounded" alt="Cinque Terre" src="${account.avatar}" style="width: 100px;height: 100px;">
                                     </a>
+                                    
                                 </th>
-                                <td>${account.firstName}</td>
-                                <td>${account.lastName}</td>
-                                <td>${account.nickName}</td>
-                                <td>${account.email}</td>
-                                <td>${account.phone}</td>
+                                <td><a href="/user-detail?createdBy=${account.id}" style="color: #0a0a0a">${account.firstName}</a></td>
+                                <td><a href="/user-detail?createdBy=${account.id}" style="color: #0a0a0a">${account.lastName}</a></td>
+                                <td><a href="/user-detail?createdBy=${account.id}" style="color: #0a0a0a">${account.nickName}</a></td>
+                                <td><a href="/user-detail?createdBy=${account.id}" style="color: #0a0a0a">${account.email}</a></td>
+                                <td><a href="/user-detail?createdBy=${account.id}" style="color: #0a0a0a">${account.phone}</a></td>
                                 <td>${account.username}</td>
                                 <td>
                                     <button class="btn btn-outline-warning btn-active-user" account-id="${account.id}">ACTIVE
