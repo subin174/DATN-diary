@@ -16,28 +16,8 @@
 //             }
 //         });
 // }
-function deleteAudio(id) {
-    console.log("id" + id)
-    fetch(`/api/v1/admin/sound/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': 'Bearer ' + readCookie('token')
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('delete er');
-            }
-            return response.json();
-        })
-        .then(resp => {
-            console.log('delete success:', resp);
-            if (resp.status === 'SUCCESS') {
-                location.reload();
-            }
-        })
-}
-const ITEMS_PER_PAGE = 5
+
+const ITEMS_PER_PAGE = 7
 let listSoundData = [];
 const getAllSounds = async () => {
     const options = {
@@ -122,7 +102,11 @@ const addPagination = (totalPages) => {
             const aElement = document.createElement('a');
             aElement.classList.add('page-link');
             aElement.textContent = i;
-            aElement.addEventListener('click', () => handlePageClick(i));
+            aElement.addEventListener('click', (function(page) {
+                return function() {
+                    handlePageClick(page);
+                };
+            })(i));
             liElement.appendChild(aElement);
             paginationElement.appendChild(liElement);
         }
