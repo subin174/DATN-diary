@@ -14,13 +14,16 @@ import healthcare.entity.enums.Role;
 import healthcare.repository.DiaryRepository;
 import healthcare.repository.MoodRepository;
 import healthcare.repository.MoodSoundRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -200,18 +203,35 @@ public class DiaryService extends BaseService<Diary> {
     }
     public List<Object> getCountByMoodAndCreatedByAndTime(Long createdBy, LocalDate start, LocalDate end) {
         return repository.getCountByMoodAndCreatedByAndTime(createdBy, start.toString(), end.toString());
+    }@Getter
+    @Setter
+    private String month;
+    @Getter
+    @Setter
+    private List<Map<String, Object>> data;
+
+    // Constructor, getters, and setters
+    @Getter
+    @Setter
+    public static class MoodCount {
+        private int count;
+        private String mood;
+
+        // Constructor, getters, and setters
     }
-    public Map<String, List<Object>> getCountByMoodAndCreatedByYear(Integer year) {
+
+    public Map<String, List<MoodCount>> getCountByMoodAndCreatedByYear(Integer year) {
         UserPrin userPrin = accountService.getCurrentUser();
         Long createdBy = userPrin.getId();
-        Map<String, List<Object>> resultMap = new LinkedHashMap<>();
+        Map<String, List<MoodCount>> resultMap = new LinkedHashMap<>();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String[] monthNames = new DateFormatSymbols().getShortMonths();
 
-        if (Objects.nonNull(year)){
-            calendar.set(Calendar.YEAR,year);
+        if (Objects.nonNull(year)) {
+            calendar.set(Calendar.YEAR, year);
         }
+
         for (int i = 1; i <= 12; i++) {
             calendar.set(Calendar.MONTH, i - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -222,10 +242,22 @@ public class DiaryService extends BaseService<Diary> {
             String endDate = dateFormat.format(calendar.getTime());
 
             List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
-            resultMap.put(monthNames[i - 1], monthlyResult);
+            resultMap.put(monthNames[i - 1], convertToMoodCountList(monthlyResult));
         }
 
         return resultMap;
+    }
+
+    private List<MoodCount> convertToMoodCountList(List<Object> monthlyResult) {
+        List<MoodCount> moodCounts = new ArrayList<>();
+        for (Object result : monthlyResult) {
+            Object[] resultArray = (Object[]) result;
+            MoodCount moodCount = new MoodCount();
+            moodCount.setCount(((BigInteger) resultArray[0]).intValue()); // Convert BigInteger to int
+            moodCount.setMood((String) resultArray[1]);
+            moodCounts.add(moodCount);
+        }
+        return moodCounts;
     }
     public Map<String, List<Object>> getCountByMoodAndCreatedByMonth(Long createdBy, Integer i) {
         Map<String, List<Object>> resultMap = new LinkedHashMap<>();
