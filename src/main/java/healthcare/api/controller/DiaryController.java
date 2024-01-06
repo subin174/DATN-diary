@@ -123,12 +123,12 @@ public class DiaryController extends ApiController {
     @GetMapping("/countByMoodAndCreatedByByYear")
     public ResponseEntity<?> getCountByMoodAndCreatedByByYear(@RequestParam(required = false) Integer year) {
         Map<String, List<DiaryService.MoodCount>> result = service.getCountByMoodAndCreatedByYear(year);
-        return ResponseEntity.ok(result);
+        return responseSuccess(result);
     }
-    @GetMapping("/countByMoodAndCreatedByByMonth/{createdBy}")
+    @GetMapping("/countByMoodAndCreatedByByMonth")
     public ResponseEntity<?> getCountByMoodAndCreatedByByMonth(@RequestParam(required = false)Integer i) {
         Map<String, List<DiaryService.MoodCount>> result = service.getCountByMoodAndCreatedByMonth(i);
-        return ResponseEntity.ok(result);
+        return responseSuccess(result);
     }
     @GetMapping("/count-mood-by-year")
     public ResponseEntity<Map<String, List<Object>>> getCountMoodByYear() {
