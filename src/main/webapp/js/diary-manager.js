@@ -1,5 +1,5 @@
 function getLineColor(index) {
-    const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080"];
+    const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080","#ff6933" ];
     return colors[index % colors.length];
 }
 
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             const labels = Object.keys(data);
-            const emotions = ["Trầm cảm", "Lo lắng", "Áp lực", "Mất kiểm soát", "Vui vẻ", "Hạnh phúc", "Buồn bã"];
+            const emotions = ["Trầm cảm", "Lo lắng", "Áp lực", "Mất kiểm soát", "Vui vẻ", "Hạnh phúc", "Buồn bã", "Hứng khởi"];
 
             const datasets = emotions.map((emotion, index) => {
                 const countValues = labels.map(month => {

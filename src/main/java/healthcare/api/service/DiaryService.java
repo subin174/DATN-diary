@@ -203,7 +203,9 @@ public class DiaryService extends BaseService<Diary> {
     }
     public List<Object> getCountByMoodAndCreatedByAndTime(Long createdBy, LocalDate start, LocalDate end) {
         return repository.getCountByMoodAndCreatedByAndTime(createdBy, start.toString(), end.toString());
-    }@Getter
+    }
+
+    @Getter
     @Setter
     private String month;
     @Getter
@@ -247,6 +249,34 @@ public class DiaryService extends BaseService<Diary> {
 
         return resultMap;
     }
+    public Map<String, List<MoodCount>> getCountByMoodAndCreatedByMonth(Integer month,Integer year) {
+        UserPrin userPrin = accountService.getCurrentUser();
+        Long createdBy = userPrin.getId();
+        Map<String, List<MoodCount>> resultMap = new LinkedHashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String[] monthNames = new DateFormatSymbols().getShortMonths();
+        if (Objects.nonNull(year)) {
+            calendar.set(Calendar.YEAR, year);
+        }
+        if (Objects.nonNull(month)) {
+            calendar.set(Calendar.MONTH, month);
+        } else {
+            month = 1;
+        }
+        calendar.set(Calendar.MONTH,month -1);
+        calendar.set(Calendar.DAY_OF_MONTH,1);
+        String startDate = dateFormat.format(calendar.getTime());
+
+        calendar.set(Calendar.MONTH,month );
+        calendar.add(Calendar.DAY_OF_MONTH,-1);
+        String endDate = dateFormat.format(calendar.getTime());
+
+        List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
+        resultMap.put(monthNames[month - 1],convertToMoodCountList(monthlyResult) );
+
+        return resultMap;
+    }
 
     private List<MoodCount> convertToMoodCountList(List<Object> monthlyResult) {
         List<MoodCount> moodCounts = new ArrayList<>();
@@ -259,26 +289,27 @@ public class DiaryService extends BaseService<Diary> {
         }
         return moodCounts;
     }
-    public Map<String, List<MoodCount>> getCountByMoodAndCreatedByMonth(Integer i) {
-        UserPrin userPrin = accountService.getCurrentUser();
-        Long createdBy = userPrin.getId();
-        Map<String, List<MoodCount>> resultMap = new LinkedHashMap<>();
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String[] monthNames = new DateFormatSymbols().getShortMonths();
-        calendar.set(Calendar.MONTH,i -1);
-        calendar.set(Calendar.DAY_OF_MONTH,1);
-        String startDate = dateFormat.format(calendar.getTime());
 
-        calendar.set(Calendar.MONTH,i );
-        calendar.add(Calendar.DAY_OF_MONTH,-1);
-        String endDate = dateFormat.format(calendar.getTime());
-
-        List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
-        resultMap.put(monthNames[i - 1],convertToMoodCountList(monthlyResult) );
-
-        return resultMap;
-    }
+//    public Map<String, List<MoodCount>> getCountByMoodAndCreatedByMonth(Integer i) {
+//        UserPrin userPrin = accountService.getCurrentUser();
+//        Long createdBy = userPrin.getId();
+//        Map<String, List<MoodCount>> resultMap = new LinkedHashMap<>();
+//        Calendar calendar = Calendar.getInstance();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String[] monthNames = new DateFormatSymbols().getShortMonths();
+//        calendar.set(Calendar.MONTH,i -1);
+//        calendar.set(Calendar.DAY_OF_MONTH,1);
+//        String startDate = dateFormat.format(calendar.getTime());
+//
+//        calendar.set(Calendar.MONTH,i );
+//        calendar.add(Calendar.DAY_OF_MONTH,-1);
+//        String endDate = dateFormat.format(calendar.getTime());
+//
+//        List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
+//        resultMap.put(monthNames[i - 1],convertToMoodCountList(monthlyResult) );
+//
+//        return resultMap;
+//    }
 
     public Map<String, List<Object>> getCountMoodByYear() {
         Map<String, List<Object>> resultMap = new LinkedHashMap<>();
