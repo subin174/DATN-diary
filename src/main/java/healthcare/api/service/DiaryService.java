@@ -259,24 +259,23 @@ public class DiaryService extends BaseService<Diary> {
         }
         return moodCounts;
     }
-    public Map<String, List<Object>> getCountByMoodAndCreatedByMonth(Long createdBy, Integer i) {
-        Map<String, List<Object>> resultMap = new LinkedHashMap<>();
+    public Map<String, List<MoodCount>> getCountByMoodAndCreatedByMonth(Integer i) {
+        UserPrin userPrin = accountService.getCurrentUser();
+        Long createdBy = userPrin.getId();
+        Map<String, List<MoodCount>> resultMap = new LinkedHashMap<>();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String[] monthNames = new DateFormatSymbols().getShortMonths();
         calendar.set(Calendar.MONTH,i -1);
         calendar.set(Calendar.DAY_OF_MONTH,1);
-//            String b = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
         String startDate = dateFormat.format(calendar.getTime());
 
         calendar.set(Calendar.MONTH,i );
         calendar.add(Calendar.DAY_OF_MONTH,-1);
-//            String a = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1 )+"-" + calendar.get(Calendar.DAY_OF_MONTH);
         String endDate = dateFormat.format(calendar.getTime());
 
-
-            List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
-        resultMap.put(monthNames[i - 1], monthlyResult);
+        List<Object> monthlyResult = repository.getCountByMoodAndCreatedByAndTime(createdBy, startDate, endDate);
+        resultMap.put(monthNames[i - 1],convertToMoodCountList(monthlyResult) );
 
         return resultMap;
     }
