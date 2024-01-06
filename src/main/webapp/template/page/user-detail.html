@@ -195,7 +195,7 @@
                             </div>
                         </div>
                         <div class="list-group">
-                            <div th:each="diary : ${diaries}" class="list-group-item diary-item-detail"
+                            <div th:each="diary : ${diaries}" class="list-group-item diary-item-detail cmt-item-detail"
                                  th:id="${diary.id}">
                                 <div class="row g-0 align-items-center" data-bs-toggle="modal"
                                      data-bs-target="#exampleModal">
@@ -298,6 +298,12 @@
                                                 </div>
                                             </div>
                                             <div id="abc" class="card-body user">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-start card-comment" style="max-height: 40%">
+                                            <div class="user-info inline-block-container col-10">
+                                                <div id="cmt" class=" comment">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

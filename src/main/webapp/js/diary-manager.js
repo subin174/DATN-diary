@@ -214,42 +214,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         const response = await fetch(`http://localhost:8080/api/v1/comments/list/${diaryId}`, options);
                         const data = await response.json();
 
-                        // Clear existing comments
                         const cmtContainer = document.getElementById('cmt');
                         cmtContainer.innerHTML = '';
-                        // $('.card-comment').empty();
-
-                        // const cmtAvatar = document.querySelector('.cmt-avatar');
-                        // if (cmtAvatar) {
-                        //     cmtAvatar.setAttribute('src', data.data[0].avatar);
-                        // }
-                        // // document.querySelector('.cmt-avatar').textContent = data.data[0].avatar;
-                        // document.querySelector('.cmt-nickname').textContent = data.data[0].nickName;
-                        // document.querySelector('.comment').textContent = data.data[0].comment;
-                        // // document.querySelector('.cmt-createdAt').textContent = data.data[0].createdAt + ' ago';
-                        // const cmtTime = document.querySelector('.cmt-createdAt');
-                        // if (cmtTime) {
-                        //     const createdAtDate = new Date(data.data[0].createdAt);
-                        //
-                        //
-                        //     const formattedDate = createdAtDate.toLocaleString('en-US', {
-                        //         year: 'numeric',
-                        //         month: 'long',
-                        //         day: 'numeric',
-                        //         hour: 'numeric',
-                        //         minute: 'numeric',
-                        //         hour12: true
-                        //     });
-                        //
-                        //
-                        //     cmtTime.innerText = formattedDate;
-                        // }
-
                         data.data.forEach(comment => {
                             const commentElement = document.createElement('div');
                             const createdAtDate = new Date(comment.createdAt);
 
-                            // Format the date using toLocaleString
                             const formattedDate = createdAtDate.toLocaleString('en-US', {
                                 year: 'numeric',
                                 month: 'long',

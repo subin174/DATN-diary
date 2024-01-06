@@ -218,3 +218,69 @@ const getDiaryById = async () => {
 getDiaryById();
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + readCookie('token')
+        },
+    };
+
+    const cmtItemElements = document.querySelectorAll('.cmt-item-detail');
+    if (cmtItemElements && cmtItemElements.length) {
+        cmtItemElements.forEach(item => {
+            item.addEventListener('click', async function () {
+                const diaryId = this.id;
+                if (diaryId) {
+                    try {
+
+                        const response = await fetch(`http://localhost:8080/api/v1/comments/list/${diaryId}`, options);
+                        const data = await response.json();
+
+                        const cmtContainer = document.getElementById('cmt');
+                        cmtContainer.innerHTML = '';
+                        data.data.forEach(comment => {
+                            const commentElement = document.createElement('div');
+                            const createdAtDate = new Date(comment.createdAt);
+
+                            const formattedDate = createdAtDate.toLocaleString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: true
+                            });
+                            commentElement.innerHTML = `
+                                
+                                
+                                <div class="row">
+                                <div class="user-avatar col-2">
+                                    <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
+                                </div>
+                                <div class="user-info inline-block-container col-9">
+                                    <div style="display: inline-block;">
+                                        <strong>
+                                            <div class="text-dark">${comment.nickName}</div>
+                                        </strong>
+                                    </div>
+                                    <div class="text-muted small mt-1 cmt-createdAt">
+                                                                ${formattedDate}
+                                                            </div>
+                                    <div class=" mt-1">${comment.comment}</div>
+                                </div>
+                                
+                                </div>
+                                 
+                            `;
+                            cmtContainer.appendChild(commentElement);
+                        });
+                    } catch (error) {
+                        console.error('Error fetching comments:', error);
+                    }
+                }
+            });
+        });
+    }
+});
