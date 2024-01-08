@@ -5,17 +5,13 @@ for (let i = 0; i < timeElement.length; i++) {
 
 function resetTime(timeElement) {
 
-    //console.log('CountDownTime');
     let strDate = timeElement.getAttribute("data-action-time").substring(0,19) + 'z';
-    // console.log("strDate " + strDate)
 
     let countDownDate = new Date(strDate);
-    if (Number.isNaN(countDownDate.getTime())) { // Safari browser cannot parse above date
+    if (Number.isNaN(countDownDate.getTime())) {
         countDownDate = new Date((timeElement.getAttribute("data-action-time") + ":00"));
     }
-    // countDownDate = new Date(countDownDate.getTime() + (countDownDate.getTimezoneOffset()*60*1000));
 
-    // console.log(countDownDate)
     let x = setInterval(function() {
         //let distance = countDownDate - timeNow;
 
@@ -155,17 +151,15 @@ const getDiaryById = async () => {
                             if (diaryTime) {
                                 const createdAtDate = new Date(data.createdAt);
 
-                                // Format the date as "December 21, 2023 10:45 AM"
                                 const formattedDate = createdAtDate.toLocaleString('en-US', {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric',
                                     hour: 'numeric',
                                     minute: 'numeric',
-                                    hour12: true // Use 12-hour clock with AM/PM
+                                    hour12: true
                                 });
 
-                                // Set the formatted date to the element
                                 diaryTime.innerText = formattedDate;
                             }
 

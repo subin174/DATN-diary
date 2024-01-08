@@ -66,7 +66,6 @@ async function create() {
         }
     } catch (error) {
         console.error('Error during the upload or request:', error);
-        // Handle the error accordingly, e.g., show an error message to the user.
         Swal.fire({
             icon: "error",
             title: "Upload failed!",

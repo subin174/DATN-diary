@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function deleteEntity(accountId) {
-    // Check if accountId is a valid number
     if (!accountId || isNaN(parseInt(accountId, 10))) {
         console.error('Invalid accountId:', accountId);
         return;

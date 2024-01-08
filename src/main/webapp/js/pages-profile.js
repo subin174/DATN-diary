@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch data from the API
+
     fetch('http://localhost:8080/api/v1/admin/account/count-account-by-year')
         .then(response => response.json())
         .then(data => {
-            // Line chart
+
             new Chart(document.getElementById("chartjs-line"), {
                 type: "line",
                 data: {
-                    labels: Object.keys(data), // Use the months from the API response
+                    labels: Object.keys(data),
                     datasets: [{
                         label: "Account Count",
                         fill: true,
@@ -56,15 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch data from the API
     fetch('http://localhost:8080/api/v1/diary/count-diary-by-year')
         .then(response => response.json())
         .then(data => {
-            // Line chart
+
             new Chart(document.getElementById("chartjs-line-2"), {
                 type: "line",
                 data: {
-                    labels: Object.keys(data), // Use the months from the API response
+                    labels: Object.keys(data),
                     datasets: [{
                         label: "Diary Count",
                         fill: true,
@@ -182,14 +181,11 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch('http://localhost:8080/api/v1/admin/sound/getCountMood')
         .then(response => response.json())
         .then(data => {
-            // Extract data from the API response
             const moodData = data.data;
 
-            // Prepare data for Chart.js
             const labels = moodData.map(entry => entry[1]);
             const counts = moodData.map(entry => entry[0]);
 
-            // Create doughnut chart
             new Chart(document.getElementById("chartjs-doughnut"), {
                 type: 'doughnut',
                 data: {
@@ -212,11 +208,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch data from the API
     fetch('http://localhost:8080/api/v1/diary/count-quantity-diary')
         .then(response => response.json())
         .then(data => {
-            // Update the quantityDiary element with the fetched value
+
             document.getElementById("quantityDiary").textContent = data[0];
         })
         .catch(error => {
@@ -224,11 +219,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch data from the API
+
     fetch('http://localhost:8080/api/v1/admin/account/count-quantity-account')
         .then(response => response.json())
         .then(data => {
-            // Update the quantityDiary element with the fetched value
+
             document.getElementById("quantityAcc").textContent = data[0];
         })
         .catch(error => {
@@ -240,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch('http://localhost:8080/api/v1/admin/sound/count-quantity-sound')
         .then(response => response.json())
         .then(data => {
-            // Update the quantityDiary element with the fetched value
+
             document.getElementById("quantitySound").textContent = data[0];
         })
         .catch(error => {

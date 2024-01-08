@@ -87,7 +87,6 @@ const showListSound = (listSound, page = 1) => {
                 );
             });
         } else {
-            // Handle case when the list is empty
             elementListSound.insertAdjacentHTML('beforeend', '<tr><td colspan="6">No data available</td></tr>');
         }
     }
@@ -142,9 +141,23 @@ const deleteSound = async () => {
                         const deleteSoundReq = await fetch(`/api/v1/admin/sound/${id}`, options);
                         const deleteSoundRes = await deleteSoundReq.json();
                         console.log('deleteSoundRes', deleteSoundRes)
-                        window.location.reload();
+                        if (deleteSoundRes.status === 'SUCCESS') {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Delete success!",
+                                text: "Delete sound success",
+                            });
+                            location.reload();
+                        }
+
                     } catch (e) {
                         console.log('Error delete', e)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Delete failed!',
+                            text: 'An error occurred during the delete.',
+                        });
+                        location.reload();
                     }
                 }
             })
@@ -166,7 +179,7 @@ function readCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Make an AJAX request to the API endpoint
+
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8080/api/v1/admin/sound/getCountMood", true);
     xhr.onreadystatechange = function () {
