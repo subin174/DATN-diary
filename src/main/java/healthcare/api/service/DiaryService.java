@@ -212,14 +212,23 @@ public class DiaryService extends BaseService<Diary> {
     @Setter
     private List<Map<String, Object>> data;
 
-    // Constructor, getters, and setters
     @Getter
     @Setter
     public static class MoodCount {
         private int count;
         private String mood;
 
-        // Constructor, getters, and setters
+    }
+    private List<MoodCount> convertToMoodCountList(List<Object> monthlyResult) {
+        List<MoodCount> moodCounts = new ArrayList<>();
+        for (Object result : monthlyResult) {
+            Object[] resultArray = (Object[]) result;
+            MoodCount moodCount = new MoodCount();
+            moodCount.setCount(((BigInteger) resultArray[0]).intValue()); // Convert BigInteger to int
+            moodCount.setMood((String) resultArray[1]);
+            moodCounts.add(moodCount);
+        }
+        return moodCounts;
     }
 
     public Map<String, List<MoodCount>> getCountByMoodAndCreatedByYear(Integer year) {
@@ -278,17 +287,7 @@ public class DiaryService extends BaseService<Diary> {
         return resultMap;
     }
 
-    private List<MoodCount> convertToMoodCountList(List<Object> monthlyResult) {
-        List<MoodCount> moodCounts = new ArrayList<>();
-        for (Object result : monthlyResult) {
-            Object[] resultArray = (Object[]) result;
-            MoodCount moodCount = new MoodCount();
-            moodCount.setCount(((BigInteger) resultArray[0]).intValue()); // Convert BigInteger to int
-            moodCount.setMood((String) resultArray[1]);
-            moodCounts.add(moodCount);
-        }
-        return moodCounts;
-    }
+
 
 //    public Map<String, List<MoodCount>> getCountByMoodAndCreatedByMonth(Integer i) {
 //        UserPrin userPrin = accountService.getCurrentUser();

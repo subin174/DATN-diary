@@ -26,38 +26,59 @@ function readCookie(name) {
     return null;
 }
 async function create() {
+    try {
+        const [img, aud] = await Promise.all([uploadImg(), uploadAud()]);
 
-    let img = await uploadImg();
-    let aud = await uploadAud();
-    console.log("img" + img)
-    console.log("aud" + aud)
-    const body = {
-        author:$("#author").val(),
-        title:$("#title").val(),
-        moodSoundId: $("#moodSound").val(),
-        poster: img.data,
-        track: aud.data
-    }
-    console.log(body)
+        console.log("img", img);
+        console.log("aud", aud);
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + readCookie('token')
-        },
-        body: JSON.stringify(body)
-    };
-    fetch('/api/v1/admin/sound', options)
-        .then((res) => res.json())
-        .then(resp => {
-            console.log(resp);
-            if (resp.status === 'SUCCESS') {
-                alert('upload success');
-                location.reload()
-            }
+        const body = {
+            author: $("#author").val(),
+            title: $("#title").val(),
+            moodSoundId: $("#moodSound").val(),
+            poster: img.data,
+            track: aud.data
+        };
+
+        console.log(body);
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + readCookie('token')
+            },
+            body: JSON.stringify(body)
+        };
+
+        const response = await fetch('/api/v1/admin/sound', options);
+        const resp = await response.json();
+
+        console.log(resp);
+
+        if (resp.status === 'SUCCESS') {
+            Swal.fire({
+                icon: "success",
+                title: "Upload success!",
+                text: "Upload sound success",
+            });
+            location.reload();
+        }
+    } catch (error) {
+        console.error('Error during the upload or request:', error);
+        // Handle the error accordingly, e.g., show an error message to the user.
+        Swal.fire({
+            icon: "error",
+            title: "Upload failed!",
+            text: "An error occurred during the upload.",
         });
+    }
 }
+// Swal.fire({
+//     icon: "error",
+//     title: "Oops...",
+//     text: "Please login again, account is not admin!",
+// });
 
 const uploadImg = () => {
     return new Promise((resolve, reject) => {
@@ -155,6 +176,7 @@ function uploadImage() {
             }
         })
 }
+
 function uploadAudio() {
     const audioInput = document.getElementById('audioInput');
     const audioFile = audioInput.files[0];
