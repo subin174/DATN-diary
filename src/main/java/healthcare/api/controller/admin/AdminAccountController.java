@@ -54,4 +54,9 @@ public class AdminAccountController extends ApiController {
         Object object = service.getCountQuantityAccount();
         return ResponseEntity.ok(object);
     }
+    @GetMapping("/average-age")
+    public ResponseEntity<Object> getAverageAge() {
+        Object object = service.getAverageAge();
+        return ResponseEntity.ok(object);
+    }
 }

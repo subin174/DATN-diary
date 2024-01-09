@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account,Long>, JpaSpecificationExecutor<Account> {
@@ -20,5 +21,8 @@ public interface AccountRepository extends JpaRepository<Account,Long>, JpaSpeci
     @Query(value = " SELECT COUNT(*) AS count " +
             "FROM `diary-app`.account a ", nativeQuery = true)
     List<Object> getCountQuantityAccount();
+    @Query(value = " SELECT AVG(age) AS average_age " +
+            "FROM `diary-app`.account ", nativeQuery = true)
+    Optional<Object> getAverageAge();
 
 }

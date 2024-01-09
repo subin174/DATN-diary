@@ -61,8 +61,9 @@ async function create() {
                 icon: "success",
                 title: "Upload success!",
                 text: "Upload sound success",
+            }).then(() => {
+                location.reload();
             });
-            location.reload();
         }
     } catch (error) {
         console.error('Error during the upload or request:', error);

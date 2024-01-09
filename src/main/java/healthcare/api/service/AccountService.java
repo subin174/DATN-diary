@@ -11,6 +11,7 @@ import healthcare.entity.dto.resp.AccountResp;
 import healthcare.entity.enums.Role;
 import healthcare.exception.InvalidOldPasswordException;
 import healthcare.repository.AccountRepository;
+import healthcare.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class AccountService extends BaseService<Account> {
     private PasswordEncoder bcryptEncoder;
     final AccountRepository repository;
     final FileService fileService;
+    final RoleRepository roleRepository;
     public UserPrin checkUserPermission(String role) {
         UserPrin account = getCurrentUser();
         if (account.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(role))){
@@ -150,7 +152,13 @@ public class AccountService extends BaseService<Account> {
 
     public AccountDto approve(Long id) {
         Account account = this.getById(id);
-//        account.setRole(Role.ADMIN);
+        if (account != null) {
+            Optional<healthcare.entity.Role> role  = roleRepository.findByName("ADMIN");
+            Set<healthcare.entity.Role> roles = new HashSet<>();
+            role.isPresent();
+            roles.add(role.get());
+            account.setRole(roles);
+        }
         return this.entityToResp(this.save(account), AccountDto.class);
     }
     public void delete(Long id){
@@ -196,5 +204,8 @@ public class AccountService extends BaseService<Account> {
     }
     public Object getCountQuantityAccount() {
         return repository.getCountQuantityAccount();
+    }
+    public Object getAverageAge() {
+        return repository.getAverageAge();
     }
 }

@@ -243,6 +243,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("vuive").textContent = "0";
             }
         }
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var thuGianData = response.data.find(function (item) {
+                return item[1] === "Chữa lành";
+            });
+            if (thuGianData) {
+                document.getElementById("chualanh").textContent = thuGianData[0];
+            } else {
+                // Handle the case where "Thư giãn" is not found in the response
+                document.getElementById("chualanh").textContent = "0";
+            }
+        }
     };
     xhr.send();
 });

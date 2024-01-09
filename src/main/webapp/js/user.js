@@ -60,7 +60,6 @@ const getAllUsers = async () => {
             let listUser = getListUserRes.data;
 
             showListUser(listUser);
-
             const inputSearch = document.querySelector('.key-search');
             if (inputSearch) {
                 inputSearch.onchange = function (e) {
@@ -70,6 +69,7 @@ const getAllUsers = async () => {
             }
 
             deleteUser();
+            approveAdmin();
         }
     } catch (e) {
         console.log('Error', e);
@@ -82,6 +82,7 @@ const showListUser = (listUser) => {
         $('.list-user-active').empty();
 
         listUser.map(account => {
+            const roleName = account.role.length > 0 ? account.role[0].name : '';
             elementListUser.insertAdjacentHTML('afterbegin',
                 `
                         <tr class=".text-md-center text-center">
@@ -100,7 +101,7 @@ const showListUser = (listUser) => {
                                 <td><a href="/user-detail?createdBy=${account.id}" style="color: #0a0a0a">${account.phone}</a></td>
                                 <td>${account.username}</td>
                                 <td>
-                                    <button class="btn btn-outline-warning btn-active-user" account-id="${account.id}">ACTIVE
+                                    <button class="btn btn-outline-warning btn-approve-admin" account-id="${account.id}">${roleName}
                                     </button>
                                 </td>
                                 <td>
@@ -137,15 +138,76 @@ const deleteUser = async () => {
                         const deleteUserReq = await fetch(`/api/v1/admin/account/${id}`, options);
                         const deleteUserRes = await deleteUserReq.json();
                         console.log('deleteUserRes', deleteUserRes)
-                        window.location.reload();
+
+                        if (deleteUserRes.status === 'SUCCESS') {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Delete success!",
+                                text: "Delete user success",
+                            }).then(() => {
+                                location.reload();
+                            });
+                        }
                     } catch (e) {
                         console.log('Error delete', e)
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error =((((",
+                            text: "Delete fail!",
+                        });
                     }
                 }
             })
         }
     } catch (e) {
         console.log('Error delete user', e)
+    }
+}
+
+const approveAdmin = async () => {
+    try {
+        const elementApprove = document.querySelectorAll('.btn-approve-admin');
+        console.log('elementApprove', elementApprove)
+        if (elementApprove && elementApprove.length) {
+            elementApprove.forEach(item => {
+                console.log('item', item)
+                item.onclick = async function () {
+                    const id = $(this).attr('account-id');
+                    try {
+                        const options = {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + readCookie('token')
+                            },
+                        };
+
+                        const approveUserReq = await fetch(`/api/v1/admin/account/approve/${id}`, options);
+                        const approveUserRes = await approveUserReq.json();
+                        console.log('approveUserRes', approveUserRes)
+
+                        if (approveUserRes.status === 'SUCCESS') {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Approve success!",
+                                text: "Account role switch successful",
+                            }).then(() => {
+                                location.reload();
+                            });
+                        }
+                    } catch (e) {
+                        console.log('Error Approve', e)
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error =((((",
+                            text: "Account role switch fail!",
+                        });
+                    }
+                }
+            })
+        }
+    } catch (e) {
+        console.log('Error Approve user', e)
     }
 }
 

@@ -1,6 +1,7 @@
 package healthcare.entity.dto.req;
 
 import healthcare.entity.Account;
+import healthcare.entity.enums.AccountStatus;
 import healthcare.entity.enums.DiaryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,6 @@ public class AccReq {
     private String email;
     private String avatar;
     private String phone;
-    private DiaryStatus status;
     private String username;
     private String password;
     private LocalDate date;

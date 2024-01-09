@@ -242,4 +242,16 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error fetching data from the API:', error);
         });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Fetch data from the API
+    fetch('http://localhost:8080/api/v1/admin/account/average-age')
+        .then(response => response.json())
+        .then(data => {
+            console.log('age', data)
+            document.getElementById("aveage").textContent = data;
+        })
+        .catch(error => {
+            console.error('Error fetching data from the API:', error);
+        });
+});
 
