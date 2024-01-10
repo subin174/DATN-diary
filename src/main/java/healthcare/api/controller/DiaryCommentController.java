@@ -34,7 +34,7 @@ public class DiaryCommentController extends ApiController{
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(
             @PathVariable Long id
-    ){
+    ) throws Exception{
         service.deleteByDiaryOwner(id);
         return responseSuccess();
     }
