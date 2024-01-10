@@ -234,19 +234,25 @@ document.addEventListener('DOMContentLoaded', function () {
                                         <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
                                     </div>
                                     <div class="user-info inline-block-container col-9">
-                                        <div style="display: inline-block;">
-                                            <strong>
-                                                <div class="text-dark title">${comment.nickName}</div>
-                                            </strong>
-                                            <button type="button" class="btn btn-danger deleteCmt"
-                                                    data-comment-id="${comment.id}"
-                                                    onclick="deleteCmt('${comment.id}')">
-                                            </button>
-                                        </div>
-                                        <div class="text-muted small mt-1 cmt-createdAt">
-                                            ${formattedDate}
-                                        </div>
-                                        <div class="mt-1">${comment.comment}</div>
+                                        <div class="Row">
+                                            <div class="col-8">  
+                                                <div style="display: inline-block;">
+                                                    <strong>
+                                                        <div class="text-dark title">${comment.nickName}</div>
+                                                    </strong>     
+                                                </div>
+                                                <div class="text-muted small mt-1 cmt-createdAt">
+                                                    ${formattedDate}
+                                                </div>
+                                                <div class="mt-1">${comment.comment}</div>                                    
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="button" class="btn btn-danger deleteCmt "
+                                                        data-comment-id="${comment.id}"
+                                                        onclick="deleteCmt('${comment.id}')">delete
+                                                </button>
+                                            </div>    
+                                        </div> 
                                     </div>
                                 </div>`;
                             cmtContainer.appendChild(commentElement);
