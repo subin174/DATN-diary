@@ -108,8 +108,7 @@ const showListUser = (listUser) => {
                                     <button class="btn btn-outline-danger btn-delete-user" account-id="${account.id}">Delete
                                     </button>
                                 </td>
-                            
-                            
+                                        
                         </tr>
                     `
             );

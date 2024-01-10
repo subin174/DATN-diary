@@ -42,7 +42,7 @@ async function signIn(){
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Please login again, account is not admin!",
+                text: "Please enter correct login information!",
             });
         }
     } catch (e) {

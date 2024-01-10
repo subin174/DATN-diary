@@ -1,5 +1,5 @@
 function getLineColor(index) {
-    const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080","#ff6933" ];
+    const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080", "#ff6933"];
     return colors[index % colors.length];
 }
 
@@ -194,6 +194,7 @@ const getDiaryById = async () => {
 }
 getDiaryById();
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const options = {
         method: 'GET',
@@ -230,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             });
                             commentElement.innerHTML = `
                                 
-                                
                                 <div class="row">
                                 <div class="user-avatar col-2">
                                     <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
@@ -240,6 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         <strong>
                                             <div class="text-dark">${comment.nickName}</div>
                                         </strong>
+                                        <div class="" data-feather="x-circle"></div>
                                     </div>
                                     <div class="text-muted small mt-1 cmt-createdAt">
                                                                 ${formattedDate}
@@ -247,11 +248,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <div class=" mt-1">${comment.comment}</div>
                                 </div>
                                 
+                                
                                 </div>
                                  
                             `;
                             cmtContainer.appendChild(commentElement);
                         });
+                        feather.replace();
                     } catch (error) {
                         console.error('Error fetching comments:', error);
                     }
