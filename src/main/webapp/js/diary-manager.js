@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <div class="col-3">
                                                 <button type="button" class="btn btn-danger deleteCmt "
                                                         data-comment-id="${comment.id}"
-                                                        onclick="deleteCmt('${comment.id}')">delete
+                                                        onclick="deleteCmt('${comment.id}')"><i data-feather="x-circle"></i>
                                                 </button>
                                             </div>    
                                         </div> 
