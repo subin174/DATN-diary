@@ -64,6 +64,7 @@ const getAllUsers = async () => {
             if (inputSearch) {
                 inputSearch.onchange = function (e) {
                     listUser = getListUserRes.data.filter(item => item.nickName.includes(e.target.value.trim()) || item.phone.includes(e.target.value.trim()) || item.email.includes(e.target.value.trim()));
+                        // || item.firstName.includes(e.target.value.trim()) || item.lastName.includes(e.target.value.trim()));
                     showListUser(listUser);
                 }
             }
@@ -108,8 +109,7 @@ const showListUser = (listUser) => {
                                     <button class="btn btn-outline-danger btn-delete-user" account-id="${account.id}">Delete
                                     </button>
                                 </td>
-                            
-                            
+                                        
                         </tr>
                     `
             );

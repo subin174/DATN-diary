@@ -225,5 +225,32 @@ body {
         transform: translate3d(0, 0, 1px) rotate(360deg);
     }
 }
+.form-outline input {
+    padding-top: 20px; /* Adjust as needed */
+    line-height: 1.5; /* Adjust as needed */
+}
+
+.form-outline label {
+    transform: translateY(-10px); /* Adjust as needed */
+    font-size: 14px; /* Adjust as needed */
+    color: #888; /* Adjust as needed */
+}
+
+/* Add the following styles for better compatibility with different browsers */
+.form-outline input:-webkit-input-placeholder {
+    padding-top: 20px; /* Adjust as needed */
+    line-height: 1.5; /* Adjust as needed */
+}
+
+.form-outline input::-moz-placeholder {
+    padding-top: 20px; /* Adjust as needed */
+    line-height: 1.5; /* Adjust as needed */
+}
+
+.form-outline input:-ms-input-placeholder {
+    padding-top: 20px; /* Adjust as needed */
+    line-height: 1.5; /* Adjust as needed */
+}
+
 
 

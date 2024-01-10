@@ -1,5 +1,5 @@
 function getLineColor(index) {
-    const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080","#ff6933" ];
+    const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080", "#ff6933"];
     return colors[index % colors.length];
 }
 
@@ -139,10 +139,10 @@ const getDiaryById = async () => {
                                     day: 'numeric',
                                     hour: 'numeric',
                                     minute: 'numeric',
-                                    hour12: true // Use 12-hour clock with AM/PM
+                                    hour12: true
                                 });
 
-                                // Set the formatted date to the element
+
                                 diaryTime.innerText = formattedDate;
                             }
 
@@ -194,6 +194,7 @@ const getDiaryById = async () => {
 }
 getDiaryById();
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const options = {
         method: 'GET',
@@ -210,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const diaryId = this.id;
                 if (diaryId) {
                     try {
-
                         const response = await fetch(`http://localhost:8080/api/v1/comments/list/${diaryId}`, options);
                         const data = await response.json();
 
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         data.data.forEach(comment => {
                             const commentElement = document.createElement('div');
                             const createdAtDate = new Date(comment.createdAt);
-
+                            console.log('Comment ID:', comment.id);
                             const formattedDate = createdAtDate.toLocaleString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
@@ -229,29 +229,35 @@ document.addEventListener('DOMContentLoaded', function () {
                                 hour12: true
                             });
                             commentElement.innerHTML = `
-                                
-                                
                                 <div class="row">
-                                <div class="user-avatar col-2">
-                                    <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
-                                </div>
-                                <div class="user-info inline-block-container col-9">
-                                    <div style="display: inline-block;">
-                                        <strong>
-                                            <div class="text-dark">${comment.nickName}</div>
-                                        </strong>
+                                    <div class="user-avatar col-2">
+                                        <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
                                     </div>
-                                    <div class="text-muted small mt-1 cmt-createdAt">
-                                                                ${formattedDate}
-                                                            </div>
-                                    <div class=" mt-1">${comment.comment}</div>
-                                </div>
-                                
-                                </div>
-                                 
-                            `;
+                                    <div class="user-info inline-block-container col-9">
+                                        <div class="Row">
+                                            <div class="col-8">  
+                                                <div style="display: inline-block;">
+                                                    <strong>
+                                                        <div class="text-dark title">${comment.nickName}</div>
+                                                    </strong>     
+                                                </div>
+                                                <div class="text-muted small mt-1 cmt-createdAt">
+                                                    ${formattedDate}
+                                                </div>
+                                                <div class="mt-1">${comment.comment}</div>                                    
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="button" class="btn btn-danger deleteCmt "
+                                                        data-comment-id="${comment.id}"
+                                                        onclick="deleteCmt('${comment.id}')"><i data-feather="x-circle"></i>
+                                                </button>
+                                            </div>    
+                                        </div> 
+                                    </div>
+                                </div>`;
                             cmtContainer.appendChild(commentElement);
                         });
+                        feather.replace();
                     } catch (error) {
                         console.error('Error fetching comments:', error);
                     }
@@ -356,7 +362,7 @@ function deleteEntity(diaryId) {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                // Reload the page after successful deletion
+
                 location.reload();
             }
         })
@@ -364,6 +370,42 @@ function deleteEntity(diaryId) {
             console.error('Error deleting entity:', error);
         });
 }
+function deleteCmt(commentId) {
+    if (!commentId || isNaN(parseInt(commentId, 10))) {
+        console.error('Invalid commentId:', commentId);
+        return;
+    }
+
+    const confirmed = window.confirm('Are you sure you want to delete this entity?');
+    if (!confirmed) {
+        return;
+    }
+
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + readCookie('token')
+        },
+    };
+
+    fetch(`/api/v1/comments/${commentId}`, options)
+        .then((res) => res.json())
+        .then(resp => {
+            console.log(resp);
+            if (resp.status === 'SUCCESS') {
+                location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting entity:', error);
+        });
+}
+
+$(document).on("click", ".deleteCmt", function () {
+    const commentId = $(this).attr("data-comment-id");
+    deleteCmt(commentId);
+});
 
 //cmt
 

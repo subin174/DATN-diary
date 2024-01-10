@@ -8,6 +8,7 @@ import healthcare.entity.dto.req.DiaryCommentReq;
 import healthcare.entity.dto.resp.DiaryCommentResp;
 import healthcare.entity.dto.resp.DiaryResp;
 import healthcare.entity.enums.DiaryStatus;
+import healthcare.entity.enums.Role;
 import healthcare.repository.DiaryCommentRepository;
 import healthcare.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Validator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static healthcare.entity.enums.Role.ADMIN;
 
 @Slf4j
 @Service
@@ -90,7 +93,10 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         UserPrin user = accountService.getCurrentUser();
         DiaryComment comment = this.getById(id);
         Diary diary = diaryService.getEntityById(comment.getDiaryId());
-        if (comment.getCreatedBy().equals(user.getId()) || diary.getCreatedBy().equals(user.getId())){
+
+        System.out.println(user.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(ADMIN.toString())));
+        if (comment.getCreatedBy().equals(user.getId()) || diary.getCreatedBy().equals(user.getId()) || user.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(ADMIN.toString())))
+        {
             this.deleteById(id);
         }
         else {
