@@ -93,7 +93,10 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         UserPrin user = accountService.getCurrentUser();
         DiaryComment comment = this.getById(id);
         Diary diary = diaryService.getEntityById(comment.getDiaryId());
-        if (comment.getCreatedBy().equals(user.getId()) || diary.getCreatedBy().equals(user.getId()) || user.getAttributes().equals(ADMIN)){
+
+        System.out.println(user.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(ADMIN.toString())));
+        if (comment.getCreatedBy().equals(user.getId()) || diary.getCreatedBy().equals(user.getId()) || user.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(ADMIN.toString())))
+        {
             this.deleteById(id);
         }
     }
