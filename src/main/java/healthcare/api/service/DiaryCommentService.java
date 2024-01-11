@@ -89,7 +89,7 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         }
     }
 
-    public void deleteByDiaryOwner(Long id){
+    public void deleteByDiaryOwner(Long id) throws Exception{
         UserPrin user = accountService.getCurrentUser();
         DiaryComment comment = this.getById(id);
         Diary diary = diaryService.getEntityById(comment.getDiaryId());
@@ -98,6 +98,9 @@ public class DiaryCommentService extends BaseService<DiaryComment>{
         if (comment.getCreatedBy().equals(user.getId()) || diary.getCreatedBy().equals(user.getId()) || user.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(ADMIN.toString())))
         {
             this.deleteById(id);
+        }
+        else {
+            throw new Exception("not user");
         }
     }
 
