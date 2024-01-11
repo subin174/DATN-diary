@@ -1,3 +1,56 @@
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('http://localhost:8080/api/v1/diary/count-diary-by-year')
+        .then(response => response.json())
+        .then(data => {
+            const labels = Object.keys(data);
+            const colors = [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 0, 0, 0.2)',
+                'rgba(0, 255, 0, 0.2)',
+                'rgba(0, 0, 255, 0.2)',
+                'rgba(128, 0, 128, 0.2)',
+                'rgba(255, 192, 203, 0.2)',
+            ];
+
+            const datasets = [{
+                label: '# of Diaries',
+                data: labels.map(month => data[month][0] || 0),
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace('0.2', '1')), // Adjust alpha for borderColor
+                borderWidth: 1
+            }];
+
+            var ctxB = document.getElementById("barChart").getContext('2d');
+            var myBarChart = new Chart(ctxB, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data from the API:', error);
+        });
+});
+
+
+
 function getLineColor(index) {
     const colors = ["#FF5733", "#FFD700", "#8A2BE2", "#00BFFF", "#32CD32", "#FF1493", "#808080", "#ff6933"];
     return colors[index % colors.length];

@@ -74,10 +74,7 @@ const showListSound = (listSound, page = 1) => {
                             <td style="text-align: center">${sound.title}</td>
                             <td>${sound.author}</td>
                             <td>${sound.moodSound}</td>
-                            <td>
-                                <button class="btn btn-outline-secondary btn-active-user" sound-id="${sound.id}">Update
-                                </button>
-                            </td>
+                           
                             <td>
                                 <button class="btn btn-outline-danger btn-delete-sound" sound-id="${sound.id}">Delete
                                 </button>

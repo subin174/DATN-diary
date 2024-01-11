@@ -24,7 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
     <!-- MDB -->
     <link rel="stylesheet" href="css/mdb.min.css"/>
-    <link rel="stylesheet" href="css/sound.css" />
+    <link rel="stylesheet" href="css/sound.css"/>
     <style>
 
         table {
@@ -46,91 +46,110 @@
 <body>
 <main class="content" layout:fragment="content">
     <div class="container-fluid p-0 ">
-        <div class="row">
+        <div class="row overflow-auto">
             <div class="col-md-5 col-xl-5 card">
-                <div class="card">
-                    <div class="mb-3">
-                        <label for="audioInput" class="form-label card-title mb-0"> file input audio </label>
-                        <input type="file" accept="audio/*" class="form-control" id="audioInput">
-                        <audio controls id="audioPlayer" style="margin-top: 10px"></audio>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="col-6">
+                <form action="#">
+                    <div class="form-row">
+                        <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Tên audio:</h5>
+                                <h2 class="modal-title">Upload Audio</h2>
+                                <p class="modal-description">file input audio</p>
                             </div>
-                            <div class="card-body">
-                                <input id="title" type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="row">
-
-                        <div class="col-6">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Ca sĩ, tác giả trình bày:</h5>
-                            </div>
-                            <div class="card-body">
-                                <input id="author" type="text" class="form-control .alert-secondary" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="row">
-                        <div class=" col-4">
-                            <div class="card-header">
-                                <label class="card-title mb-0" for="moodSound">Thể loại theo tâm trạng:</label>
-                            </div>
-                            <div class="card-body">
-                                <select id="moodSound" name="moodSound" class="form-control form-select mb-3">
-                                    <option value="" selected disabled>Chọn</option>
-                                    <option th:each="o : ${moodSound}" th:value="${o.id}">[[${o.moodSound}]]
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Poster</h5>
-                            </div>
-                            <div class="mb-3" style="margin-left: 30px">
-                                <div id="preview" class="rounded" style="margin-left: 30px"
-                                     width="120" height="120"></div>
-                                <span class="dragBox" >
-                                Darg and Drop image here
-                                <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"
-                                       accept="image/*" onChange="dragNdrop(event)"  ondragover="drag()" ondrop="drop()" name="multipartFile" multiple>
-                                </span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="row">
-
-                        <div class="card-body text-center">
                             <div class="mb-3">
-                                <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init
-                                        data-mdb-ripple-color="dark">Thêm
-                                </button>
+<!--                                <label for="audioInput" class="form-label card-title mb-0"> file input audio </label>-->
+                                <input type="file" accept="audio/*" class="form-control" id="audioInput">
+                                <audio controls id="audioPlayer" style="margin-top: 10px"></audio>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card-body">
+                                        <div class="input-data">
+                                            <input id="title" type="text" required class="form-control" placeholder="">
+                                            <div class="underline"></div>
+                                            <label for="title">Tên audio:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <div class="card-body">
+                                        <div class="input-data">
+                                            <input id="author" type="text" required
+                                                   class="form-control .alert-secondary" placeholder="">
+                                            <div class="underline"></div>
+                                            <label for="author">Ca sĩ, tác giả trình bày:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="row">
+                                <div class=" col-4">
+                                    <div class="card-header">
+                                        <label class="card-title mb-0" for="moodSound">Thể loại theo tâm trạng:</label>
+                                    </div>
+                                    <div class="card-body">
+                                        <select id="moodSound" name="moodSound" class="form-control form-select mb-3">
+                                            <option value="" selected disabled>Chọn</option>
+                                            <option th:each="o : ${moodSound}" th:value="${o.id}">[[${o.moodSound}]]
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="row">
+                                <div class="">
+                                    <div class="card-header">
+                                        <h2 class="modal-title">Upload Poster</h2>
+                                        <p class="modal-description">Upload here!</p>
+                                    </div>
+                                    <div class="mb-3" style="margin-left: 30px">
+                                        <div id="preview" class="rounded" style="margin-left: 30px"
+                                             width="120" height="120"></div>
+                                        <span class="dragBox">
+                                            <span class="upload-area-icon">
+                                                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"/>
+                                                    </svg>
+                                            </span>
+                                        Darg and Drop image here
+                                        <input class="form-control" type="file" style="margin-top: 10px" id="imageInput"
+                                               accept="image/*" onChange="dragNdrop(event)" ondragover="drag()"
+                                               ondrop="drop()" name="multipartFile" multiple>
+                                        </span>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="card">
+                        <div class="row">
+
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <button id="create" class="btn btn-outline-primary" data-mdb-ripple-init
+                                            data-mdb-ripple-color="dark">Thêm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="col-md-7 col-xl-7 card">
                 <hr>
@@ -186,6 +205,7 @@
         }
 
         "use strict";
+
         function dragNdrop(event) {
             var fileName = URL.createObjectURL(event.target.files[0]);
             var preview = document.getElementById("preview");
@@ -194,9 +214,11 @@
             preview.innerHTML = "";
             preview.appendChild(previewImg);
         }
+
         function drag() {
             document.getElementById('imageInput').parentNode.className = 'draging dragBox';
         }
+
         function drop() {
             document.getElementById('imageInput').parentNode.className = 'dragBox';
         }
