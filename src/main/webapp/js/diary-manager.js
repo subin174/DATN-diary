@@ -282,13 +282,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 hour12: true
                             });
                             commentElement.innerHTML = `
-                                <div class="row">
-                                    <div class="user-avatar col-2">
+                                <div class="row mb-4">
+                                    <div class="user-avatar col-2" style="padding-left: 30px;
+    padding-right: 0;">
                                         <img class="avatar img-fluid rounded-circle cmt-avatar" src="${comment.avatar}" alt="User Avatar">
                                     </div>
-                                    <div class="user-info inline-block-container col-9">
-                                        <div class="Row">
-                                            <div class="col-8">  
+                                    <div class="user-info inline-block-container col-8">
+                                             <div class="">  
                                                 <div style="display: inline-block;">
                                                     <strong>
                                                         <div class="text-dark title">${comment.nickName}</div>
@@ -299,14 +299,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                                 </div>
                                                 <div class="mt-1">${comment.comment}</div>                                    
                                             </div>
-                                            <div class="col-3">
-                                                <button type="button" class="btn btn-danger deleteCmt "
-                                                        data-comment-id="${comment.id}"
-                                                        onclick="deleteCmt('${comment.id}')"><i data-feather="x-circle"></i>
-                                                </button>
-                                            </div>    
-                                        </div> 
                                     </div>
+                                <div class="col-2">
+                                
+                                <button type="button" class="btn btn-danger deleteCmt "
+                                        data-comment-id="${comment.id}"
+                                        onclick="deleteCmt('${comment.id}')"><i data-feather="trash"></i>
+                                </button>
+                                </div>  
                                 </div>`;
                             cmtContainer.appendChild(commentElement);
                         });
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
+feather.replace();
 function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -416,11 +416,22 @@ function deleteEntity(diaryId) {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
 
-                location.reload();
+                Swal.fire({
+                    icon: "success",
+                    title: "delete success!",
+                    text: "delete success",
+                }).then(() => {
+                    location.reload();
+                });
             }
         })
         .catch(error => {
             console.error('Error deleting entity:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Delete failed!",
+                text: "An error occurred during the delete.",
+            });
         });
 }
 function deleteCmt(commentId) {
@@ -447,7 +458,13 @@ function deleteCmt(commentId) {
         .then(resp => {
             console.log(resp);
             if (resp.status === 'SUCCESS') {
-                location.reload();
+                Swal.fire({
+                    icon: "success",
+                    title: "delete success!",
+                    text: "delete success",
+                }).then(() => {
+                    location.reload();
+                });
             }
         })
         .catch(error => {
